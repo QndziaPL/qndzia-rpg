@@ -4,6 +4,7 @@ import Map from "./maps/component/map";
 import {FirstMap} from "./maps/firstMap/firstMap";
 import {ENEMY_BAT} from "./enemies/bat";
 import {ENEMY_WOLF} from "./enemies/wolf";
+import {Enemies} from "./enemies/enemy";
 
 
 export const AppContext = React.createContext({});
@@ -60,11 +61,21 @@ const App = () => {
         console.log(playerPosition)
     }
 
+
+    const testListOfEnemies =[
+        ENEMY_BAT({x: 1,y:2}),
+        ENEMY_WOLF({x: 17, y: 12})
+    ]
+
+    console.log(testListOfEnemies)
+
+
     return (
         <AppContext.Provider value={store}>
             <EnemiesContext.Provider value={enemiesStore}>
                 <Map map={FirstMap}>
                     <Player/>
+                    <Enemies listOfEnemies={testListOfEnemies}/>
                 </Map>
             </EnemiesContext.Provider>
 

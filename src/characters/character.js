@@ -3,9 +3,13 @@ import styled from "styled-components"
 
 
 const Character = ({position, letter}) => {
-    return (<div>
+    console.log(position)
+    return (<CharacterPosition className={"chuj"}
+    left={position.x}
+    top={position.y}
+    >
         <CharacterModel>{letter}</CharacterModel>
-    </div>)
+    </CharacterPosition>)
 }
 
 const CharacterModel = styled.div`
@@ -18,3 +22,11 @@ font-size: 22px;
 `
 
 export default Character;
+
+const CharacterPosition = styled.div`
+position: absolute;
+left: ${props => props.left * 32}px;
+top: ${props => props.top * 32}px;
+transition-duration: 0.4s;
+
+`

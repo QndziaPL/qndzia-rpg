@@ -25,14 +25,14 @@ const Player = () => {
     useEffect(()=> moveCharacter,[upPressed, downPressed, leftPressed, rightPressed]);
 
 
+    const x = context.playerPosition.get.x;
+    const y = context.playerPosition.get.y;
 
     return (
         <PlayerCharacter
-            className={"asdasd"}
-        left={context.playerPosition.get.x}
-        top={context.playerPosition.get.y}
+
         >
-            <Character letter={"P"}/>
+            <Character position={ {x,y}} letter={"P"}/>
 
 
     </PlayerCharacter>
@@ -43,10 +43,6 @@ export default Player;
 
 const PlayerCharacter = styled.div`
 
-position: absolute;
-left: ${props => props.left * 32}px;
-top: ${props => props.top * 32}px;
-transition-duration: 0.2s;
 
 `
 
