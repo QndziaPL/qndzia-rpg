@@ -5,6 +5,9 @@ import {FirstMap} from "./maps/firstMap/firstMap";
 import {ENEMY_BAT} from "./enemies/bat";
 import {ENEMY_WOLF} from "./enemies/wolf";
 import {Enemies, Enemy} from "./enemies/enemy";
+import {PlayerInfoPanel} from "./ui/components/playerInfoPanel";
+import styled from "styled-components";
+import {MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH} from "./consts/consts";
 
 
 export const AppContext = React.createContext({});
@@ -71,11 +74,16 @@ const App = () => {
     return (
         <AppContext.Provider value={store}>
             <EnemiesContext.Provider value={enemiesStore}>
+                <GameContainer className="gameContainer">
+
                 <Map map={FirstMap}>
                     <Player/>
                     {/*<Enemy position={{x:1,y:3}} />*/}
                     <Enemies listOfEnemies={testListOfEnemies}/>
                 </Map>
+                    <PlayerInfoPanel/>
+
+                </GameContainer>
             </EnemiesContext.Provider>
 
 
@@ -85,3 +93,11 @@ const App = () => {
 }
 
 export default App;
+
+const GameContainer = styled.div`
+box-sizing: border-box;
+display: flex;
+width: ${MAP_WIDTH + PLAYER_INFO_PANEL_WIDTH}px;
+//height: 640px;
+margin: ${(window.innerHeight - 640) / 2}px auto;
+`

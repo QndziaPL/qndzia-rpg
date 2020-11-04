@@ -32,6 +32,7 @@ export const Enemy = ({name, type, position, stats}) => {
 
 }
 const TooltipContainer = styled.div`
+box-sizing: border-box;
     padding: 5px;
     z-index: 100;
     left: ${props => props.position.x}px;
@@ -77,10 +78,10 @@ display: block;
 
 export const Enemies = ({listOfEnemies}) => {
 
-    const a = listOfEnemies.map(enemy => <Enemy position={enemy.position} name={enemy.name} stats={enemy.stats} type={enemy.type}/>)
+    return listOfEnemies.map(enemy => <Enemy position={enemy.position} name={enemy.name} stats={enemy.stats} type={enemy.type}/>)
 
 
-    return (a)
+
 
 }
 

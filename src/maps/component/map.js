@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {PlayerInfoPanel} from "../../ui/components/playerInfoPanel";
 import {EmptyTiles} from "./emptyTiles";
 import {MapIDsToMap} from "./mapIDsToMap";
+import {MAP_HEIGHT, MAP_WIDTH} from "../../consts/consts";
 
 
 const Map = ({size = {x: 20, y: 20}, children, map}) =>{
@@ -17,7 +18,7 @@ const Map = ({size = {x: 20, y: 20}, children, map}) =>{
 
     return (
         <MapBackground>
-            <PlayerInfoPanel/>
+
             {children}
           <MapFromTiles tiles={mapTiles}/>
           {/*<MapFromTiles tiles={emptyTiles}/>*/}
@@ -94,9 +95,9 @@ export default Map;
 const MapBackground = styled.div`
 
   position: relative;
-  margin: 100px auto;
-  width: 640px;
-  height: 640px;
+  //margin: 100px auto;
+  width: ${MAP_WIDTH}px;
+  height: ${MAP_HEIGHT}px;
   background-color: crimson;
 `
 
