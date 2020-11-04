@@ -13,6 +13,8 @@ export const Enemy = ({name, type, position, stats}) => {
     const tooltipWidth = 150;
     const context = useContext(EnemiesContext);
     const {x, y} = position;
+    console.log("position in enemy component",position)
+
     const ttp = CalculateTooltipPosition(tooltipHeight,tooltipWidth, {x, y})
 
 
@@ -25,6 +27,8 @@ export const Enemy = ({name, type, position, stats}) => {
             <TooltipParagraph>dmg: {stats.dmg}</TooltipParagraph>
             <TooltipParagraph>def: {stats.def}</TooltipParagraph>
             <TooltipParagraph>type: {type}</TooltipParagraph>
+            <TooltipParagraph>position: {position.x}:{position.y}</TooltipParagraph>
+
 
         </TooltipContainer>
 
@@ -79,11 +83,6 @@ display: block;
 
 export const Enemies = ({listOfEnemies}) => {
 
-    console.log(listOfEnemies)
-    return listOfEnemies.map(enemy => <Enemy position={enemy.position} name={enemy.name} stats={enemy.stats} type={enemy.type}/>)
-
-
-
-
+    return listOfEnemies.map(enemy => (<Enemy position={enemy.position} name={enemy.name} stats={enemy.stats} type={enemy.type}/>));
 }
 

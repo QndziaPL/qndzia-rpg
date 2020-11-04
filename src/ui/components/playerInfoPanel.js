@@ -22,9 +22,9 @@ export const PlayerInfoPanel = () => {
                 <div>damage reduction tbd</div>
             </div>
             <div>
-                position {context.playerPosition.get.x + 1} : {context.playerPosition.get.y + 1}
+                position {context.playerPosition.get.x} : {context.playerPosition.get.y}
             </div>
-            <button>save game</button>
+            <button>save game - nie działa na razie</button>
             <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer}>
                 <div style={{position: "relative"}}>
                     <MovementKey

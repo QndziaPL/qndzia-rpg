@@ -1,4 +1,4 @@
-import {Enemy, EnemyTypeEnum} from "./enemy";
+import { EnemyTypeEnum} from "./enemy";
 import React from "react";
 
 export const ENEMY_WOLF = ({x=1, y=1}) => ({

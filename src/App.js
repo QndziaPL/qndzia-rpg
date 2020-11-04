@@ -11,6 +11,8 @@ import {MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH} from "./consts/consts";
 import {RandomNumberBetween} from "./helpers/randomNumberBetween";
 import {SecondMap} from "./maps/secondMap/secondMap";
 import {GenerateEnemyMap} from "./helpers/generateEnemyMap";
+import {CompileAll} from "./helpers/compileAllLayersMapByID";
+import {CreateIdForEnemies} from "./helpers/createIDforEnemies";
 
 
 export const AppContext = React.createContext({});
@@ -68,24 +70,37 @@ const App = () => {
     }
 
     const [letGenerateEnemies, setLetGenerateEnemies] = useState(true);
-    const [generatedEnemyMap, setGeneratedEnemyMap] = useState([]);
+    const [generatedEnemyMapState, setGeneratedEnemyMap] = useState(null);
+    const [usedEnemyPositions, setUsedEnemyPositions] = useState(null);
+
 
     let enemyMap = [];
     if (letGenerateEnemies){
-        enemyMap = GenerateEnemyMap({amount: 20});
-        setGeneratedEnemyMap(enemyMap.randomEnemiesMap)
+        enemyMap = GenerateEnemyMap({amount: 12});
+        setGeneratedEnemyMap(enemyMap.generatedEnemyMap)
+        setUsedEnemyPositions(enemyMap.usedPositions)
         setLetGenerateEnemies(false)
     }
-    console.log(enemyMap)
-    console.log(generatedEnemyMap)
+
+
+    console.log(usedEnemyPositions)
+    console.log(generatedEnemyMapState)
+    usedEnemyPositions && CreateIdForEnemies(usedEnemyPositions)
 
 
 
 
-    const testListOfEnemies =[
-        ENEMY_BAT({x: 1,y:2}),
-        ENEMY_WOLF({x: 17, y: 12})
-    ]
+    // const testListOfEnemies =[
+    //     ENEMY_BAT({x: 1,y:2}),
+    //     ENEMY_WOLF({x: 17, y: 12})
+    // ]
+
+
+
+    /**
+     * next to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    // console.log(CompileAll({terrain: activeTerrainMap, enemies:usedEnemyPositions, treasures: []}))
 
 
 
@@ -96,7 +111,8 @@ const App = () => {
 
                 <Map map={activeTerrainMap}>
                     <Player/>
-                    <Enemies listOfEnemies={generatedEnemyMap}/>
+                    {console.log(generatedEnemyMapState)}
+                    <Enemies listOfEnemies={generatedEnemyMapState}/>
                 </Map>
                     <PlayerInfoPanel/>
 
