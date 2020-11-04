@@ -13,7 +13,6 @@ export const Enemy = ({name, type, position, stats}) => {
     const tooltipWidth = 150;
     const context = useContext(EnemiesContext);
     const {x, y} = position;
-    console.log("position in enemy component",position)
 
     const ttp = CalculateTooltipPosition(tooltipHeight,tooltipWidth, {x, y})
 

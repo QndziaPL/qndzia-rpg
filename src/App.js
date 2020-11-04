@@ -29,6 +29,9 @@ const App = () => {
 
     const [playerPosition, setPlayerPosition] = useState({x: 10, y: 10});
 
+    const [letGenerateEnemies, setLetGenerateEnemies] = useState(true);
+    const [generatedEnemyMapState, setGeneratedEnemyMap] = useState(null);
+    const [usedEnemyPositions, setUsedEnemyPositions] = useState(null);
 
 
 
@@ -38,8 +41,6 @@ const App = () => {
     const activeEnemiesMap = {
         ENEMY_BAT,ENEMY_WOLF
     }
-
-
 
 
 
@@ -69,15 +70,14 @@ const App = () => {
 
     }
 
-    const [letGenerateEnemies, setLetGenerateEnemies] = useState(true);
-    const [generatedEnemyMapState, setGeneratedEnemyMap] = useState(null);
-    const [usedEnemyPositions, setUsedEnemyPositions] = useState(null);
 
 
-    let enemyMap = [];
+
+    // let enemyMap = [];
     if (letGenerateEnemies){
-        enemyMap = GenerateEnemyMap({amount: 12});
+        let enemyMap = GenerateEnemyMap({amount: 2});
         setGeneratedEnemyMap(enemyMap.generatedEnemyMap)
+        console.log(enemyMap)
         setUsedEnemyPositions(enemyMap.usedPositions)
         setLetGenerateEnemies(false)
     }
@@ -103,7 +103,7 @@ const App = () => {
     // console.log(CompileAll({terrain: activeTerrainMap, enemies:usedEnemyPositions, treasures: []}))
 
 
-
+    console.log("beforerender",generatedEnemyMapState)
     return (
         <AppContext.Provider value={store}>
             <EnemiesContext.Provider value={enemiesStore}>
@@ -111,7 +111,8 @@ const App = () => {
 
                 <Map map={activeTerrainMap}>
                     <Player/>
-                    {console.log(generatedEnemyMapState)}
+                    {console.log("inrender", generatedEnemyMapState)}
+
                     <Enemies listOfEnemies={generatedEnemyMapState}/>
                 </Map>
                     <PlayerInfoPanel/>
