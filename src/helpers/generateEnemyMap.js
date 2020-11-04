@@ -5,32 +5,23 @@ import {RandomNumberBetween} from "./randomNumberBetween";
 /** Generating enemy map and returning 1: map 2: used positions*/
 export const GenerateEnemyMap = ({amount}) => {
 
-    let generatedEnemyMap = [];
+    let enemyMap = [];
     let usedPositions = [];
     for (let y = 0; y < amount; y++) {
         const rnd = RandomNumberBetween(Object.keys(EnemyListEnum).length)
-
-        let randomX = RandomNumberBetween(19,0);
-        let randomY = RandomNumberBetween(19,0);
-
-
-        for (let i = 0; i < usedPositions.length; i++){
-            if (usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY){
-               do {
-                    randomX = RandomNumberBetween(19,0);
-                    randomY = RandomNumberBetween(19,0);
-               }while ((usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY))
+        let randomX = RandomNumberBetween(19, 0);
+        let randomY = RandomNumberBetween(19, 0);
+        for (let i = 0; i < usedPositions.length; i++) {
+            if (usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY) {
+                do {
+                    randomX = RandomNumberBetween(19, 0);
+                    randomY = RandomNumberBetween(19, 0);
+                } while ((usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY))
             }
         }
-        usedPositions.push({randomX,randomY})
-
-        const enemy = EnemyListEnum[rnd]({x:randomX,y:randomY})
-
-
-        generatedEnemyMap.push(enemy)
+        usedPositions.push({randomX, randomY})
+        const enemy = EnemyListEnum[rnd]({x: randomX, y: randomY})
+        enemyMap.push(enemy)
     }
-
-
-    return { generatedEnemyMap, usedPositions};
-
+    return {enemyMap, usedPositions};
 }

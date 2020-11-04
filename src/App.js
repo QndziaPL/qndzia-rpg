@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Player from "./player/player";
 import Map from "./maps/component/map";
-import {FirstMap} from "./maps/firstMap/firstMap";
-import {ENEMY_BAT} from "./enemies/bat";
-import {ENEMY_WOLF} from "./enemies/wolf";
 import {Enemies, Enemy} from "./enemies/enemy";
 import {PlayerInfoPanel} from "./ui/components/playerInfoPanel";
 import styled from "styled-components";
 import {MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH} from "./consts/consts";
-import {RandomNumberBetween} from "./helpers/randomNumberBetween";
 import {SecondMap} from "./maps/secondMap/secondMap";
 import {GenerateEnemyMap} from "./helpers/generateEnemyMap";
 import {CompileAll} from "./helpers/compileAllLayersMapByID";
@@ -18,8 +14,8 @@ import {CreateIdForEnemies} from "./helpers/createIDforEnemies";
 export const AppContext = React.createContext({});
 export const EnemiesContext = React.createContext({});
 
-const App = () => {
 
+const App = () => {
 
     const [playerLevel, setPlayerLevel] = useState(1);
     const [playerMaxHp, setPlayerMaxHp] = useState(20);
@@ -30,19 +26,10 @@ const App = () => {
     const [playerPosition, setPlayerPosition] = useState({x: 10, y: 10});
 
     const [letGenerateEnemies, setLetGenerateEnemies] = useState(true);
-    const [generatedEnemyMapState, setGeneratedEnemyMap] = useState(null);
-    const [usedEnemyPositions, setUsedEnemyPositions] = useState(null);
+    const [generatedEnemyMap, setGeneratedEnemyMap] = useState(null);
 
 
-
-    const activeTerrainMap = SecondMap;
-
-
-    const activeEnemiesMap = {
-        ENEMY_BAT,ENEMY_WOLF
-    }
-
-
+    const [activeTerrainMap, setActiveTerrainMap] = useState(SecondMap);
 
 
     const store = {
@@ -54,40 +41,42 @@ const App = () => {
 
         playerPosition: {get: playerPosition, set: setPlayerPosition},
 
+        enemyMap: {get: generatedEnemyMap, set: setGeneratedEnemyMap}
+
     }
 
     const enemiesStore = {
-        // enemiesMap: {get: activeEnemiesMap, set:}
+
     }
 
-    useEffect(() => {
-
-        checkIfMapInteraction()
-    }, [playerPosition]);
-
-
-    const checkIfMapInteraction = () => {
+    const mapStore = {
+        activeTerrain: {get: activeTerrainMap, set: setActiveTerrainMap}
+    }
+    const treasureStore = {
 
     }
 
 
 
+    // useEffect(() => {
+    //
+    //     checkIfMapInteraction()
+    // }, [playerPosition]);
+    //
+    //
+    // const checkIfMapInteraction = () => {
+    //
+    // }
 
-    // let enemyMap = [];
-    if (letGenerateEnemies){
-        let enemyMap = GenerateEnemyMap({amount: 2});
-        setGeneratedEnemyMap(enemyMap.generatedEnemyMap)
-        console.log(enemyMap)
-        setUsedEnemyPositions(enemyMap.usedPositions)
+
+    if (letGenerateEnemies) {
         setLetGenerateEnemies(false)
+        let enemyMap = GenerateEnemyMap({amount: 15});
+        setGeneratedEnemyMap(enemyMap)
+
     }
 
-
-    console.log(usedEnemyPositions)
-    console.log(generatedEnemyMapState)
-    usedEnemyPositions && CreateIdForEnemies(usedEnemyPositions)
-
-
+    generatedEnemyMap && CreateIdForEnemies(generatedEnemyMap.usedPositions)
 
 
     // const testListOfEnemies =[
@@ -96,34 +85,33 @@ const App = () => {
     // ]
 
 
-
     /**
      * next to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
-    // console.log(CompileAll({terrain: activeTerrainMap, enemies:usedEnemyPositions, treasures: []}))
+
+    /**
+     * i have to refacotor it to hold this above the rest of the app
+     */
+    // CompileAll(context)
 
 
-    console.log("beforerender",generatedEnemyMapState)
-    return (
+    if (generatedEnemyMap) return (
         <AppContext.Provider value={store}>
             <EnemiesContext.Provider value={enemiesStore}>
-                <GameContainer className="gameContainer">
 
-                <Map map={activeTerrainMap}>
-                    <Player/>
-                    {console.log("inrender", generatedEnemyMapState)}
+                    <GameContainer className="gameContainer">
+                        <Map map={activeTerrainMap}>
+                            <Player/>
+                            <Enemies/>
+                        </Map>
+                        <PlayerInfoPanel/>
+                    </GameContainer>
 
-                    <Enemies listOfEnemies={generatedEnemyMapState}/>
-                </Map>
-                    <PlayerInfoPanel/>
-
-                </GameContainer>
             </EnemiesContext.Provider>
-
-
         </AppContext.Provider>
 
     );
+    else return null
 }
 
 export default App;

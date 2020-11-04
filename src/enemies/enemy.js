@@ -1,4 +1,4 @@
-import {EnemiesContext} from "../App";
+import {AppContext, EnemiesContext} from "../App";
 import React, {useContext} from "react";
 import Character from "../characters/character";
 import styled from "styled-components";
@@ -11,7 +11,8 @@ export const EnemyTypeEnum = Object.freeze({
 export const Enemy = ({name, type, position, stats}) => {
     const tooltipHeight = 200;
     const tooltipWidth = 150;
-    const context = useContext(EnemiesContext);
+    // const context = useContext(EnemiesContext);
+
     const {x, y} = position;
 
     const ttp = CalculateTooltipPosition(tooltipHeight,tooltipWidth, {x, y})
@@ -80,8 +81,9 @@ display: block;
 `
 
 
-export const Enemies = ({listOfEnemies}) => {
-
-    return listOfEnemies.map(enemy => (<Enemy position={enemy.position} name={enemy.name} stats={enemy.stats} type={enemy.type}/>));
+export const Enemies = () => {
+    const context = useContext(AppContext);
+    return context.enemyMap.get.enemyMap.map(e =>
+        <Enemy position={e.position} name={e.name} stats={e.stats} type={e.type}/>);
 }
 

@@ -2,8 +2,8 @@
 
 export const CreateIdForEnemies = (enemies) =>{
     enemies.map((enemy) => {
-        console.log(enemy)
-        console.log(generateId(enemy.randomX, enemy.randomY))
+        /** do zrobienia niebawem */
+       generateId(enemy.randomX, enemy.randomY)
 
 
     })

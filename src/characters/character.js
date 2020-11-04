@@ -15,6 +15,8 @@ const Character = ({position, letter, background = "#ffffff", playerArrows}) => 
     </CharacterPosition>)
 }
 
+export default Character;
+
 const CharacterModel = styled.div`
 z-index: 50;
 position: relative;
@@ -27,7 +29,7 @@ font-size: 22px;
 text-transform: capitalize;
 `
 
-export default Character;
+
 
 const CharacterPosition = styled.div`
 position: absolute;

@@ -1,12 +1,16 @@
+import {AppContext, EnemiesContext, MapContext, TreasureContext} from "../App";
+import React,{useContext} from "react";
 
 
-export const CompileAll = ({terrain, enemies, treasures}) => {
+export const CompileAll=()=>{
 
-    // console.log("internal",terrain,enemies)
+const context = useContext(AppContext)
+
+    console.log(context)
     let compile = [];
     for (let i = 1; i < 401; i++){
         compile.push({
-            terrain: terrain[i],
+            // terrain: terrain[i],
                 // enemy: enemies,
                 // treasures: treasures
         })
