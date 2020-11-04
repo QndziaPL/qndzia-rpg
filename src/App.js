@@ -8,6 +8,9 @@ import {Enemies, Enemy} from "./enemies/enemy";
 import {PlayerInfoPanel} from "./ui/components/playerInfoPanel";
 import styled from "styled-components";
 import {MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH} from "./consts/consts";
+import {RandomNumberBetween} from "./helpers/randomNumberBetween";
+import {SecondMap} from "./maps/secondMap/secondMap";
+import {GenerateEnemyMap} from "./helpers/generateEnemyMap";
 
 
 export const AppContext = React.createContext({});
@@ -27,7 +30,7 @@ const App = () => {
 
 
 
-
+    const activeTerrainMap = SecondMap;
 
 
     const activeEnemiesMap = {
@@ -64,6 +67,20 @@ const App = () => {
 
     }
 
+    const [letGenerateEnemies, setLetGenerateEnemies] = useState(true);
+    const [generatedEnemyMap, setGeneratedEnemyMap] = useState([]);
+
+    let enemyMap = [];
+    if (letGenerateEnemies){
+        enemyMap = GenerateEnemyMap({amount: 20});
+        setGeneratedEnemyMap(enemyMap.randomEnemiesMap)
+        setLetGenerateEnemies(false)
+    }
+    console.log(enemyMap)
+    console.log(generatedEnemyMap)
+
+
+
 
     const testListOfEnemies =[
         ENEMY_BAT({x: 1,y:2}),
@@ -71,15 +88,15 @@ const App = () => {
     ]
 
 
+
     return (
         <AppContext.Provider value={store}>
             <EnemiesContext.Provider value={enemiesStore}>
                 <GameContainer className="gameContainer">
 
-                <Map map={FirstMap}>
+                <Map map={activeTerrainMap}>
                     <Player/>
-                    {/*<Enemy position={{x:1,y:3}} />*/}
-                    <Enemies listOfEnemies={testListOfEnemies}/>
+                    <Enemies listOfEnemies={generatedEnemyMap}/>
                 </Map>
                     <PlayerInfoPanel/>
 
@@ -100,4 +117,8 @@ display: flex;
 width: ${MAP_WIDTH + PLAYER_INFO_PANEL_WIDTH}px;
 //height: 640px;
 margin: ${(window.innerHeight - 640) / 2}px auto;
+@media(max-width: 840px){
+transform: scale(0.5);
+margin: 0;
+}
 `

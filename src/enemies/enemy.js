@@ -66,6 +66,7 @@ background-color: white;
 `
 
 const HoverContainer = styled.div`
+cursor: crosshair;
 &:hover ${ActiveHoverBorder}{
 display: block;
 }
@@ -78,6 +79,7 @@ display: block;
 
 export const Enemies = ({listOfEnemies}) => {
 
+    console.log(listOfEnemies)
     return listOfEnemies.map(enemy => <Enemy position={enemy.position} name={enemy.name} stats={enemy.stats} type={enemy.type}/>)
 
 

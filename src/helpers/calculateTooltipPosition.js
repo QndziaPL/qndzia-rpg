@@ -12,3 +12,4 @@ export const CalculateTooltipPosition = (containerHeight, containerWidth, {x, y}
 
     return {x: newX, y: newY}
 }
+

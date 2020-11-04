@@ -1,13 +1,12 @@
 import {Enemy, EnemyTypeEnum} from "./enemy";
 import React from "react";
 
-
-export const ENEMY_BAT = ({x=1, y=1}) => ({
-    name: "bat",
+export const ENEMY_BEAR = ({x=1, y=1}) => ({
+    name: "bear",
     stats: {
-        dmg: 1,
-        def: 0,
-        hp: 3
+        dmg: 4,
+        def: 2,
+        hp: 16
     },
     position: {
         x: x,
@@ -15,7 +14,7 @@ export const ENEMY_BAT = ({x=1, y=1}) => ({
     },
     loot: {
         coins: 2,
-        batWing: 1
+        bearClaw: 1
     },
-    type: EnemyTypeEnum.flying,
+    type: EnemyTypeEnum.big,
 })

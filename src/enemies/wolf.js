@@ -1,7 +1,7 @@
 import {Enemy, EnemyTypeEnum} from "./enemy";
 import React from "react";
 
-export const ENEMY_WOLF = ({x, y}) => ({
+export const ENEMY_WOLF = ({x=1, y=1}) => ({
     name: "wolf",
     stats: {
         dmg: 2,

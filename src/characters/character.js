@@ -16,7 +16,7 @@ const Character = ({position, letter, background = "#ffffff", playerArrows}) => 
 }
 
 const CharacterModel = styled.div`
-z-index: 100;
+z-index: 50;
 position: relative;
 width: 32px;
 height: 32px;

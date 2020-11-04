@@ -81,4 +81,5 @@ border-radius: 50%;
 box-shadow: 3px 3px 10px #ffffff;
 left: ${props => props.left}px;
 top: ${props => props.top}px;
+cursor: pointer;
 `
