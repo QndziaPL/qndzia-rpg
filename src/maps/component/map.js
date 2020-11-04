@@ -10,7 +10,7 @@ const Map = ({size = {x: 20, y: 20}, children, map}) =>{
    const emptyTiles = EmptyTiles();
 
    const mapTiles = MapIDsToMap(map);
-    console.log(mapTiles)
+
 
 
 

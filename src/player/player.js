@@ -30,9 +30,9 @@ const Player = () => {
 
     return (
         <PlayerCharacter
-
         >
-            <Character position={ {x,y}} letter={"P"}/>
+
+            <Character position={ {x,y}} letter={"P"} background={"#00f0f3"} playerArrows={"#ff9d08"}/>
 
 
     </PlayerCharacter>
@@ -42,7 +42,8 @@ const Player = () => {
 export default Player;
 
 const PlayerCharacter = styled.div`
-
+position: relative;
 
 `
+
 

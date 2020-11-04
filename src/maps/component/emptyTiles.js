@@ -13,7 +13,7 @@ export const EmptyTiles = () => {
         tiles.push(row)
     }
 
-    // console.log(tiles)
+
 
     return tiles;
 }

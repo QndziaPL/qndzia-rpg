@@ -15,7 +15,7 @@ export const MapIDsToMap = (tileTypesIDs) => {
         map.push(row)
     }
 
-    console.log(map)
+
 
     return map;
 }
