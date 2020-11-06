@@ -9,6 +9,8 @@ import {SecondMap} from "./maps/secondMap/secondMap";
 import {GenerateEnemyMap} from "./helpers/generateEnemyMap";
 import {CompileAll} from "./helpers/compileAllLayersMapByID";
 import {CreateIdForEnemies} from "./helpers/createIDforEnemies";
+import {useDispatch, useSelector} from "react-redux";
+import {setEnemies} from "./redux/actions";
 
 
 export const AppContext = React.createContext({});
@@ -16,6 +18,8 @@ export const AppContext = React.createContext({});
 
 
 const App = () => {
+    const dispatch = useDispatch();
+    const enemies = useSelector(p => p.enemies);
 
     const [refresh, setRefresh]=useState(0);
     const refreshFunction = () => {
@@ -70,12 +74,19 @@ const App = () => {
         setLetGenerateEnemies(false)
         let enemyMap = GenerateEnemyMap({amount: 1});
         setGeneratedEnemyMap(enemyMap)
+        console.log(enemyMap)
+        dispatch(setEnemies(enemyMap))
 
     }
 
     generatedEnemyMap && CreateIdForEnemies(generatedEnemyMap.usedPositions)
 
 
+    useEffect(()=>saveToLocalStorage)
+    function saveToLocalStorage(){
+        localStorage.setItem('enemies',JSON.stringify(enemies))
+
+    }
 
 
     /**

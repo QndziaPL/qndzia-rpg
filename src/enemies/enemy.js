@@ -3,6 +3,7 @@ import React, {useContext} from "react";
 import Character from "../characters/character";
 import styled from "styled-components";
 import {CalculateTooltipPosition} from "../helpers/calculateTooltipPosition";
+import {useDispatch, useSelector} from "react-redux";
 
 export const EnemyTypeEnum = Object.freeze({
     "small": "small", "humanoid": "humanoid", "big": "big", "flying":"flying"
@@ -95,8 +96,11 @@ transition-duration: 0.3s;
 
 
 export const Enemies = () => {
-    const context = useContext(AppContext);
-    return context.enemyMap.get.enemyMap.map(e =>
+    const dispatch = useDispatch();
+    const enemies = useSelector(p => p.enemies);
+    console.log(enemies)
+
+    return enemies.enemyMap.map(e =>
         <Enemy position={e.position} name={e.name} stats={e.stats} type={e.type}/>);
 }
 

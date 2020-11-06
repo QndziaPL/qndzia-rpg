@@ -8,6 +8,3 @@ export const EnemyListEnum = Object.freeze({
     1: ENEMY_BAT, 2: ENEMY_WOLF, 3: ENEMY_THIEF, 4: ENEMY_BEAR
 });
 
-// export const EnemyListEnum = Object.freeze({
-//     1: {ENEMY_BAT}, 2: {ENEMY_WOLF}, 3: {ENEMY_THIEF}, 4: {ENEMY_BEAR}
-// });

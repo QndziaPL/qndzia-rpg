@@ -11,6 +11,7 @@ export const PlayerInfoPanel = () => {
 
     const playerData = useSelector(p => p.player);
     const dispatch = useDispatch();
+    // const enemies = useSelector(p => p.enemies);
 
 
 
@@ -42,6 +43,9 @@ export const PlayerInfoPanel = () => {
 
         }
     }
+    function saveToLocalStorage(){
+        localStorage.setItem('player',JSON.stringify(playerData))
+    }
 
     // console.log(playerData)
     return (
@@ -64,7 +68,7 @@ export const PlayerInfoPanel = () => {
 
              */}
 
-            <button onClick={() => localStorage.setItem('player',JSON.stringify(playerData))}>save game - nie działa na razie</button>
+            <button onClick={() => saveToLocalStorage() }>save game - nie działa na razie</button>
 
             <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer}>
                 <div style={{position: "relative"}}>

@@ -1,6 +1,7 @@
 
 
 export const CreateIdForEnemies = (enemies) =>{
+    console.log(enemies)
     enemies.map((enemy) => {
         /** do zrobienia niebawem */
        generateId(enemy.randomX, enemy.randomY)
@@ -10,7 +11,7 @@ export const CreateIdForEnemies = (enemies) =>{
 
 }
 
-function generateId(x,y){
+export function generateId(x,y){
     //
     // const first = x;
     // const second = y+1;

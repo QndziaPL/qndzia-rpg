@@ -28,7 +28,7 @@ const Character = ({position, letter, background = "#ffffff", tile="enemy", isPl
 
         >
             <CharacterImg src={characterTile}/>
-                {letter}
+                {isPlayer && letter}
 
         </CharacterModel>
         {/*{playerArrows && <PlayerArrowBackground background={playerArrows}/>}*/}
@@ -44,7 +44,8 @@ width: 32px;
 height: 32px;
 border-radius: 10px;
 //background-color: ${props => props.background};
-color: #000000;
+text-shadow: 0px 0px 5px #000000;
+color: #ffffff;
 text-align: center;
 font-size: 22px;
 transform: scale(${props => props.isPlayer && 1.2});

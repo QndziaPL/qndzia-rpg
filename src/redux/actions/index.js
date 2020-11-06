@@ -11,3 +11,10 @@ export const setMapWithIDs = (map) => {
         payload: map
     }
 }
+
+export const setEnemies = (enemies) => {
+    return{
+        type: 'SET_ENEMIES',
+        payload: enemies
+    }
+}
