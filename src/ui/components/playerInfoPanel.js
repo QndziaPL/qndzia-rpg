@@ -1,46 +1,73 @@
 import styled from "styled-components";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../App";
 import {MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH} from "../../consts/consts";
+import {useDispatch, useSelector} from "react-redux";
+import {setPlayer} from "../../redux/actions";
 
 
 export const PlayerInfoPanel = () => {
 
-    const context = useContext(AppContext);
+    const playerData = useSelector(p => p.player);
+    const dispatch = useDispatch();
 
     const movementKeysContainerSize = PLAYER_INFO_PANEL_WIDTH * 2 / 3;
     const marginMovementKeysContainer = (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
 
+    const updatePositionToDispatch = (direction) =>{
+        switch (direction){
+            case "up":
+                playerData.position.y -= 1;
+                return playerData
+
+            case "down":
+                playerData.position.y += 1;
+                return playerData
+
+            case "left":
+                playerData.position.x -= 1;
+                return playerData
+
+            case "right":
+                playerData.position.x += 1;
+                return playerData
+
+            default:
+                return playerData
+
+        }
+    }
+
+    console.log(playerData)
     return (
-        <Container>
+        <Container >
             <div>
-                <div>player level {context.playerLevel.get}</div>
-                <div>health points {context.playerCurrentHp.get} / {context.playerMaxHp.get}</div>
-                <div>strength {context.playerStrength.get}</div>
-                <div>defence {context.playerDefence.get}</div>
+                <div>player level {playerData.lvl}</div>
+                <div>health points {playerData.curHp} / {playerData.maxHp}</div>
+                <div>strength {playerData.str}</div>
+                <div>defence {playerData.def}</div>
                 <div>damage tbd</div>
                 <div>damage reduction tbd</div>
             </div>
             <div>
-                position {context.playerPosition.get.x} : {context.playerPosition.get.y}
+                position {playerData.position.x} : {playerData.position.y}
             </div>
             <button>save game - nie działa na razie</button>
             <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer}>
                 <div style={{position: "relative"}}>
                     <MovementKey
-                        onClick={() => context.playerPosition.set(prevState => ({x: prevState.x, y: prevState.y - 1}))}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("up")))}
                         left={70} top={6}>U</MovementKey>
                     <MovementKey
-                        onClick={() => context.playerPosition.set(prevState => ({x: prevState.x, y: prevState.y + 1}))}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("down")))}
                         left={70} top={134}>D</MovementKey>
                     <MovementKey
-                        onClick={() => context.playerPosition.set(prevState => ({x: prevState.x - 1, y: prevState.y}))}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("left")))}
                         left={6} top={70}>L</MovementKey>
                     <MovementKey
-                        onClick={() => context.playerPosition.set(prevState => ({x: prevState.x + 1, y: prevState.y}))}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("right")))}
                         left={134} top={70}>R</MovementKey>
                 </div>
-
             </MovementKeysContainer>
         </Container>
     )

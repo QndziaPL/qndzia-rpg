@@ -3,9 +3,12 @@ import Character from "../characters/character";
 import {AppContext} from "../App";
 import styled from "styled-components"
 import {useKeyPress} from "../hooks/useKeyPress";
+import {useSelector} from "react-redux";
+
 
 
 const Player = () => {
+    const playerData = useSelector(p => p.player);
 
     const context = useContext(AppContext);
 
@@ -25,8 +28,8 @@ const Player = () => {
     useEffect(()=> moveCharacter,[upPressed, downPressed, leftPressed, rightPressed]);
 
 
-    const x = context.playerPosition.get.x;
-    const y = context.playerPosition.get.y;
+    const x = playerData.position.x;
+    const y = playerData.position.y;
 
     return (
         <PlayerCharacter

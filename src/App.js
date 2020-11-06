@@ -12,10 +12,15 @@ import {CreateIdForEnemies} from "./helpers/createIDforEnemies";
 
 
 export const AppContext = React.createContext({});
-export const EnemiesContext = React.createContext({});
+
 
 
 const App = () => {
+
+    const [refresh, setRefresh]=useState(0);
+    const refreshFunction = () => {
+        setRefresh(refresh + 1)
+    }
 
     const [playerLevel, setPlayerLevel] = useState(1);
     const [playerMaxHp, setPlayerMaxHp] = useState(20);
@@ -45,16 +50,12 @@ const App = () => {
 
     }
 
-    const enemiesStore = {
 
-    }
 
     const mapStore = {
         activeTerrain: {get: activeTerrainMap, set: setActiveTerrainMap}
     }
-    const treasureStore = {
 
-    }
 
 
 
@@ -97,9 +98,9 @@ const App = () => {
 
     if (generatedEnemyMap) return (
         <AppContext.Provider value={store}>
-            <EnemiesContext.Provider value={enemiesStore}>
 
-                    <GameContainer className="gameContainer">
+
+                    <GameContainer className="gameContainer" onClick={refreshFunction}>
                         <Map map={activeTerrainMap}>
                             <Player/>
                             <Enemies/>
@@ -107,7 +108,7 @@ const App = () => {
                         <PlayerInfoPanel/>
                     </GameContainer>
 
-            </EnemiesContext.Provider>
+
         </AppContext.Provider>
 
     );
@@ -115,6 +116,7 @@ const App = () => {
 }
 
 export default App;
+
 
 const GameContainer = styled.div`
 box-sizing: border-box;
