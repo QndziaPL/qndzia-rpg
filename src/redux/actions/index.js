@@ -4,3 +4,10 @@ export const setPlayer = (playerObject) => {
         payload: playerObject
     }
 }
+
+export const setMapWithIDs = (map) => {
+    return{
+        type: 'SET_MAP_WITH_IDS',
+        payload: map
+    }
+}

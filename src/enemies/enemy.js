@@ -11,7 +11,6 @@ export const EnemyTypeEnum = Object.freeze({
 export const Enemy = ({name, type, position, stats}) => {
     const tooltipHeight = 200;
     const tooltipWidth = 150;
-    // const context = useContext(EnemiesContext);
 
     const {x, y} = position;
 

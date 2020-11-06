@@ -52,10 +52,6 @@ const App = () => {
 
 
 
-    const mapStore = {
-        activeTerrain: {get: activeTerrainMap, set: setActiveTerrainMap}
-    }
-
 
 
 
@@ -72,7 +68,7 @@ const App = () => {
 
     if (letGenerateEnemies) {
         setLetGenerateEnemies(false)
-        let enemyMap = GenerateEnemyMap({amount: 15});
+        let enemyMap = GenerateEnemyMap({amount: 1});
         setGeneratedEnemyMap(enemyMap)
 
     }
@@ -80,19 +76,12 @@ const App = () => {
     generatedEnemyMap && CreateIdForEnemies(generatedEnemyMap.usedPositions)
 
 
-    // const testListOfEnemies =[
-    //     ENEMY_BAT({x: 1,y:2}),
-    //     ENEMY_WOLF({x: 17, y: 12})
-    // ]
 
 
     /**
      * next to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
 
-    /**
-     * i have to refacotor it to hold this above the rest of the app
-     */
     // CompileAll(context)
 
 

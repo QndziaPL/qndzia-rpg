@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {PlayerInfoPanel} from "../../ui/components/playerInfoPanel";
 import {EmptyTiles} from "./emptyTiles";
@@ -10,25 +10,50 @@ import green_background from "../../../src/assets/mapTiles/grass_map_background.
 import brown_tile from "../../../src/assets/mapTiles/brown_path_tile.png"
 import water_tile from "../../../src/assets/mapTiles/water_tile.png"
 import stone_tile from "../../../src/assets/mapTiles/stone_tile.png"
+import {useDispatch, useSelector} from "react-redux";
+import {setMapWithIDs} from "../../redux/actions/index"
+import mapIdReducer from "../../redux/reducers/mapIdReducer";
 
 
 const Map = ({size = {x: 20, y: 20}, children, map}) =>{
+    const [dispatchAllowed, setDispatchAllowed] = useState(true)
 
    const emptyTiles = EmptyTiles();
 
-   const mapTiles = MapIDsToMap(map);
+
+    const dispatch = useDispatch();
 
 
+    const mapIDs = useSelector(p => p.mapIDs);
 
+    let mapTiles;
 
+    if (Object.keys(mapIDs).length === 0 && mapIDs.constructor === Object){
+       mapTiles = MapIDsToMap(map);
+       updateStore()
+        updateLocalStorage(map)
+
+    }else {
+        mapTiles = MapIDsToMap(mapIDs);
+    }
+
+    function updateStore() {
+        if (dispatchAllowed) {
+            dispatch(setMapWithIDs(map))
+            setDispatchAllowed(false)
+
+        }
+    }
+    function updateLocalStorage(map){
+        localStorage.setItem("mapIDs",JSON.stringify(map))
+    }
 
     return (
         <MapBackground>
 
             {children}
             <MapBackgroundImage src={green_background}/>
-          <MapFromTiles tiles={mapTiles}/>
-          {/*<MapFromTiles tiles={mapTiles}/>*/}
+            <MapFromTiles tiles={mapTiles}/>
 
         </MapBackground>
 
@@ -65,11 +90,12 @@ function RandomMapTile(){
 
 
 const MapFromTiles = ({tiles}) => {
+
    return (
        <div>
-           {tiles.map((row, y) => (
+           {tiles.map((row, index) => (
                <div style={{display: "flex"}}>
-                   {row.map((tile, x) => (
+                   {row.map((tile, index) => (
                        <SingleMapTile
                            src={TileType(tile.tileType)}
                            itemKey={tile.id}

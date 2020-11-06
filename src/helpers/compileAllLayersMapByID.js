@@ -4,9 +4,6 @@ import React,{useContext} from "react";
 
 export const CompileAll=()=>{
 
-const context = useContext(AppContext)
-
-    console.log(context)
     let compile = [];
     for (let i = 1; i < 401; i++){
         compile.push({
