@@ -69,20 +69,27 @@ const App = () => {
     //
     // }
 
-
     if (letGenerateEnemies) {
         setLetGenerateEnemies(false)
-        let enemyMap = GenerateEnemyMap({amount: 1});
+        let enemyMap;
+        if (Object.keys(enemies).length === 0 && enemies.constructor === Object){
+            enemyMap = GenerateEnemyMap({amount: 15});
+
+        }else {
+            enemyMap = enemies
+        }
         setGeneratedEnemyMap(enemyMap)
         console.log(enemyMap)
         dispatch(setEnemies(enemyMap))
+        saveToLocalStorage()
 
     }
 
-    generatedEnemyMap && CreateIdForEnemies(generatedEnemyMap.usedPositions)
+    // generatedEnemyMap && CreateIdForEnemies(generatedEnemyMap.usedPositions)
 
 
-    useEffect(()=>saveToLocalStorage)
+    // useEffect(()=>saveToLocalStorage,[]);
+
     function saveToLocalStorage(){
         localStorage.setItem('enemies',JSON.stringify(enemies))
 

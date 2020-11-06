@@ -49,7 +49,8 @@ export const PlayerInfoPanel = () => {
 
     // console.log(playerData)
     return (
-        <Container >
+        <Container style={{position: "relative"}}>
+            <ClearLocalStorage onClick={()=> localStorage.clear()}>clear LS</ClearLocalStorage>
             <div>
                 <div>player level {playerData.lvl}</div>
                 <div>health points {playerData.curHp} / {playerData.maxHp}</div>
@@ -89,6 +90,15 @@ export const PlayerInfoPanel = () => {
         </Container>
     )
 }
+
+const ClearLocalStorage = styled.div`
+position: absolute;
+top:5px;
+right:5px;
+background-color: red;
+padding: 2px;
+border-radius: 5px;
+`
 
 const Container = styled.div`
 position: relative;
