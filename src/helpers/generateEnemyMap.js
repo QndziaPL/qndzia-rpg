@@ -1,5 +1,6 @@
 import {EnemyListEnum} from "../consts/enemyList";
 import {RandomNumberBetween} from "./randomNumberBetween";
+import {generateId} from "./createIDforEnemies";
 
 
 /** Generating enemy map and returning 1: map 2: used positions*/
@@ -21,6 +22,7 @@ export const GenerateEnemyMap = ({amount}) => {
         }
         usedPositions.push({randomX, randomY})
         const enemy = EnemyListEnum[rnd]({x: randomX, y: randomY})
+        enemy.tileID = generateId(randomX, randomY)
         enemyMap.push(enemy)
     }
     return {enemyMap, usedPositions};

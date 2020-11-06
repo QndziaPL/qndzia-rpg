@@ -96,10 +96,7 @@ transition-duration: 0.3s;
 
 
 export const Enemies = () => {
-    const dispatch = useDispatch();
     const enemies = useSelector(p => p.enemies);
-    console.log(enemies)
-
     return enemies.enemyMap.map(e =>
         <Enemy position={e.position} name={e.name} stats={e.stats} type={e.type}/>);
 }

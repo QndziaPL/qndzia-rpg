@@ -4,12 +4,15 @@ import React, {useContext, useEffect, useState} from "react";
 import {MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH} from "../../consts/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {setPlayer} from "../../redux/actions";
+import {generateId} from "../../helpers/createIDforEnemies";
 
 
 
 export const PlayerInfoPanel = () => {
 
     const playerData = useSelector(p => p.player);
+
+
     const dispatch = useDispatch();
     // const enemies = useSelector(p => p.enemies);
 
@@ -43,9 +46,12 @@ export const PlayerInfoPanel = () => {
 
         }
     }
+
     function saveToLocalStorage(){
         localStorage.setItem('player',JSON.stringify(playerData))
     }
+
+    const currentTileId = generateId(playerData.position.x, playerData.position.y)
 
     // console.log(playerData)
     return (
@@ -59,9 +65,8 @@ export const PlayerInfoPanel = () => {
                 <div>damage tbd</div>
                 <div>damage reduction tbd</div>
             </div>
-            <div>
-                position {playerData.position.x} : {playerData.position.y}
-            </div>
+            <div>position {playerData.position.x} : {playerData.position.y}</div>
+            <div>current tile ID {currentTileId}</div>
 
             {/**
 
@@ -69,9 +74,9 @@ export const PlayerInfoPanel = () => {
 
              */}
 
-            <button onClick={() => saveToLocalStorage() }>save game - nie działa na razie</button>
+            {/*<button onClick={() => saveToLocalStorage() }>save player</button>*/}
 
-            <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer}>
+            <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer} onClick={() => saveToLocalStorage() }>
                 <div style={{position: "relative"}}>
                     <MovementKey
                         onClick={() => dispatch(setPlayer(updatePositionToDispatch("up")))}

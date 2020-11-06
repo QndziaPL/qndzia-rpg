@@ -20,6 +20,8 @@ export const AppContext = React.createContext({});
 const App = () => {
     const dispatch = useDispatch();
     const enemies = useSelector(p => p.enemies);
+    // const playerData = useSelector(p => p.player);
+
 
     const [refresh, setRefresh]=useState(0);
     const refreshFunction = () => {
@@ -85,13 +87,20 @@ const App = () => {
 
     }
 
-    // generatedEnemyMap && CreateIdForEnemies(generatedEnemyMap.usedPositions)
+    // console.log(generatedEnemyMap)
+    let enemiesIdMap;
+    console.log(generatedEnemyMap)
+    if (generatedEnemyMap){
+        enemiesIdMap = CreateIdForEnemies(generatedEnemyMap.enemyMap)
+    }
+    console.log(enemiesIdMap)
 
 
-    // useEffect(()=>saveToLocalStorage,[]);
+    // useEffect(()=> localStorage.setItem('player',JSON.stringify(playerData)));
 
     function saveToLocalStorage(){
-        localStorage.setItem('enemies',JSON.stringify(enemies))
+        localStorage.setItem('enemies',JSON.stringify(enemies));
+
 
     }
 
