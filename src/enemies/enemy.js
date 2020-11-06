@@ -19,7 +19,7 @@ export const Enemy = ({name, type, position, stats}) => {
 
 
     return (<HoverContainer className="hoverContainer">
-        <ActiveHoverBorder position={position}/>
+        <ActiveHoverBorder position={position} className="activeHoverBorder"/>
         <Character position={position} letter={"E"} background={"#ff5e5e"}/>
         <TooltipContainer position={ttp} height={tooltipHeight} width={tooltipWidth} className="tooltipContainer">
             <TooltipHeader>{name}</TooltipHeader>
@@ -37,16 +37,17 @@ export const Enemy = ({name, type, position, stats}) => {
 }
 const TooltipContainer = styled.div`
 box-sizing: border-box;
-    padding: 5px;
     z-index: 100;
     left: ${props => props.position.x}px;
     top: ${props => props.position.y}px;
     position: absolute;
-    border: 2px solid black;
-    display: none;
-    height: 200px;
-    width: 150px;
-    background-color: white;
+    
+    display: block;
+    height: 0;
+    width: 0;
+    border-radius: 20px;
+    background-color: #d7d7d7;
+    overflow: hidden;
 `
 const TooltipHeader = styled.div`
 text-align: center;
@@ -66,16 +67,29 @@ width: 36px;
 position: absolute;
 top: ${props => props.position.y * 32 - 2}px;
 left: ${props => props.position.x * 32 - 2}px;
-background-color: white;
+background-color: gold;
+border-radius: 5px;
+transform: rotate(45deg);
+animation: pulse 1s infinite;
+@keyframes pulse {
+from{ background-color: red; opacity: 0.1}
+to{background-color: gold; opacity: 1}
+}
 `
 
 const HoverContainer = styled.div`
 cursor: crosshair;
 &:hover ${ActiveHoverBorder}{
 display: block;
+z-index: 10;
 }
 &:hover ${TooltipContainer}{
 display: block;
+height: 200px;
+width: 150px;
+border: 2px solid black;
+padding: 5px;
+transition-duration: 0.3s;
 }
 
 `

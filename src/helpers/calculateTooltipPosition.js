@@ -9,6 +9,12 @@ export const CalculateTooltipPosition = (containerHeight, containerWidth, {x, y}
 
     newX -= Math.floor(containerWidth / 2);
     newX += 16;
+    if (x === 19){
+        newX -= 64
+    }
+    if (x === 18){
+        newX -= 32
+    }
 
     return {x: newX, y: newY}
 }

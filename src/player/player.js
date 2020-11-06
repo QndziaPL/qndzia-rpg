@@ -4,10 +4,14 @@ import {AppContext} from "../App";
 import styled from "styled-components"
 import {useKeyPress} from "../hooks/useKeyPress";
 import {useSelector} from "react-redux";
+import player_tile from "../assets/characterTiles/player_tile.png"
 
 
 
 const Player = () => {
+
+
+
     const playerData = useSelector(p => p.player);
 
     const context = useContext(AppContext);
@@ -32,10 +36,9 @@ const Player = () => {
     const y = playerData.position.y;
 
     return (
-        <PlayerCharacter
-        >
+        <PlayerCharacter>
 
-            <Character position={ {x,y}} letter={"P"} background={"#00f0f3"} playerArrows={"#ff9d08"}/>
+            <Character position={ {x,y}} letter={"P"} background={"#00f0f3"} playerArrows={"#ff9d08"} isPlayer tile={"player"}/>
 
 
     </PlayerCharacter>

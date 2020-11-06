@@ -1,6 +1,8 @@
 import {playerBaseObject} from "../../player/playerBaseObject";
 
-const playerReducer = (state = playerBaseObject, action) => {
+const loadData = JSON.parse(localStorage.getItem('player')) ?? playerBaseObject
+
+const playerReducer = (state = loadData, action) => {
     switch (action.type){
         case 'SET_PLAYER':
             return action.payload;

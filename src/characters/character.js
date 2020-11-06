@@ -1,17 +1,37 @@
 import React from "react";
 import styled from "styled-components"
+import player_tile from "../assets/characterTiles/player_tile.png"
+import enemy from "../assets/characterTiles/enemy.svg"
 
 
-const Character = ({position, letter, background = "#ffffff", playerArrows}) => {
+const Character = ({position, letter, background = "#ffffff", tile="enemy", isPlayer}) => {
+    let characterTile;
+    switch (tile){
+        case "enemy":
+            characterTile = enemy;
+            break
+        case "player":
+            characterTile = player_tile;
+            break
+        default:
+            characterTile = enemy;
+            break
+    }
 
     return (<CharacterPosition className="characterPosition"
     left={position.x}
     top={position.y}
     >
-        <CharacterModel background={background}>
-            {letter}
+        <CharacterModel
+            background={background}
+            isPlayer={isPlayer}
+
+        >
+            <CharacterImg src={characterTile}/>
+                {letter}
+
         </CharacterModel>
-        {playerArrows && <PlayerArrowBackground background={playerArrows}/>}
+        {/*{playerArrows && <PlayerArrowBackground background={playerArrows}/>}*/}
     </CharacterPosition>)
 }
 
@@ -22,11 +42,23 @@ z-index: 50;
 position: relative;
 width: 32px;
 height: 32px;
-background-color: ${props => props.background};
+border-radius: 10px;
+//background-color: ${props => props.background};
 color: #000000;
 text-align: center;
 font-size: 22px;
+transform: scale(${props => props.isPlayer && 1.2});
 text-transform: capitalize;
+`
+
+const CharacterImg = styled.img`
+position: absolute;
+z-index: -1;
+top: 0;
+left: 0;
+
+width: 32px;
+height: 32px;
 `
 
 
@@ -41,10 +73,11 @@ transition-duration: 0.2s;
 
 const PlayerArrowBackground = styled.div`
 position: absolute;
-top: 0;
-left: 0;
-width: 32px;
-height: 32px;
+z-index: 2;
+top: 1px;
+left: 2px;
+width: 28px;
+height: 28px;
 transform: rotate(45deg);
 background: ${props => props.background};
 `

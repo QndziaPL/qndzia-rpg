@@ -4,6 +4,12 @@ import {PlayerInfoPanel} from "../../ui/components/playerInfoPanel";
 import {EmptyTiles} from "./emptyTiles";
 import {MapIDsToMap} from "./mapIDsToMap";
 import {MAP_HEIGHT, MAP_WIDTH} from "../../consts/consts";
+import "../../../src/assets/mapTiles/green_tile.png";
+import green_tile from "../../../src/assets/mapTiles/green_tile.png"
+import green_background from "../../../src/assets/mapTiles/grass_map_background.png"
+import brown_tile from "../../../src/assets/mapTiles/brown_path_tile.png"
+import water_tile from "../../../src/assets/mapTiles/water_tile.png"
+import stone_tile from "../../../src/assets/mapTiles/stone_tile.png"
 
 
 const Map = ({size = {x: 20, y: 20}, children, map}) =>{
@@ -20,25 +26,30 @@ const Map = ({size = {x: 20, y: 20}, children, map}) =>{
         <MapBackground>
 
             {children}
+            <MapBackgroundImage src={green_background}/>
           <MapFromTiles tiles={mapTiles}/>
-          {/*<MapFromTiles tiles={emptyTiles}/>*/}
+          {/*<MapFromTiles tiles={mapTiles}/>*/}
+
         </MapBackground>
 
 )
 }
-const SingleMapTile = styled.div`
+const SingleMapTile = styled.img`
 width: 32px;
 height: 32px;
-background: ${props => props.tileType};
+z-index: 1;
 `
-
+const MapBackgroundImage = styled.img`
+position: absolute;
+z-index: 0;
+`
 
 const TileType = (number) => {
     switch (number){
-        case 0: return "#702b00";
-        case 1: return "#176700";
-        case 2: return "#565656";
-        case 3: return "#0049bf";
+        case 0: return brown_tile;
+        case 1: return green_tile;
+        case 2: return stone_tile;
+        case 3: return water_tile;
         case 4: return "#694918";
         case 5: return "#000000";
         default: return "#ffffff";
@@ -60,6 +71,7 @@ const MapFromTiles = ({tiles}) => {
                <div style={{display: "flex"}}>
                    {row.map((tile, x) => (
                        <SingleMapTile
+                           src={TileType(tile.tileType)}
                            itemKey={tile.id}
                            // tileType={TileType(RandomMapTile())}
                            tileType={TileType(tile.tileType)}
@@ -99,5 +111,6 @@ const MapBackground = styled.div`
   width: ${MAP_WIDTH}px;
   height: ${MAP_HEIGHT}px;
   background-color: crimson;
+  z-index: 0;
 `
 

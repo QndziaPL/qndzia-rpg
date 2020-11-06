@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import React, {useContext, useEffect, useState} from "react";
-import {AppContext} from "../../App";
+
 import {MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH} from "../../consts/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {setPlayer} from "../../redux/actions";
+
 
 
 export const PlayerInfoPanel = () => {
@@ -11,6 +12,10 @@ export const PlayerInfoPanel = () => {
     const playerData = useSelector(p => p.player);
     const dispatch = useDispatch();
 
+
+
+
+    
     const movementKeysContainerSize = PLAYER_INFO_PANEL_WIDTH * 2 / 3;
     const marginMovementKeysContainer = (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
 
@@ -38,7 +43,7 @@ export const PlayerInfoPanel = () => {
         }
     }
 
-    console.log(playerData)
+    // console.log(playerData)
     return (
         <Container >
             <div>
@@ -52,7 +57,15 @@ export const PlayerInfoPanel = () => {
             <div>
                 position {playerData.position.x} : {playerData.position.y}
             </div>
-            <button>save game - nie działa na razie</button>
+
+            {/**
+
+                            save player to local storage !!!
+
+             */}
+
+            <button onClick={() => localStorage.setItem('player',JSON.stringify(playerData))}>save game - nie działa na razie</button>
+
             <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer}>
                 <div style={{position: "relative"}}>
                     <MovementKey
