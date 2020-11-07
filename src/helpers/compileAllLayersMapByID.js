@@ -2,7 +2,7 @@ import React from "react";
 
 export const CompileAll=(enemies, map)=>{
     const em = enemies.enemyMap
-
+    // console.log(em)
     let compile = [];
     for (const i in map){
         compile.push({
@@ -11,11 +11,13 @@ export const CompileAll=(enemies, map)=>{
         })
     }
     for (const j in em){
-        const id = em[j].tileId
-        // NIE DZIAła !!!!!!! wywala program
-        // compile[id].enemyId = 1
-        compile[id] = {...compile[id], enemyId: 1}
+        // console.log(em[j])
+        if (em[j].tileId !== null){
+            const id = em[j].tileId
+            compile[id] = {...compile[id], enemyId: 1}
+        }
+
     }
-    console.log(compile)
+    // console.log(compile)
     return compile;
 }

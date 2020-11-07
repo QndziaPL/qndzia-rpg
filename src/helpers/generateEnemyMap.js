@@ -8,6 +8,7 @@ export const GenerateEnemyMap = ({amount}) => {
 
     let enemyMap = [];
     let usedPositions = [];
+    let enemiesById = [];
     for (let y = 0; y < amount; y++) {
         const rnd = RandomNumberBetween(Object.keys(EnemyListEnum).length)
         let randomX = RandomNumberBetween(19, 0);
@@ -20,10 +21,20 @@ export const GenerateEnemyMap = ({amount}) => {
                 } while ((usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY))
             }
         }
+        // console.log(usedPositions)
         usedPositions.push({randomX, randomY})
-        const enemy = EnemyListEnum[rnd]({x: randomX, y: randomY})
+        const id = generateId(randomX, randomY)
+        const enemy =  EnemyListEnum[rnd]({x: randomX, y: randomY})
         enemy.tileId = generateId(randomX, randomY)
         enemyMap.push(enemy)
+
+        // enemiesById.push({[id]: enemy})
+        enemiesById = {
+            ...enemiesById,
+            [id]: enemy
+        }
+
     }
-    return {enemyMap, usedPositions};
+    // console.log(enemyMap)
+    return {enemyMap, usedPositions, enemiesById};
 }
