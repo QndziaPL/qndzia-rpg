@@ -35,6 +35,7 @@ export function checkInteraction(compiledIDs, playerPositionId, playerPosition) 
 
 
         // terrain and window cases
+        console.log("szukamy wyjebki",cID[pID])
         if ((pID > 19 && ((cID[pID-20].mapId === 2) || (cID[pID-20].mapId === 3))) || y<1){
             directionUnavailable.push("up")
 
@@ -43,12 +44,12 @@ export function checkInteraction(compiledIDs, playerPositionId, playerPosition) 
             directionUnavailable.push("down")
         }
         /** TERAZ KONIECZNIE DO ZROBIENIA */
-        if ((pID <380 && ((cID[pID+20].mapId === 2) || (cID[pID+20].mapId === 3))) || x < 1){
-            directionUnavailable.push("left")
-        }
-        if ((pID <380 && ((cID[pID+20].mapId === 2) || (cID[pID+20].mapId === 3))) || x > 18){
-            directionUnavailable.push("right")
-        }
+        // if ((pID <380 && ((cID[pID+20].mapId === 2) || (cID[pID+20].mapId === 3))) || x < 1){
+        //     directionUnavailable.push("left")
+        // }
+        // if ((pID <380 && ((cID[pID+20].mapId === 2) || (cID[pID+20].mapId === 3))) || x > 18){
+        //     directionUnavailable.push("right")
+        // }
 
 
     }
