@@ -3,9 +3,16 @@ import {RandomNumberBetween} from "./randomNumberBetween";
 import {generateId} from "./createIDforEnemies";
 
 
-/** Generating enemy map and returning 1: map 2: used positions*/
-export const GenerateEnemyMap = ({amount}) => {
-
+export const GenerateEnemyMap = ({amount, terrainMap}) => {
+    /**
+     * terrainID cheatsheet
+     *      0 : brown path
+     *      1 : grass
+     *      2 : stone
+     *      3 : water
+     *
+     */
+    const terrainCheck = [2,3]
     let enemyMap = [];
     let usedPositions = [];
     let enemiesById = [];
@@ -14,14 +21,14 @@ export const GenerateEnemyMap = ({amount}) => {
         let randomX = RandomNumberBetween(19, 0);
         let randomY = RandomNumberBetween(19, 0);
         for (let i = 0; i < usedPositions.length; i++) {
-            if (usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY) {
+            // checks if positions for enemy is already used , also check for terrain where enemies cant spawn
+            if ((usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY) || terrainCheck.includes(terrainMap[generateId(randomX, randomY)])) {
                 do {
                     randomX = RandomNumberBetween(19, 0);
                     randomY = RandomNumberBetween(19, 0);
-                } while ((usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY))
+                } while ((usedPositions[i].randomX === randomX && usedPositions[i].randomY === randomY) || terrainCheck.includes(terrainMap[generateId(randomX, randomY)]))
             }
         }
-        // console.log(usedPositions)
         usedPositions.push({randomX, randomY})
         const id = generateId(randomX, randomY)
         const enemy =  EnemyListEnum[rnd]({x: randomX, y: randomY})

@@ -12,6 +12,7 @@ import {CreateIdForEnemies, generateId} from "./helpers/createIDforEnemies";
 import {useDispatch, useSelector} from "react-redux";
 import {setEnemies} from "./redux/actions";
 import {checkInteraction} from "./helpers/checkInteraction";
+import {MapIDsToMap} from "./maps/component/mapIDsToMap";
 
 
 export const AppContext = React.createContext({});
@@ -81,7 +82,7 @@ const App = () => {
         setLetGenerateEnemies(false)
         let enemyMap;
         if (Object.keys(enemies).length === 0 && enemies.constructor === Object){
-            enemyMap = GenerateEnemyMap({amount: 55});
+            enemyMap = GenerateEnemyMap({amount: 50, terrainMap: activeTerrainMap});
 
         }else {
             enemyMap = enemies
