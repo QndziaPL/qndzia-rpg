@@ -27,7 +27,7 @@ export function checkInteraction(compiledIDs, playerPositionId, playerPosition) 
     if (cID[pID]){
         if (cID[pID].enemyId === 1) {
 
-            interaction.push({type: "battle", id: playerPositionId})
+            interaction.push({type: "battle", id: pID})
 
         }
 
@@ -35,7 +35,6 @@ export function checkInteraction(compiledIDs, playerPositionId, playerPosition) 
 
 
         // terrain and window cases
-        console.log("szukamy wyjebki",cID[pID])
         if ((pID > 19 && ((cID[pID-20].mapId === 2) || (cID[pID-20].mapId === 3))) || y<1){
             directionUnavailable.push("up")
 
