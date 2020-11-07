@@ -8,9 +8,10 @@ import {MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH} from "./consts/consts";
 import {SecondMap} from "./maps/secondMap/secondMap";
 import {GenerateEnemyMap} from "./helpers/generateEnemyMap";
 import {CompileAll} from "./helpers/compileAllLayersMapByID";
-import {CreateIdForEnemies} from "./helpers/createIDforEnemies";
+import {CreateIdForEnemies, generateId} from "./helpers/createIDforEnemies";
 import {useDispatch, useSelector} from "react-redux";
 import {setEnemies} from "./redux/actions";
+import {checkInteraction} from "./helpers/checkInteraction";
 
 
 export const AppContext = React.createContext({});
@@ -21,12 +22,17 @@ const App = () => {
     const dispatch = useDispatch();
     const enemies = useSelector(p => p.enemies);
     const map = useSelector(p => p.mapIDs);
+    const playerData = useSelector(p => p.player);
 
 
     const [refresh, setRefresh]=useState(0);
     const refreshFunction = () => {
         setRefresh(refresh + 1)
     }
+
+    const [interaction, setInteraction] = useState(null)
+
+
 
     const [playerLevel, setPlayerLevel] = useState(1);
     const [playerMaxHp, setPlayerMaxHp] = useState(20);
@@ -75,7 +81,7 @@ const App = () => {
         setLetGenerateEnemies(false)
         let enemyMap;
         if (Object.keys(enemies).length === 0 && enemies.constructor === Object){
-            enemyMap = GenerateEnemyMap({amount: 5});
+            enemyMap = GenerateEnemyMap({amount: 55});
 
         }else {
             enemyMap = enemies
@@ -101,7 +107,14 @@ const App = () => {
      * next to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
 
-    CompileAll(enemies, map)
+    const compiledIDs = CompileAll(enemies, map)
+    const playerPositionId = generateId(playerData.position.x, playerData.position.y)
+
+
+    useEffect(() => {
+       setInteraction(checkInteraction(compiledIDs, playerPositionId, playerData.position))
+    }, [playerPositionId]);
+    console.log("useeffect trigger",interaction)
 
 
     if (generatedEnemyMap) return (
