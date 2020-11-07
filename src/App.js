@@ -20,7 +20,7 @@ export const AppContext = React.createContext({});
 const App = () => {
     const dispatch = useDispatch();
     const enemies = useSelector(p => p.enemies);
-    // const playerData = useSelector(p => p.player);
+    const map = useSelector(p => p.mapIDs);
 
 
     const [refresh, setRefresh]=useState(0);
@@ -58,7 +58,7 @@ const App = () => {
 
 
 
-
+    /** do dorobienia treasures, wjebanie ich do compileAll i nareszcie mechanika do sprawdzania interakcji !!!!!! */
 
 
     // useEffect(() => {
@@ -75,7 +75,7 @@ const App = () => {
         setLetGenerateEnemies(false)
         let enemyMap;
         if (Object.keys(enemies).length === 0 && enemies.constructor === Object){
-            enemyMap = GenerateEnemyMap({amount: 15});
+            enemyMap = GenerateEnemyMap({amount: 123});
 
         }else {
             enemyMap = enemies
@@ -87,21 +87,13 @@ const App = () => {
 
     }
 
-    // console.log(generatedEnemyMap)
-    let enemiesIdMap;
-    console.log(generatedEnemyMap)
-    if (generatedEnemyMap){
-        enemiesIdMap = CreateIdForEnemies(generatedEnemyMap.enemyMap)
-    }
-    console.log(enemiesIdMap)
+
 
 
     // useEffect(()=> localStorage.setItem('player',JSON.stringify(playerData)));
 
     function saveToLocalStorage(){
         localStorage.setItem('enemies',JSON.stringify(enemies));
-
-
     }
 
 
@@ -109,7 +101,7 @@ const App = () => {
      * next to do !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
 
-    // CompileAll(context)
+    CompileAll(enemies, map)
 
 
     if (generatedEnemyMap) return (

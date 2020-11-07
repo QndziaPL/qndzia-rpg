@@ -9,13 +9,16 @@ export const EnemyTypeEnum = Object.freeze({
     "small": "small", "humanoid": "humanoid", "big": "big", "flying":"flying"
 });
 
-export const Enemy = ({name, type, position, stats}) => {
+export const Enemy = ({name, type, position, stats, tileId}) => {
     const tooltipHeight = 200;
     const tooltipWidth = 150;
 
     const {x, y} = position;
 
     const ttp = CalculateTooltipPosition(tooltipHeight,tooltipWidth, {x, y})
+
+    const tID = tileId
+
 
 
     return (<HoverContainer className="hoverContainer">
@@ -28,6 +31,7 @@ export const Enemy = ({name, type, position, stats}) => {
             <TooltipParagraph>def: {stats.def}</TooltipParagraph>
             <TooltipParagraph>type: {type}</TooltipParagraph>
             <TooltipParagraph>position: {position.x}:{position.y}</TooltipParagraph>
+            <TooltipParagraph>tile ID: {tID}</TooltipParagraph>
 
 
         </TooltipContainer>
@@ -98,6 +102,6 @@ transition-duration: 0.3s;
 export const Enemies = () => {
     const enemies = useSelector(p => p.enemies);
     return enemies.enemyMap.map(e =>
-        <Enemy position={e.position} name={e.name} stats={e.stats} type={e.type}/>);
+        <Enemy position={e.position} name={e.name} stats={e.stats} type={e.type} tileId={e.tileId}/>);
 }
 

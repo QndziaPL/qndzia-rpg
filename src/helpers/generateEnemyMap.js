@@ -22,7 +22,7 @@ export const GenerateEnemyMap = ({amount}) => {
         }
         usedPositions.push({randomX, randomY})
         const enemy = EnemyListEnum[rnd]({x: randomX, y: randomY})
-        enemy.tileID = generateId(randomX, randomY)
+        enemy.tileId = generateId(randomX, randomY)
         enemyMap.push(enemy)
     }
     return {enemyMap, usedPositions};

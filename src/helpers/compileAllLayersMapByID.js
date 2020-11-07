@@ -1,21 +1,21 @@
-import {AppContext, EnemiesContext, MapContext, TreasureContext} from "../App";
-import React,{useContext} from "react";
+import React from "react";
 
-
-export const CompileAll=()=>{
+export const CompileAll=(enemies, map)=>{
+    const em = enemies.enemyMap
 
     let compile = [];
-    for (let i = 1; i < 401; i++){
+    for (const i in map){
         compile.push({
-            // terrain: terrain[i],
-                // enemy: enemies,
-                // treasures: treasures
+            mapId: map[i],
+            enemyId: 0
         })
     }
-
-
+    for (const j in em){
+        const id = em[j].tileId
+        // NIE DZIAła !!!!!!! wywala program
+        // compile[id].enemyId = 1
+        compile[id] = {...compile[id], enemyId: 1}
+    }
+    console.log(compile)
     return compile;
-    // terrain.forEach(ter => compile.push()terrain.id)
-
-    // return
 }
