@@ -53,10 +53,22 @@ export const PlayerInfoPanel = () => {
 
     const currentTileId = generateId(playerData.position.x, playerData.position.y)
 
+
+    function clearDataAndReloadPage(){
+        let clear = window.confirm("You're going to reset WHOLE GAME\nAre you sure about that?");
+        if (clear){
+            localStorage.clear()
+            window.location.reload(false)
+        }
+
+
+
+    }
+
     // console.log(playerData)
     return (
         <Container style={{position: "relative"}}>
-            <ClearLocalStorage onClick={()=> localStorage.clear()}>clear LS</ClearLocalStorage>
+            <ClearLocalStorage onClick={()=> clearDataAndReloadPage()}>reset ALL!</ClearLocalStorage>
             <div>
                 <div>player level {playerData.lvl}</div>
                 <div>health points {playerData.curHp} / {playerData.maxHp}</div>
@@ -101,7 +113,7 @@ position: absolute;
 top:5px;
 right:5px;
 background-color: red;
-padding: 2px;
+padding: 2px 5px;
 border-radius: 5px;
 `
 

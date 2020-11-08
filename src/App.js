@@ -82,7 +82,7 @@ const App = () => {
         setLetGenerateEnemies(false)
         let enemyMap;
         if (Object.keys(enemies).length === 0 && enemies.constructor === Object){
-            enemyMap = GenerateEnemyMap({amount: 250, terrainMap: activeTerrainMap});
+            enemyMap = GenerateEnemyMap({amount: 15, terrainMap: activeTerrainMap});
 
         }else {
             enemyMap = enemies
