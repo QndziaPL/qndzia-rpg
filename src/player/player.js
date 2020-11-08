@@ -3,7 +3,7 @@ import Character from "../characters/character";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const Player = ({ playerPosition, refresh }) => {
+const Player = ({ playerPosition, refresh, enterBattleAnimation }) => {
   // const playerData = useSelector((p) => p.player);
   //
   // const x = playerData.position.x;
@@ -20,6 +20,7 @@ const Player = ({ playerPosition, refresh }) => {
         playerArrows={"#ff9d08"}
         isPlayer
         tile={"player"}
+        enterBattleAnimation={enterBattleAnimation}
       />
       <Refresh>{refresh}</Refresh>
     </PlayerCharacter>

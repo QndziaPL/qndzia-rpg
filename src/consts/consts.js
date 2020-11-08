@@ -3,3 +3,8 @@ export const MAP_WIDTH = 640;
 export const MAP_HEIGHT = 640;
 export const GAME_WIDTH = PLAYER_INFO_PANEL_WIDTH + MAP_WIDTH;
 export const GAME_HEIGHT = MAP_WIDTH;
+
+export const VISION_RADIUS = 100;
+export const BORDER_MULTIPLIER = 100;
+export const CENTER_VISION_ON_PLAYER_MULTIPLIER = BORDER_MULTIPLIER + 1;
+export const ANIMATION_FINAL_RADIUS = 0;

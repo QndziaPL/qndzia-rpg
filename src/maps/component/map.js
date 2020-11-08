@@ -111,4 +111,5 @@ const MapBackground = styled.div`
   height: ${MAP_HEIGHT}px;
   background-color: crimson;
   z-index: 0;
+  overflow: hidden;
 `;

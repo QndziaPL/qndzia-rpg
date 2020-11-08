@@ -21,6 +21,7 @@ import { Switch } from "react-router-dom";
 import Router from "react-router-dom";
 import { Route } from "react-router-dom";
 import BattleScreen from "./screens/battleScreen";
+import MapScreen from "./screens/mapScreen";
 
 const MAP_SCREEN = 0;
 const BATTLE_SCREEN = 1;
@@ -77,60 +78,37 @@ const App = () => {
     );
   }, [playerPositionId]);
 
+  const [beginBattle, setBeginBattle] = useState(false)
+
   useEffect(() => {
     if (interaction) {
       if (interaction.type === "battle") {
         setGamePhase(BATTLE_SCREEN);
+       if (!beginBattle){
+         setTimeout(()=>{
+           setBeginBattle(true)
+         },1000)
+       }
       }
     }
   }, [interaction]);
 
-  const closeBattle = () => {
+
+
+
+  const closeBattleScreen = () => {
     setGamePhase(MAP_SCREEN);
+    setBeginBattle(false)
   };
-
-  console.log("log game phase: ", gamePhase);
-
-  // useEffect(()=>console.log("tu cos biedzei w sprawie pdrzucania nowych ekranow"),[gamePhase]);
 
   return (
     <GameContainer className="gameContainer" onClick={refreshFunction}>
-      <MapScreen map={activeTerrainMap} playerPosition={playerData.position} />
-      {gamePhase === 1 && <BattleScreen close={closeBattle} />}
+      <MapScreen map={activeTerrainMap} playerPosition={playerData.position} enterBattleAnimation={gamePhase===BATTLE_SCREEN} />
+      {beginBattle && <BattleScreen close={closeBattleScreen} />}
+      {/*{gamePhase === 1 && <BattleScreen close={closeBattleScreen} />}*/}
     </GameContainer>
   );
 };
-
-export default App;
-
-
-
-const MapScreen = ({ map, playerPosition, key }) => {
-  return (
-    <MapScreenDiv key={key}>
-      <Map map={map}>
-        <Player playerPosition={playerPosition} />
-        <Enemies />
-      </Map>
-      <PlayerInfoPanel />
-    </MapScreenDiv>
-  );
-};
-
-/** styled components */
-
-const MapScreenDiv = styled.div`
-  display: flex;
-  :before {
-    position: absolute;
-    font-size: 30px;
-
-    top: 0;
-    left: 0;
-    content: "${(props) => props.refreshKey}";
-    opacity: 0;
-  }
-`;
 
 const GameContainer = styled.div`
   box-sizing: border-box;
@@ -143,3 +121,5 @@ const GameContainer = styled.div`
     margin: 0;
   }
 `;
+
+export default App;
