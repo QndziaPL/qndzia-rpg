@@ -18,3 +18,10 @@ export const setEnemies = (enemies) => {
         payload: enemies
     }
 }
+
+export const setInteractions = (interactions) => {
+    return{
+        type: 'SET_INTERACTIONS',
+        payload: interactions
+    }
+}

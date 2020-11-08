@@ -80,13 +80,6 @@ export const PlayerInfoPanel = () => {
             <div>position {playerData.position.x} : {playerData.position.y}</div>
             <div>current tile ID {currentTileId}</div>
 
-            {/**
-
-                            save player to local storage !!!
-
-             */}
-
-            {/*<button onClick={() => saveToLocalStorage() }>save player</button>*/}
 
             <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer} onClick={() => saveToLocalStorage() }>
                 <div style={{position: "relative"}}>

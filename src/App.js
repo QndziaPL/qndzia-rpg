@@ -10,7 +10,7 @@ import {GenerateEnemyMap} from "./helpers/generateEnemyMap";
 import {CompileAll} from "./helpers/compileAllLayersMapByID";
 import {CreateIdForEnemies, generateId} from "./helpers/createIDforEnemies";
 import {useDispatch, useSelector} from "react-redux";
-import {setEnemies} from "./redux/actions";
+import {setEnemies, setInteractions} from "./redux/actions";
 import {checkInteraction} from "./helpers/checkInteraction";
 import {MapIDsToMap} from "./maps/component/mapIDsToMap";
 
@@ -26,12 +26,12 @@ const App = () => {
     const playerData = useSelector(p => p.player);
 
 
+
     const [refresh, setRefresh]=useState(0);
     const refreshFunction = () => {
         setRefresh(refresh + 1)
     }
 
-    const [interaction, setInteraction] = useState(null)
 
 
 
@@ -112,10 +112,15 @@ const App = () => {
     const playerPositionId = generateId(playerData.position.x, playerData.position.y)
 
 
+    // function globalInteractionStatus(){
+    //     setInteraction(checkInteraction(compiledIDs, playerPositionId, playerData.position));
+    // }
     useEffect(() => {
-       setInteraction(checkInteraction(compiledIDs, playerPositionId, playerData.position))
+       // globalInteractionStatus();
+        dispatch(setInteractions(checkInteraction(compiledIDs, playerPositionId, playerData.position)))
+
     }, [playerPositionId]);
-    console.log("useeffect trigger",interaction)
+
 
 
     if (generatedEnemyMap) return (

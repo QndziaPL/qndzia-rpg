@@ -1,19 +1,15 @@
 import {EnemyListEnum} from "../consts/enemyList";
 import {RandomNumberBetween} from "./randomNumberBetween";
 import {generateId} from "./createIDforEnemies";
+import {MAP_TERRAIN_TYPE} from "../enums/mapEnums";
 
 
 
 export const GenerateEnemyMap = ({amount, terrainMap}) => {
-    /**
-     * terrainID cheatsheet
-     *      0 : brown path
-     *      1 : grass
-     *      2 : stone
-     *      3 : water
-     *
-     */
-    const youShallNotPass = [2,3]
+
+    const {STONE, WATER} = MAP_TERRAIN_TYPE;
+    const youShallNotPass = [STONE, WATER];
+
     let enemyMap = [];
     let usedPositions = [];
     let enemiesById = [];
