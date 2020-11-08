@@ -32,6 +32,7 @@ const App = () => {
   const map = useSelector((p) => p.mapIDs);
   const playerData = useSelector((p) => p.player);
   const { interaction } = useSelector((p) => p.interactions);
+  // const visionRadiusModifier =
   // const interactionData =
 
   const [refresh, setRefresh] = useState(2);
@@ -78,32 +79,34 @@ const App = () => {
     );
   }, [playerPositionId]);
 
-  const [beginBattle, setBeginBattle] = useState(false)
+  const [beginBattle, setBeginBattle] = useState(false);
 
   useEffect(() => {
     if (interaction) {
       if (interaction.type === "battle") {
         setGamePhase(BATTLE_SCREEN);
-       if (!beginBattle){
-         setTimeout(()=>{
-           setBeginBattle(true)
-         },1000)
-       }
+        if (!beginBattle) {
+          setTimeout(() => {
+            setBeginBattle(true);
+          }, 1000);
+        }
       }
     }
   }, [interaction]);
 
-
-
-
   const closeBattleScreen = () => {
     setGamePhase(MAP_SCREEN);
-    setBeginBattle(false)
+    setBeginBattle(false);
   };
 
   return (
     <GameContainer className="gameContainer" onClick={refreshFunction}>
-      <MapScreen map={activeTerrainMap} playerPosition={playerData.position} enterBattleAnimation={gamePhase===BATTLE_SCREEN} />
+      <MapScreen
+        map={activeTerrainMap}
+        playerPosition={playerData.position}
+        enterBattleAnimation={gamePhase === BATTLE_SCREEN}
+        currentVision={playerData.vision}
+      />
       {beginBattle && <BattleScreen close={closeBattleScreen} />}
       {/*{gamePhase === 1 && <BattleScreen close={closeBattleScreen} />}*/}
     </GameContainer>

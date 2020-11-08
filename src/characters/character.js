@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import player_tile from "../assets/characterTiles/player_tile.png";
 import enemy from "../assets/characterTiles/enemy.svg";
-import {BORDER_MULTIPLIER, CENTER_VISION_ON_PLAYER_MULTIPLIER, VISION_RADIUS} from "../consts/consts";
+import {
+  BORDER_MULTIPLIER,
+  CENTER_VISION_ON_PLAYER_MULTIPLIER,
+  VISION_RADIUS,
+} from "../consts/consts";
 
 const Character = ({
   position,
@@ -10,7 +14,8 @@ const Character = ({
   background = "#ffffff",
   tile = "enemy",
   isPlayer,
-    enterBattleAnimation
+  enterBattleAnimation,
+    currentVision
 }) => {
   let characterTile;
   switch (tile) {
@@ -24,9 +29,9 @@ const Character = ({
       characterTile = enemy;
       break;
   }
-  let visionRadius = VISION_RADIUS;
-  if (enterBattleAnimation){
-    visionRadius = 0
+
+  if (enterBattleAnimation) {
+    currentVision = 0;
   }
 
   return (
@@ -39,7 +44,7 @@ const Character = ({
         <CharacterImg src={characterTile} />
         {/*{isPlayer && letter}*/}
       </CharacterModel>
-      {isPlayer && <VisionCircle visionRadius={visionRadius}/>}
+      {isPlayer && <VisionCircle visionRadius={currentVision} />}
     </CharacterPosition>
   );
 };
@@ -78,26 +83,22 @@ const CharacterPosition = styled.div`
   transition-duration: 0.2s;
 `;
 
-
 const VisionCircle = styled.div`
-box-sizing: content-box;
-position: absolute;
-border-radius: 50%;
-transition-duration: 2s;
+  box-sizing: content-box;
+  position: absolute;
+  border-radius: 50%;
+  transition-duration: 2s;
 
-top: ${props => (-props.visionRadius) * CENTER_VISION_ON_PLAYER_MULTIPLIER + 16}px;
-left: ${props => (-props.visionRadius) * CENTER_VISION_ON_PLAYER_MULTIPLIER + 16}px;
-height: ${props => (props.visionRadius) * 2}px;
-width: ${props => (props.visionRadius) * 2}px;
-border: ${props => (props.visionRadius) * BORDER_MULTIPLIER}px solid #000000;
+  top: ${(props) =>
+    -props.visionRadius * CENTER_VISION_ON_PLAYER_MULTIPLIER + 16}px;
+  left: ${(props) =>
+    -props.visionRadius * CENTER_VISION_ON_PLAYER_MULTIPLIER + 16}px;
+  height: ${(props) => props.visionRadius * 2}px;
+  width: ${(props) => props.visionRadius * 2}px;
+  border: ${(props) => props.visionRadius * BORDER_MULTIPLIER}px solid #000000;
 
-z-index: 100;
-pointer-events: none;
-
-
-
-
-
+  z-index: 100;
+  pointer-events: none;
 
   // position: absolute;
   // z-index: 2;

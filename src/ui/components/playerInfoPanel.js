@@ -64,7 +64,15 @@ export const PlayerInfoPanel = () => {
     }
   }
 
-  // console.log(playerData)
+  function changeVision(plusOrMinus){
+    if (plusOrMinus === "plus"){
+      playerData.vision += 20;
+      dispatch(setPlayer(playerData))
+    }else {
+      playerData.vision -= 20;
+      dispatch(setPlayer(playerData))
+    }
+  }
   return (
     <Container style={{ position: "relative" }}>
       <ClearLocalStorage onClick={() => clearDataAndReloadPage()}>
@@ -84,6 +92,12 @@ export const PlayerInfoPanel = () => {
         position {playerData.position.x} : {playerData.position.y}
       </div>
       <div>current tile ID {currentTileId}</div>
+      <div style={{display: "flex", margin: 20,}}>
+
+        <button onClick={()=> changeVision("minus")}>-</button>
+        <div style={{margin: 10}}>vision radius modifier</div>
+        <button onClick={()=> changeVision("plus")}>+</button>
+      </div>
 
       <MovementKeysContainer
         size={movementKeysContainerSize}

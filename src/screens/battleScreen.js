@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import {GAME_HEIGHT, GAME_WIDTH} from "../consts/consts";
+import { GAME_HEIGHT, GAME_WIDTH } from "../consts/consts";
 import React from "react";
 
 const BattleScreen = ({ close }) => {
-    return (
-        <BattleScreenDiv>
-            <CloseButton onClick={close}>x</CloseButton>
-        </BattleScreenDiv>
-    );
+  return (
+    <BattleScreenDiv>
+      <CloseButton onClick={close}>x</CloseButton>
+    </BattleScreenDiv>
+  );
 };
 const CloseButton = styled.div`
   position: absolute;
@@ -15,6 +15,7 @@ const CloseButton = styled.div`
   bottom: 20px;
   right: 20px;
   cursor: pointer;
+  color: white;
 `;
 
 const BattleScreenDiv = styled.div`
@@ -24,7 +25,7 @@ const BattleScreenDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #516e9d;
+  background-color: #000000;
   z-index: 10;
 `;
 
