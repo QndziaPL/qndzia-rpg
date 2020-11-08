@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 
 import { MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,12 +14,11 @@ export const PlayerInfoPanel = () => {
 
   const playerData = useSelector((p) => p.player);
   const { directionUnavailable } = useSelector((p) => p.interactions);
-  console.log(directionUnavailable);
   const buttonsDisablingList = directionUnavailable ?? [0];
   const dispatch = useDispatch();
   // const enemies = useSelector(p => p.enemies);
 
-  console.log(buttonsDisablingList.includes(UP));
+
 
   const movementKeysContainerSize = (PLAYER_INFO_PANEL_WIDTH * 2) / 3;
   const marginMovementKeysContainer =

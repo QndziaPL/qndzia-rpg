@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { MAP_TERRAIN_TYPE } from "../enums/mapEnums";
 
 export function checkInteraction(
@@ -7,7 +6,6 @@ export function checkInteraction(
   playerPosition
 ) {
   const { STONE, WATER } = MAP_TERRAIN_TYPE;
-  const youShallNotPass = [STONE, WATER];
 
   const playerX = playerPosition.x;
   const playerY = playerPosition.y;

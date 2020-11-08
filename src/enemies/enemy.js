@@ -1,9 +1,8 @@
-import { AppContext, EnemiesContext } from "../App";
-import React, { useContext } from "react";
+import React from "react";
 import Character from "../characters/character";
 import styled from "styled-components";
-import { CalculateTooltipPosition } from "../helpers/calculateTooltipPosition";
-import { useDispatch, useSelector } from "react-redux";
+import {CalculateTooltipPosition} from "../helpers/calculateTooltipPosition";
+import {useSelector} from "react-redux";
 
 export const EnemyTypeEnum = Object.freeze({
   small: "small",
@@ -15,19 +14,15 @@ export const EnemyTypeEnum = Object.freeze({
 export const Enemy = ({ name, type, position, stats, tileId }) => {
   const tooltipHeight = 200;
   const tooltipWidth = 150;
-
   const { x, y } = position;
-
-  const ttp = CalculateTooltipPosition(tooltipHeight, tooltipWidth, { x, y });
-
-  const tID = tileId;
+  const tooltipPosition = CalculateTooltipPosition(tooltipHeight, tooltipWidth, { x, y });
 
   return (
     <HoverContainer className="hoverContainer">
       <ActiveHoverBorder position={position} className="activeHoverBorder" />
       <Character position={position} letter={"E"} background={"#ff5e5e"} />
       <TooltipContainer
-        position={ttp}
+        position={tooltipPosition}
         height={tooltipHeight}
         width={tooltipWidth}
         className="tooltipContainer"
@@ -40,7 +35,7 @@ export const Enemy = ({ name, type, position, stats, tileId }) => {
         <TooltipParagraph>
           position: {position.x}:{position.y}
         </TooltipParagraph>
-        <TooltipParagraph>tile ID: {tID}</TooltipParagraph>
+        <TooltipParagraph>tile ID: {tileId}</TooltipParagraph>
       </TooltipContainer>
     </HoverContainer>
   );

@@ -17,8 +17,6 @@ import mapIdReducer from "../../redux/reducers/mapIdReducer";
 const Map = ({ size = { x: 20, y: 20 }, children, map }) => {
   const [dispatchAllowed, setDispatchAllowed] = useState(true);
 
-  const emptyTiles = EmptyTiles();
-
   const dispatch = useDispatch();
 
   const mapIDs = useSelector((p) => p.mapIDs);
@@ -35,6 +33,7 @@ const Map = ({ size = { x: 20, y: 20 }, children, map }) => {
 
   function updateStore() {
     if (dispatchAllowed) {
+      console.log(map)
       dispatch(setMapWithIDs(map));
       setDispatchAllowed(false);
     }
@@ -105,21 +104,6 @@ const MapFromTiles = ({ tiles }) => {
 };
 
 export default Map;
-
-// const matrix = [];
-// const mapMatrix = [];
-// let key = 0;
-// for(let i=1; i<21; i++) {
-//     matrix[i] = [];
-//     for(let j=1; j<21; j++) {
-//         key++;
-//         matrix[i][j] =  (<SingleMapTile key={key}></SingleMapTile>)
-//         // matrix[i][j] = mapMatrix.push(<SingleMapTile key={key}></SingleMapTile>)
-//
-//
-//     }
-// }
-// console.log(matrix)
 
 const MapBackground = styled.div`
   position: relative;
