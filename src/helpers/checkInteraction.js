@@ -28,12 +28,10 @@ export function checkInteraction(compiledIDs, playerPositionId, playerPosition) 
         // terrain and window cases
         if ((playerY > 0 && ((compiledIDs[playerPositionId-20].mapId === STONE) || (compiledIDs[playerPositionId-20].mapId === WATER))) || playerY === 0){
             directionUnavailable.push("up")
-
         }
         if ((playerY < 19 && ((compiledIDs[playerPositionId+20].mapId === STONE) || (compiledIDs[playerPositionId+20].mapId === WATER))) || playerY === 19){
             directionUnavailable.push("down")
         }
-        /** TERAZ KONIECZNIE DO ZROBIENIA */
         if ((playerX > 0 && ((compiledIDs[playerPositionId-1].mapId === STONE) || (compiledIDs[playerPositionId-1].mapId === WATER))) || playerX === 0){
             directionUnavailable.push("left")
         }
@@ -51,7 +49,6 @@ export function checkInteraction(compiledIDs, playerPositionId, playerPosition) 
         directionUnavailable, interaction
     }
 
-    console.log(interactionOutput.directionUnavailable)
 
 
 return interactionOutput

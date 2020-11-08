@@ -8,13 +8,23 @@ import {generateId} from "../../helpers/createIDforEnemies";
 
 
 
+
+
 export const PlayerInfoPanel = () => {
 
+    const UP = "up";
+    const DOWN = "down";
+    const LEFT = "left";
+    const RIGHT = "right";
+
     const playerData = useSelector(p => p.player);
-
-
+    const {directionUnavailable} = useSelector(p => p.interactions);
+    console.log(directionUnavailable)
+    const buttonsDisablingList = directionUnavailable ?? [0];
     const dispatch = useDispatch();
     // const enemies = useSelector(p => p.enemies);
+
+    console.log(buttonsDisablingList.includes(UP))
 
 
 
@@ -84,16 +94,20 @@ export const PlayerInfoPanel = () => {
             <MovementKeysContainer size={movementKeysContainerSize} margin={marginMovementKeysContainer} onClick={() => saveToLocalStorage() }>
                 <div style={{position: "relative"}}>
                     <MovementKey
-                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("up")))}
+                        disabled={buttonsDisablingList.includes(UP)}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch(UP)))}
                         left={70} top={6}>U</MovementKey>
                     <MovementKey
-                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("down")))}
+                        disabled={buttonsDisablingList.includes(DOWN)}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch(DOWN)))}
                         left={70} top={134}>D</MovementKey>
                     <MovementKey
-                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("left")))}
+                        disabled={buttonsDisablingList.includes(LEFT)}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch(LEFT)))}
                         left={6} top={70}>L</MovementKey>
                     <MovementKey
-                        onClick={() => dispatch(setPlayer(updatePositionToDispatch("right")))}
+                        disabled={buttonsDisablingList.includes(RIGHT)}
+                        onClick={() => dispatch(setPlayer(updatePositionToDispatch(RIGHT)))}
                         left={134} top={70}>R</MovementKey>
                 </div>
             </MovementKeysContainer>
@@ -146,4 +160,7 @@ box-shadow: 3px 3px 10px #ffffff;
 left: ${props => props.left}px;
 top: ${props => props.top}px;
 cursor: pointer;
+pointer-events: ${props => props.disabled ? `none` : `auto`};
+opacity: ${props => props.disabled ? 0.5 : 1};
+user-select: none;
 `

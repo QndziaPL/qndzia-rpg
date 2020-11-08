@@ -2,7 +2,7 @@
 
 
 
-const interactionsReducer = (state = {}, action) => {
+const interactionsReducer = (state = [], action) => {
     switch (action.type){
         case 'SET_INTERACTIONS':
             return action.payload;
