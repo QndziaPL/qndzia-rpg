@@ -33,7 +33,6 @@ const Map = ({ size = { x: 20, y: 20 }, children, map }) => {
 
   function updateStore() {
     if (dispatchAllowed) {
-      console.log(map)
       dispatch(setMapWithIDs(map));
       setDispatchAllowed(false);
     }

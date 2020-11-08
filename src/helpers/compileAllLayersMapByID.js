@@ -3,10 +3,12 @@ import React from "react";
 export const CompileAll = (enemies, map) => {
   const em = enemies.enemyMap;
   let compile = [];
-  map.map( (value, index)=> compile.push({
-    mapId: map[index],
-    enemyId: 0
-  }))
+  map.map((value, index) =>
+    compile.push({
+      mapId: map[index],
+      enemyId: 0,
+    })
+  );
 
   for (const index in em) {
     if (em[index].tileId !== null) {

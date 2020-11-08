@@ -11,11 +11,11 @@ export function checkInteraction(
   const playerY = playerPosition.y;
 
   const directionUnavailable = [];
-  let interaction = [];
+  let interaction;
 
   if (compiledIDs[playerPositionId]) {
     if (compiledIDs[playerPositionId].enemyId === 1) {
-      interaction.push({ type: "battle", id: playerPositionId });
+      interaction = { type: "battle", id: playerPositionId };
     }
 
     // terrain and window cases

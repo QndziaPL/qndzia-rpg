@@ -18,8 +18,6 @@ export const PlayerInfoPanel = () => {
   const dispatch = useDispatch();
   // const enemies = useSelector(p => p.enemies);
 
-
-
   const movementKeysContainerSize = (PLAYER_INFO_PANEL_WIDTH * 2) / 3;
   const marginMovementKeysContainer =
     (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;

@@ -1,8 +1,8 @@
 import React from "react";
 import Character from "../characters/character";
 import styled from "styled-components";
-import {CalculateTooltipPosition} from "../helpers/calculateTooltipPosition";
-import {useSelector} from "react-redux";
+import { CalculateTooltipPosition } from "../helpers/calculateTooltipPosition";
+import { useSelector } from "react-redux";
 
 export const EnemyTypeEnum = Object.freeze({
   small: "small",
@@ -15,7 +15,11 @@ export const Enemy = ({ name, type, position, stats, tileId }) => {
   const tooltipHeight = 200;
   const tooltipWidth = 150;
   const { x, y } = position;
-  const tooltipPosition = CalculateTooltipPosition(tooltipHeight, tooltipWidth, { x, y });
+  const tooltipPosition = CalculateTooltipPosition(
+    tooltipHeight,
+    tooltipWidth,
+    { x, y }
+  );
 
   return (
     <HoverContainer className="hoverContainer">
