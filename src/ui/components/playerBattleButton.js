@@ -2,9 +2,9 @@ import styled from "styled-components";
 import React from "react";
 
 
-export const PlayerBattleButton = ({label}) => {
+export const PlayerBattleButton = ({label, img}) => {
     return (<Button>
-        <Image></Image>
+        <Image src={img}></Image>
         <LabelContainer>
             <Label>{label}</Label>
         </LabelContainer>
@@ -22,10 +22,11 @@ const Button = styled.div`
 position: relative;
 width: 31%;
 height: 45%;
-background: green;
+//background: green;
 cursor:pointer;
 border-radius: 15px;
 text-align: center;
+//z-index: 10;
 &:hover{
 transform: scale(1.1);
 }

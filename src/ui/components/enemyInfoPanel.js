@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import background from "../../assets/battlePanel/enemy_info_panel.png"
+
 
 export const EnemyInfoPanel = ({ myEnemy }) => {
   return (
     <EnemyInfoPanelContainer>
+            <ImageBackground src={background}/>
+            <InfoContainer>
       <h1 style={{ textAlign: "center" }}>{myEnemy.name}</h1>
       <div style={{ display: "flex" }}>
         <div style={{ flex: 50 }}>
@@ -18,20 +22,34 @@ export const EnemyInfoPanel = ({ myEnemy }) => {
           <p>{myEnemy.type}</p>
         </div>
       </div>
-      <div style={{ backgroundColor: "black", width: 150, height: 1 }}></div>
       <p>{myEnemy.lore}</p>
+            </InfoContainer>
     </EnemyInfoPanelContainer>
   );
 };
 
+const InfoContainer = styled.div`
+padding: 0 5px 0 15px;
+color: #ffffff;
+text-shadow: 1px 1px #414141;
+`
+
+const ImageBackground = styled.img`
+position: absolute;
+top: 0;
+left: 0;
+z-index: -1;
+filter: brightness(70%);
+
+`
+
 const EnemyInfoPanelContainer = styled.div`
+box-sizing: border-box;
   position: absolute;
-  width: 200px;
+  width: 230px;
   height: 350px;
-  top: 40px;
-  right: 30px;
-  background-color: #ffffff;
-  border: 1px solid black;
-  border-radius: 20px;
-  padding-left: 20px;
+  top: 15px;
+  right: 15px;
+
+  //padding-left: 20px;
 `;
