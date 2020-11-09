@@ -15,7 +15,7 @@ const Character = ({
   tile = "enemy",
   isPlayer,
   enterBattleAnimation,
-    currentVision
+  currentVision,
 }) => {
   let characterTile;
   switch (tile) {

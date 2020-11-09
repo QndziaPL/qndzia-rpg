@@ -17,4 +17,5 @@ export const ENEMY_WOLF = ({ x = 1, y = 1 }) => ({
     wolfSkin: 1,
   },
   type: EnemyTypeEnum.small,
+  lore: "Czemu tak się drze w księżycową noc???",
 });

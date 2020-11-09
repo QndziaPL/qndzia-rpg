@@ -17,4 +17,5 @@ export const ENEMY_BEAR = ({ x = 1, y = 1 }) => ({
     bearClaw: 1,
   },
   type: EnemyTypeEnum.big,
+  lore: "Misie są super i wpierdalają miodek",
 });

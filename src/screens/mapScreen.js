@@ -5,7 +5,13 @@ import { PlayerInfoPanel } from "../ui/components/playerInfoPanel";
 import styled from "styled-components";
 import React from "react";
 
-const MapScreen = ({ map, playerPosition, key, enterBattleAnimation,currentVision }) => {
+const MapScreen = ({
+  map,
+  playerPosition,
+  key,
+  enterBattleAnimation,
+  currentVision,
+}) => {
   return (
     <MapScreenDiv key={key}>
       <Map map={map}>

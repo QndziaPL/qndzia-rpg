@@ -17,4 +17,5 @@ export const ENEMY_BAT = ({ x = 1, y = 1 }) => ({
     batWing: 1,
   },
   type: EnemyTypeEnum.flying,
+  lore: "Jebany COVID...",
 });

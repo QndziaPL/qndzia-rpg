@@ -64,13 +64,13 @@ export const PlayerInfoPanel = () => {
     }
   }
 
-  function changeVision(plusOrMinus){
-    if (plusOrMinus === "plus"){
+  function changeVision(plusOrMinus) {
+    if (plusOrMinus === "plus") {
       playerData.vision += 20;
-      dispatch(setPlayer(playerData))
-    }else {
+      dispatch(setPlayer(playerData));
+    } else {
       playerData.vision -= 20;
-      dispatch(setPlayer(playerData))
+      dispatch(setPlayer(playerData));
     }
   }
   return (
@@ -92,11 +92,10 @@ export const PlayerInfoPanel = () => {
         position {playerData.position.x} : {playerData.position.y}
       </div>
       <div>current tile ID {currentTileId}</div>
-      <div style={{display: "flex", margin: 20,}}>
-
-        <button onClick={()=> changeVision("minus")}>-</button>
-        <div style={{margin: 10}}>vision radius modifier</div>
-        <button onClick={()=> changeVision("plus")}>+</button>
+      <div style={{ display: "flex", margin: 20 }}>
+        <button onClick={() => changeVision("minus")}>-</button>
+        <div style={{ margin: 10 }}>vision radius modifier</div>
+        <button onClick={() => changeVision("plus")}>+</button>
       </div>
 
       <MovementKeysContainer

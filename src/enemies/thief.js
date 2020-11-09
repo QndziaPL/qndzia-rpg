@@ -17,4 +17,5 @@ export const ENEMY_THIEF = ({ x = 1, y = 1 }) => ({
     leatherHat: 1,
   },
   type: EnemyTypeEnum.humanoid,
+  lore: "Najstarszy zawód świata zaraz za kur...",
 });

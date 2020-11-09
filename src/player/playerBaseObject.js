@@ -9,5 +9,5 @@ export const playerBaseObject = {
     y: 10,
   },
   eq: {},
-  vision: 50
+  vision: 50,
 };

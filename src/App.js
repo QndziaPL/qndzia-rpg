@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Player from "./player/player";
-import Map from "./maps/component/map";
-import { Enemies, Enemy } from "./enemies/enemy";
-import { PlayerInfoPanel } from "./ui/components/playerInfoPanel";
 import styled from "styled-components";
-import {
-  MAP_WIDTH,
-  PLAYER_INFO_PANEL_WIDTH,
-  GAME_HEIGHT,
-  GAME_WIDTH,
-} from "./consts/consts";
+import { MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH } from "./consts/consts";
 import { SecondMap } from "./maps/secondMap/secondMap";
 import { GenerateEnemyMap } from "./helpers/generateEnemyMap";
 import { CompileAll } from "./helpers/compileAllLayersMapByID";
@@ -17,9 +8,6 @@ import { generateId } from "./helpers/createIDforEnemies";
 import { useDispatch, useSelector } from "react-redux";
 import { setEnemies, setInteractions } from "./redux/actions";
 import { checkInteraction } from "./helpers/checkInteraction";
-import { Switch } from "react-router-dom";
-import Router from "react-router-dom";
-import { Route } from "react-router-dom";
 import BattleScreen from "./screens/battleScreen";
 import MapScreen from "./screens/mapScreen";
 
@@ -28,10 +16,11 @@ const BATTLE_SCREEN = 1;
 
 const App = () => {
   const dispatch = useDispatch();
-  const enemies = useSelector((p) => p.enemies);
-  const map = useSelector((p) => p.mapIDs);
-  const playerData = useSelector((p) => p.player);
-  const { interaction } = useSelector((p) => p.interactions);
+  const r_enemies = useSelector((p) => p.enemies);
+  const r_map = useSelector((p) => p.mapIDs);
+  const r_playerData = useSelector((p) => p.player);
+  const { interaction: r_interactionData } = useSelector((p) => p.interactions);
+  const r_currentEnemyData = useSelector((p) => p.currentEnemy);
   // const visionRadiusModifier =
   // const interactionData =
 
@@ -44,37 +33,41 @@ const App = () => {
   const [activeTerrainMap, setActiveTerrainMap] = useState(SecondMap);
 
   const [gamePhase, setGamePhase] = useState(MAP_SCREEN);
+  const [currentEnemy, setCurrentEnemy] = useState(null);
 
   /** do dorobienia treasures, wjebanie ich do compileAll i nareszcie mechanika do sprawdzania interakcji !!!!!! */
 
   if (letGenerateEnemies) {
     setLetGenerateEnemies(false);
     let enemyMap;
-    if (Object.keys(enemies).length === 0 && enemies.constructor === Object) {
+    if (
+      Object.keys(r_enemies).length === 0 &&
+      r_enemies.constructor === Object
+    ) {
       enemyMap = GenerateEnemyMap({ amount: 15, terrainMap: activeTerrainMap });
     } else {
-      enemyMap = enemies;
+      enemyMap = r_enemies;
     }
     dispatch(setEnemies(enemyMap));
     saveToLocalStorage();
   }
 
   function saveToLocalStorage() {
-    localStorage.setItem("enemies", JSON.stringify(enemies));
+    localStorage.setItem("enemies", JSON.stringify(r_enemies));
   }
 
   // na razie przesyłam jako mapę stan komponentu
-  const compiledIDs = CompileAll(enemies, activeTerrainMap);
+  const compiledIDs = CompileAll(r_enemies, activeTerrainMap);
 
   const playerPositionId = generateId(
-    playerData.position.x,
-    playerData.position.y
+    r_playerData.position.x,
+    r_playerData.position.y
   );
 
   useEffect(() => {
     dispatch(
       setInteractions(
-        checkInteraction(compiledIDs, playerPositionId, playerData.position)
+        checkInteraction(compiledIDs, playerPositionId, r_playerData.position)
       )
     );
   }, [playerPositionId]);
@@ -82,9 +75,10 @@ const App = () => {
   const [beginBattle, setBeginBattle] = useState(false);
 
   useEffect(() => {
-    if (interaction) {
-      if (interaction.type === "battle") {
+    if (r_interactionData) {
+      if (r_interactionData.type === "battle") {
         setGamePhase(BATTLE_SCREEN);
+        setCurrentEnemy(r_interactionData.id);
         if (!beginBattle) {
           setTimeout(() => {
             setBeginBattle(true);
@@ -92,7 +86,7 @@ const App = () => {
         }
       }
     }
-  }, [interaction]);
+  }, [r_interactionData]);
 
   const closeBattleScreen = () => {
     setGamePhase(MAP_SCREEN);
@@ -103,12 +97,13 @@ const App = () => {
     <GameContainer className="gameContainer" onClick={refreshFunction}>
       <MapScreen
         map={activeTerrainMap}
-        playerPosition={playerData.position}
+        playerPosition={r_playerData.position}
         enterBattleAnimation={gamePhase === BATTLE_SCREEN}
-        currentVision={playerData.vision}
+        currentVision={r_playerData.vision}
       />
-      {beginBattle && <BattleScreen close={closeBattleScreen} />}
-      {/*{gamePhase === 1 && <BattleScreen close={closeBattleScreen} />}*/}
+      {beginBattle && (
+        <BattleScreen close={closeBattleScreen} enemyId={currentEnemy} />
+      )}
     </GameContainer>
   );
 };

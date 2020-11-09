@@ -25,3 +25,10 @@ export const setInteractions = (interactions) => {
     payload: interactions,
   };
 };
+
+export const setCurrentEnemy = (enemy) => {
+  return {
+    type: "SET_CURRENT_ENEMY",
+    payload: enemy,
+  };
+};

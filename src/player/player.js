@@ -3,7 +3,12 @@ import Character from "../characters/character";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const Player = ({ playerPosition, refresh, enterBattleAnimation,currentVision }) => {
+const Player = ({
+  playerPosition,
+  refresh,
+  enterBattleAnimation,
+  currentVision,
+}) => {
   // const playerData = useSelector((p) => p.player);
   //
   // const x = playerData.position.x;
