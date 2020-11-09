@@ -4,6 +4,7 @@ import mapIdReducer from "./mapIdReducer";
 import enemiesReducer from "./enemiesReducer";
 import interactionsReducer from "./interactionsReducer";
 import currentEnemyReducer from "./currentEnemyReducer";
+import gameOnReducer from "./gameOnReducer";
 
 const rootReducer = combineReducers({
   player: playerReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   enemies: enemiesReducer,
   interactions: interactionsReducer,
   currentEnemy: currentEnemyReducer,
+  gameOn: gameOnReducer,
 });
 
 export default rootReducer;

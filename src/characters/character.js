@@ -80,7 +80,7 @@ const CharacterPosition = styled.div`
   position: absolute;
   left: ${(props) => props.left * 32}px;
   top: ${(props) => props.top * 32}px;
-  transition-duration: 0.2s;
+  transition-duration: 0.4s;
 `;
 
 const VisionCircle = styled.div`

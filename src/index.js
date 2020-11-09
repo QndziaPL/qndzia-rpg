@@ -5,6 +5,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./redux/reducers";
+import { GenerateOptions } from "./ui/components/generateOptions";
 
 const store = createStore(
   rootReducer,
@@ -14,7 +15,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <GenerateOptions>{/*<App />*/}</GenerateOptions>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

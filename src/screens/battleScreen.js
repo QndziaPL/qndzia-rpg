@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import { GAME_HEIGHT, GAME_WIDTH } from "../consts/consts";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import bear_battle from "../assets/battleImages/bear_battle.png";
 import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
+import { setCurrentEnemy } from "../redux/actions";
 
-const BattleScreen = ({ close, enemyId }) => {
+const BattleScreen = ({ close, enemyId, dispatch }) => {
+  // const dispatch = useDispatch;
+
   const { enemiesById } = useSelector((p) => p.enemies);
-  const playerData = useSelector((p) => p.player);
+  const r_playerData = useSelector((p) => p.player);
 
   const [myEnemy, setMyEnemy] = useState(enemiesById[enemyId]);
-  const [myPlayer, setMyPlayer] = useState(playerData);
+  const [myPlayer, setMyPlayer] = useState(r_playerData);
   const [canISetEnemy, setCanISetEnemy] = useState(true);
 
   function setBattleEnemyImage() {
@@ -42,6 +45,8 @@ const BattleScreen = ({ close, enemyId }) => {
     myEnemy.stats.hp -= dmg;
     setMyEnemy(myEnemy);
   }
+
+  dispatch(setCurrentEnemy(myEnemy));
 
   return (
     <BattleScreenDiv>

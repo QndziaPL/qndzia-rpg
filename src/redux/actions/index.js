@@ -26,9 +26,16 @@ export const setInteractions = (interactions) => {
   };
 };
 
-export const setCurrentEnemy = (enemy) => {
+export const setCurrentEnemy = (currentEnemy) => {
   return {
     type: "SET_CURRENT_ENEMY",
-    payload: enemy,
+    payload: currentEnemy,
+  };
+};
+
+export const setGameOn = (game) => {
+  return {
+    type: "SET_GAME_ON",
+    payload: game,
   };
 };

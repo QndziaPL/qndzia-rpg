@@ -6,7 +6,7 @@ import { GenerateEnemyMap } from "./helpers/generateEnemyMap";
 import { CompileAll } from "./helpers/compileAllLayersMapByID";
 import { generateId } from "./helpers/createIDforEnemies";
 import { useDispatch, useSelector } from "react-redux";
-import { setEnemies, setInteractions } from "./redux/actions";
+import {setEnemies, setGameOn, setInteractions} from "./redux/actions";
 import { checkInteraction } from "./helpers/checkInteraction";
 import BattleScreen from "./screens/battleScreen";
 import MapScreen from "./screens/mapScreen";
@@ -14,13 +14,17 @@ import MapScreen from "./screens/mapScreen";
 const MAP_SCREEN = 0;
 const BATTLE_SCREEN = 1;
 
-const App = () => {
+const App = ({ enemyNumber }) => {
   const dispatch = useDispatch();
   const r_enemies = useSelector((p) => p.enemies);
   const r_map = useSelector((p) => p.mapIDs);
   const r_playerData = useSelector((p) => p.player);
   const { interaction: r_interactionData } = useSelector((p) => p.interactions);
   const r_currentEnemyData = useSelector((p) => p.currentEnemy);
+
+
+
+
   // const visionRadiusModifier =
   // const interactionData =
 
@@ -44,7 +48,10 @@ const App = () => {
       Object.keys(r_enemies).length === 0 &&
       r_enemies.constructor === Object
     ) {
-      enemyMap = GenerateEnemyMap({ amount: 15, terrainMap: activeTerrainMap });
+      enemyMap = GenerateEnemyMap({
+        numberOfEnemies: enemyNumber,
+        terrainMap: activeTerrainMap,
+      });
     } else {
       enemyMap = r_enemies;
     }
@@ -102,7 +109,11 @@ const App = () => {
         currentVision={r_playerData.vision}
       />
       {beginBattle && (
-        <BattleScreen close={closeBattleScreen} enemyId={currentEnemy} />
+        <BattleScreen
+          close={closeBattleScreen}
+          enemyId={currentEnemy}
+          dispatch={dispatch}
+        />
       )}
     </GameContainer>
   );

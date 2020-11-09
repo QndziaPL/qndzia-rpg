@@ -14,9 +14,11 @@ export const PlayerInfoPanel = () => {
 
   const playerData = useSelector((p) => p.player);
   const { directionUnavailable } = useSelector((p) => p.interactions);
-  const buttonsDisablingList = directionUnavailable ?? [0];
+  const buttonsDisablingList = directionUnavailable ?? [];
   const dispatch = useDispatch();
   // const enemies = useSelector(p => p.enemies);
+
+  console.log(buttonsDisablingList);
 
   const movementKeysContainerSize = (PLAYER_INFO_PANEL_WIDTH * 2) / 3;
   const marginMovementKeysContainer =
@@ -103,7 +105,7 @@ export const PlayerInfoPanel = () => {
         margin={marginMovementKeysContainer}
         onClick={() => saveToLocalStorage()}
       >
-        <div style={{ position: "relative" }}>
+        <MovementKeys>
           <MovementKey
             disabled={buttonsDisablingList.includes(UP)}
             onClick={() => dispatch(setPlayer(updatePositionToDispatch(UP)))}
@@ -136,11 +138,15 @@ export const PlayerInfoPanel = () => {
           >
             R
           </MovementKey>
-        </div>
+        </MovementKeys>
       </MovementKeysContainer>
     </Container>
   );
 };
+
+const MovementKeys = styled.div`
+  position: relative;
+`;
 
 const ClearLocalStorage = styled.div`
   position: absolute;

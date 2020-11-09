@@ -3,14 +3,14 @@ import { RandomNumberBetween } from "./randomNumberBetween";
 import { generateId } from "./createIDforEnemies";
 import { MAP_TERRAIN_TYPE } from "../enums/mapEnums";
 
-export const GenerateEnemyMap = ({ amount, terrainMap }) => {
+export const GenerateEnemyMap = ({ numberOfEnemies, terrainMap }) => {
   const { STONE, WATER } = MAP_TERRAIN_TYPE;
   const youShallNotPass = [STONE, WATER];
 
   let enemyMap = [];
   let usedPositions = [];
   let enemiesById = [];
-  for (let y = 0; y < amount; y++) {
+  for (let y = 0; y < numberOfEnemies; y++) {
     const rnd = RandomNumberBetween(Object.keys(EnemyListEnum).length);
     let randomX = RandomNumberBetween(19, 0);
     let randomY = RandomNumberBetween(19, 0);
@@ -19,7 +19,8 @@ export const GenerateEnemyMap = ({ amount, terrainMap }) => {
       if (
         (usedPositions[i].randomX === randomX &&
           usedPositions[i].randomY === randomY) ||
-        youShallNotPass.includes(terrainMap[generateId(randomX, randomY)])
+        youShallNotPass.includes(terrainMap[generateId(randomX, randomY)]) ||
+        (randomX === 10 && randomY === 10)
       ) {
         do {
           randomX = RandomNumberBetween(19, 0);
@@ -27,7 +28,8 @@ export const GenerateEnemyMap = ({ amount, terrainMap }) => {
         } while (
           (usedPositions[i].randomX === randomX &&
             usedPositions[i].randomY === randomY) ||
-          youShallNotPass.includes(terrainMap[generateId(randomX, randomY)])
+          youShallNotPass.includes(terrainMap[generateId(randomX, randomY)]) ||
+          (randomX === 10 && randomY === 10)
         );
       }
     }
