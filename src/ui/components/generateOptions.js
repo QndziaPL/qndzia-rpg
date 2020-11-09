@@ -2,33 +2,31 @@ import App from "../../App";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { GAME_HEIGHT, GAME_WIDTH } from "../../consts/consts";
-import {useDispatch, useSelector} from "react-redux";
-import {setGameOn} from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { setGameOn } from "../../redux/actions";
 
 export const GenerateOptions = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const isGameOn = useSelector((p) => p.gameOn)
+  const isGameOn = useSelector((p) => p.gameOn);
 
-    const [startGame, setStartGame] = useState(isGameOn);
+  const [startGame, setStartGame] = useState(isGameOn);
   const [enemyNumber, setEnemyNumber] = useState(5);
 
+  function markGameAsInProgress() {
+    dispatch(setGameOn(true));
+    localStorage.setItem("gameOn", JSON.stringify(true));
+  }
 
-
-    function markGameAsInProgress(){
-        dispatch(setGameOn(true));
-        localStorage.setItem("gameOn", JSON.stringify(true));
-    }
-
-    function changeValue(e) {
+  function changeValue(e) {
     if (e.target.value < 101 && e.target.value > 0) {
       setEnemyNumber(e.target.value);
     }
   }
 
   if (startGame) {
-      markGameAsInProgress()
-      return <App enemyNumber={enemyNumber} />;
+    markGameAsInProgress();
+    return <App enemyNumber={enemyNumber} />;
   } else {
     return (
       <>

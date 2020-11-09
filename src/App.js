@@ -6,7 +6,7 @@ import { GenerateEnemyMap } from "./helpers/generateEnemyMap";
 import { CompileAll } from "./helpers/compileAllLayersMapByID";
 import { generateId } from "./helpers/createIDforEnemies";
 import { useDispatch, useSelector } from "react-redux";
-import {setEnemies, setGameOn, setInteractions} from "./redux/actions";
+import { setEnemies, setGameOn, setInteractions } from "./redux/actions";
 import { checkInteraction } from "./helpers/checkInteraction";
 import BattleScreen from "./screens/battleScreen";
 import MapScreen from "./screens/mapScreen";
@@ -21,9 +21,6 @@ const App = ({ enemyNumber }) => {
   const r_playerData = useSelector((p) => p.player);
   const { interaction: r_interactionData } = useSelector((p) => p.interactions);
   const r_currentEnemyData = useSelector((p) => p.currentEnemy);
-
-
-
 
   // const visionRadiusModifier =
   // const interactionData =

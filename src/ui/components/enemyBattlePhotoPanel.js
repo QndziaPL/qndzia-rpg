@@ -1,16 +1,15 @@
-import {HealthBar} from "./healthBar";
+import { HealthBar } from "./healthBar";
 import styled from "styled-components";
 import React from "react";
 
-
-export const EnemyBattlePhotoPanel = ({myEnemy}) => {
-    return (
-        <MainEnemyContainer img={myEnemy.img}>
-            <HealthBar curHp={myEnemy.stats.hp} maxHp={myEnemy.maxHp} />
-            <EnemyImage src={myEnemy.img} />
-        </MainEnemyContainer>
-    )
-}
+export const EnemyBattlePhotoPanel = ({ myEnemy }) => {
+  return (
+    <MainEnemyContainer img={myEnemy.img}>
+      <HealthBar curHp={myEnemy.stats.hp} maxHp={myEnemy.maxHp} />
+      <EnemyImage src={myEnemy.img} />
+    </MainEnemyContainer>
+  );
+};
 
 const EnemyImage = styled.img`
   position: absolute;

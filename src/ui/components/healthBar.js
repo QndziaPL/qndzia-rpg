@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import React from "react";
 
-
 export const HealthBar = ({ maxHp, curHp, bottom }) => {
-    const barWidth = (curHp / maxHp) * 100;
-    return (
-        <HealthBarContainer bottom={bottom}>
-            <ActualHealthBar barWidth={barWidth}>
-                {curHp + " / " + maxHp}&nbsp;&nbsp;
-            </ActualHealthBar>
-        </HealthBarContainer>
-    );
+  const barWidth = (curHp / maxHp) * 100;
+  return (
+    <HealthBarContainer bottom={bottom}>
+      <ActualHealthBar barWidth={barWidth}>
+        {curHp + " / " + maxHp}&nbsp;&nbsp;
+      </ActualHealthBar>
+    </HealthBarContainer>
+  );
 };
-
 
 const ActualHealthBar = styled.div`
   text-align: right;
@@ -22,7 +20,7 @@ const ActualHealthBar = styled.div`
 `;
 const HealthBarContainer = styled.div`
   position: absolute;
-  margin: 10px 10%;
+  margin: 0 10%;
   height: 20px;
   width: 80%;
   border: 1px solid black;

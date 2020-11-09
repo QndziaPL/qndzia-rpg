@@ -7,10 +7,10 @@ import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
 import { setCurrentEnemy } from "../redux/actions";
-import {HealthBar} from "../ui/components/healthBar";
-import {EnemyInfoPanel} from "../ui/components/enemyInfoPanel";
-import {PlayerBattlePanel} from "../ui/components/playerBattlePanel";
-import {EnemyBattlePhotoPanel} from "../ui/components/enemyBattlePhotoPanel";
+import { HealthBar } from "../ui/components/healthBar";
+import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
+import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
+import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
 
 const BattleScreen = ({ close, enemyId, dispatch }) => {
   // const dispatch = useDispatch;
@@ -45,17 +45,6 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
   }
   const { curHp, def, eq, lvl, maxHp, str } = myPlayer;
 
-
-
-
-
-
-
-
-
-
-
-
   function hitEnemy(dmg) {
     myEnemy.stats.hp -= dmg;
     setMyEnemy(myEnemy);
@@ -65,18 +54,15 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
 
   return (
     <BattleScreenDiv>
-      <EnemyBattlePhotoPanel myEnemy={myEnemy}/>
+      <EnemyBattlePhotoPanel myEnemy={myEnemy} />
 
-<EnemyInfoPanel myEnemy={myEnemy} />
-<PlayerBattlePanel hitEnemy={hitEnemy} myPlayer={myPlayer}/>
+      <EnemyInfoPanel myEnemy={myEnemy} />
+      <PlayerBattlePanel hitEnemy={hitEnemy} myPlayer={myPlayer} />
 
       <CloseButton onClick={close}>x</CloseButton>
     </BattleScreenDiv>
   );
 };
-
-
-
 
 const CloseButton = styled.div`
   position: absolute;
