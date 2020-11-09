@@ -7,7 +7,6 @@ import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
 
-
 const BattleScreen = ({ close, enemyId }) => {
   const { enemiesById } = useSelector((p) => p.enemies);
   const playerData = useSelector((p) => p.player);
@@ -16,19 +15,18 @@ const BattleScreen = ({ close, enemyId }) => {
   const [myPlayer, setMyPlayer] = useState(playerData);
   const [canISetEnemy, setCanISetEnemy] = useState(true);
 
-
-  function setBattleEnemyImage(){
-    switch (myEnemy.name){
+  function setBattleEnemyImage() {
+    switch (myEnemy.name) {
       case "bear":
-        return bear_battle
+        return bear_battle;
       case "thief":
-        return thief_battle
+        return thief_battle;
       case "wolf":
-        return wolf_battle
+        return wolf_battle;
       case "bat":
-        return bat_battle
+        return bat_battle;
       default:
-        return null
+        return null;
     }
   }
   if (canISetEnemy) {
@@ -49,7 +47,7 @@ const BattleScreen = ({ close, enemyId }) => {
     <BattleScreenDiv>
       <MainEnemyContainer img={myEnemy.img}>
         <HealthBar curHp={myEnemy.stats.hp} maxHp={myEnemy.maxHp} />
-        <EnemyImage src={myEnemy.img}/>
+        <EnemyImage src={myEnemy.img} />
       </MainEnemyContainer>
       <EnemyInfoPanel>
         <h1 style={{ textAlign: "center" }}>{myEnemy.name}</h1>
@@ -90,9 +88,8 @@ const HealthBar = ({ maxHp, curHp, bottom }) => {
 };
 
 const EnemyImage = styled.img`
-position: absolute;
-
-`
+  position: absolute;
+`;
 const ActualHealthBar = styled.div`
   text-align: right;
   width: ${(props) => props.barWidth}%;
