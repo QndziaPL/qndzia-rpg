@@ -7,6 +7,10 @@ import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
 import { setCurrentEnemy } from "../redux/actions";
+import {HealthBar} from "../ui/components/healthBar";
+import {EnemyInfoPanel} from "../ui/components/enemyInfoPanel";
+import {PlayerBattlePanel} from "../ui/components/playerBattlePanel";
+import {EnemyBattlePhotoPanel} from "../ui/components/enemyBattlePhotoPanel";
 
 const BattleScreen = ({ close, enemyId, dispatch }) => {
   // const dispatch = useDispatch;
@@ -17,6 +21,7 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
   const [myEnemy, setMyEnemy] = useState(enemiesById[enemyId]);
   const [myPlayer, setMyPlayer] = useState(r_playerData);
   const [canISetEnemy, setCanISetEnemy] = useState(true);
+  const [myTurn, setMyTurn] = useState(true);
 
   function setBattleEnemyImage() {
     switch (myEnemy.name) {
@@ -38,112 +43,41 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
     setMyEnemy(myEnemy);
     setCanISetEnemy(false);
   }
-  console.log(myEnemy);
   const { curHp, def, eq, lvl, maxHp, str } = myPlayer;
+
+
+
+
+
+
+
+
+
+
+
 
   function hitEnemy(dmg) {
     myEnemy.stats.hp -= dmg;
     setMyEnemy(myEnemy);
   }
-
+  //updates enemy in store
   dispatch(setCurrentEnemy(myEnemy));
 
   return (
     <BattleScreenDiv>
-      <MainEnemyContainer img={myEnemy.img}>
-        <HealthBar curHp={myEnemy.stats.hp} maxHp={myEnemy.maxHp} />
-        <EnemyImage src={myEnemy.img} />
-      </MainEnemyContainer>
-      <EnemyInfoPanel>
-        <h1 style={{ textAlign: "center" }}>{myEnemy.name}</h1>
-        <div style={{ display: "flex" }}>
-          <div style={{ flex: 50 }}>
-            <p>damage</p>
-            <p>defense</p>
-            <p>type</p>
-            <br />
-          </div>
-          <div style={{ flex: 50, textAlign: "center", paddingRight: 20 }}>
-            <p>{myEnemy.stats.dmg}</p>
-            <p>{myEnemy.stats.def}</p>
-            <p>{myEnemy.type}</p>
-          </div>
-        </div>
-        <div style={{ backgroundColor: "black", width: 150, height: 1 }}></div>
-        <p>{myEnemy.lore}</p>
-      </EnemyInfoPanel>
-      <PlayerContainer onClick={() => hitEnemy(1)}>
-        <HealthBar bottom={10} curHp={curHp} maxHp={maxHp} />
-      </PlayerContainer>
+      <EnemyBattlePhotoPanel myEnemy={myEnemy}/>
+
+<EnemyInfoPanel myEnemy={myEnemy} />
+<PlayerBattlePanel hitEnemy={hitEnemy} myPlayer={myPlayer}/>
 
       <CloseButton onClick={close}>x</CloseButton>
     </BattleScreenDiv>
   );
 };
 
-const HealthBar = ({ maxHp, curHp, bottom }) => {
-  const barWidth = (curHp / maxHp) * 100;
-  return (
-    <HealthBarContainer bottom={bottom}>
-      <ActualHealthBar barWidth={barWidth}>
-        {curHp + " / " + maxHp}&nbsp;&nbsp;
-      </ActualHealthBar>
-    </HealthBarContainer>
-  );
-};
 
-const EnemyImage = styled.img`
-  position: absolute;
-`;
-const ActualHealthBar = styled.div`
-  text-align: right;
-  width: ${(props) => props.barWidth}%;
-  background-color: red;
-  border-radius: 10px;
-`;
-const HealthBarContainer = styled.div`
-  position: absolute;
-  margin: 10px 10%;
-  height: 20px;
-  width: 80%;
-  border: 1px solid black;
-  border-radius: 10px;
-  bottom: ${(props) => props.bottom}px;
-`;
 
-const PlayerContainer = styled.div`
-  position: absolute;
-  width: 660px;
-  height: 220px;
-  bottom: 20px;
-  left: 50px;
-  background-color: #ffffff;
-  border-radius: 20px;
-  border: 1px solid black;
-  box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.75);
-`;
 
-const EnemyInfoPanel = styled.div`
-  position: absolute;
-  width: 200px;
-  height: 350px;
-  top: 40px;
-  right: 30px;
-  background-color: #ffffff;
-  border: 1px solid black;
-  border-radius: 20px;
-  padding-left: 20px;
-`;
-
-const MainEnemyContainer = styled.div`
-  position: absolute;
-  width: 600px;
-  height: 400px;
-  top: 10px;
-  left: 80px;
-  //background-color: white;
-  //border: 1px solid black;
-`;
 const CloseButton = styled.div`
   position: absolute;
   font-size: 50px;
