@@ -19,7 +19,7 @@ export const GenerateOptions = () => {
   }
 
   function changeValue(e) {
-    if (e.target.value < 101 && e.target.value > 0) {
+    if (/^\d+$/.test(e.target.value) || e.target.value === "") {
       setEnemyNumber(e.target.value);
     }
   }
