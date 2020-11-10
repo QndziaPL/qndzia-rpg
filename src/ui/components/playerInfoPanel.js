@@ -81,6 +81,7 @@ export const PlayerInfoPanel = () => {
   function triggerVullVisionChange(){
     r_playerData.fullVision = !r_playerData.fullVision;
     dispatch(setPlayer(r_playerData))
+    saveToLocalStorage()
   }
 
   return (
