@@ -49,11 +49,11 @@ const App = ({ enemyNumber }) => {
         numberOfEnemies: enemyNumber,
         terrainMap: activeTerrainMap,
       });
-      console.log(enemyMap)
+      localStorage.setItem("enemies", JSON.stringify(enemyMap));
     } else {
       enemyMap = r_enemies;
     }
-    saveToLocalStorage();
+    // saveToLocalStorage();
     dispatch(setEnemies(enemyMap));
   }
 
