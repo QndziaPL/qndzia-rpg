@@ -14,6 +14,7 @@ const Character = ({
   background = "#ffffff",
   tile = "enemy",
   isPlayer,
+    fullVision,
   enterBattleAnimation,
   currentVision,
 }) => {
@@ -44,7 +45,7 @@ const Character = ({
         <CharacterImg src={characterTile} />
         {/*{isPlayer && letter}*/}
       </CharacterModel>
-      {isPlayer && <VisionCircle visionRadius={currentVision} />}
+      {(isPlayer && !fullVision) && <VisionCircle visionRadius={currentVision} />}
     </CharacterPosition>
   );
 };

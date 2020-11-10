@@ -11,6 +11,7 @@ const MapScreen = ({
   key,
   enterBattleAnimation,
   currentVision,
+    fullVision
 }) => {
   return (
     <MapScreenDiv key={key}>
@@ -19,6 +20,7 @@ const MapScreen = ({
           playerPosition={playerPosition}
           enterBattleAnimation={enterBattleAnimation}
           currentVision={currentVision}
+          fullVision={fullVision}
         />
         <Enemies />
       </Map>

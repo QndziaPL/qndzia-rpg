@@ -39,7 +39,7 @@ export const Enemy = ({ name, type, position, stats, tileId }) => {
         <TooltipParagraph>
           position: {position.x}:{position.y}
         </TooltipParagraph>
-        <TooltipParagraph>tile ID: {tileId}</TooltipParagraph>
+        {/*<TooltipParagraph>tile ID: {tileId}</TooltipParagraph>*/}
       </TooltipContainer>
     </HoverContainer>
   );

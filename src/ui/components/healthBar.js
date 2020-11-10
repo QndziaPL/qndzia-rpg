@@ -5,9 +5,9 @@ export const HealthBar = ({ maxHp, curHp, bottom }) => {
   const barWidth = (curHp / maxHp) * 100;
   return (
     <HealthBarContainer bottom={bottom}>
-      <ActualHealthBar barWidth={barWidth}>
-        {curHp + " / " + maxHp}&nbsp;&nbsp;
-      </ActualHealthBar>
+        {<ActualHealthBar barWidth={barWidth}>
+            {curHp + " / " + maxHp}&nbsp;&nbsp;
+        </ActualHealthBar>}
     </HealthBarContainer>
   );
 };
@@ -15,6 +15,7 @@ export const HealthBar = ({ maxHp, curHp, bottom }) => {
 const ActualHealthBar = styled.div`
   text-align: right;
   width: ${(props) => props.barWidth}%;
+  min-width: 20%;
   background-color: #a90000;
   border-radius: 10px;
   padding: 2px;

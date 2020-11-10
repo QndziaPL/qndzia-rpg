@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./redux/reducers";
 import { GenerateOptions } from "./ui/components/generateOptions";
+import "./fonts/AncientModernTales.ttf"
 
 const store = createStore(
   rootReducer,

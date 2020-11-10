@@ -11,6 +11,7 @@ import { HealthBar } from "../ui/components/healthBar";
 import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
 import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
 import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
+import ancientFont from "../fonts/AncientModernTales.ttf"
 
 const BattleScreen = ({ close, enemyId, dispatch }) => {
   // const dispatch = useDispatch;
@@ -51,72 +52,72 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
     setMyEnemy(myEnemy);
   }
 
-  useEffect(()=>{
-    if (myEnemy.stats.hp < 1){
-      setVictory(true)
+  useEffect(() => {
+    if (myEnemy.stats.hp < 1) {
+      setVictory(true);
     }
-  })
+  });
 
   //updates enemy in store
   dispatch(setCurrentEnemy(myEnemy));
 
   return (
-      <div>
+    <div>
+      <VictoryScreen victory={victory} />
 
-        <VictoryScreen victory={victory}/>
+      <BattleScreenDiv blur={victory ? 5 : 0}>
+        <EnemyBattlePhotoPanel myEnemy={myEnemy} />
 
-    <BattleScreenDiv blur={victory ? 5 : 0}>
+        <EnemyInfoPanel myEnemy={myEnemy} />
+        <PlayerBattlePanel hitEnemy={hitEnemy} myPlayer={myPlayer} />
 
-
-
-      <EnemyBattlePhotoPanel myEnemy={myEnemy} />
-
-      <EnemyInfoPanel myEnemy={myEnemy} />
-      <PlayerBattlePanel hitEnemy={hitEnemy} myPlayer={myPlayer} />
-
-      <CloseButton onClick={close}>x</CloseButton>
-
-    </BattleScreenDiv>
-      </div>
+        <CloseButton onClick={close}>close</CloseButton>
+      </BattleScreenDiv>
+    </div>
   );
 };
 
-const VictoryScreen = ({victory}) => {
-  const hidden = {width: 0, height: 0}
-  const visible = {width: 70, height:70  }
+const VictoryScreen = ({ victory }) => {
+  const hidden = { width: 0, height: 0 };
+  const visible = { width: 70, height: 70 };
 
-  return (<VictoryScreenContainer visible={victory ? visible : hidden} className={"victoryScreenContainer"}>
-    <VictoryTitle>VICTORY</VictoryTitle>
-    <VictoryInfo>
-
-    </VictoryInfo>
-  </VictoryScreenContainer>)
-}
+  return (
+    <VictoryScreenContainer
+      visible={victory ? visible : hidden}
+      className={"victoryScreenContainer"}
+    >
+      <VictoryTitle opacity={victory}>VICTORY</VictoryTitle>
+      <VictoryInfo></VictoryInfo>
+    </VictoryScreenContainer>
+  );
+};
 const VictoryTitle = styled.div`
-text-align: center;
-font-size: 50px;
-`
+  text-align: center;
+  font-size: 50px;
+  opacity: ${props => props.opacity ? 1 : 0};
+  transition-duration: 1s;
+  margin-top: 20px;
+`;
 const VictoryInfo = styled.div`
-width: 90%;
-height: 70%;
-text-align: center;
-margin: 25px auto;
-background-color: blue;
-`
-
+  width: 90%;
+  height: 70%;
+  text-align: center;
+  margin: 25px auto;
+  background-color: blue;
+`;
 
 const VictoryScreenContainer = styled.div`
-position: absolute;
-top: ${props => (100 - props.visible.height) / 2}%;
-left: ${props => (100 - props.visible.width) / 2}%;
+  position: absolute;
+  top: ${(props) => (100 - props.visible.height) / 2}%;
+  left: ${(props) => (100 - props.visible.width) / 2}%;
 
-width: ${props => props.visible.width}%;
-height: ${props => props.visible.height}%;
-background: white;
-//opacity: 0.7;
-z-index: 100;
-transition-duration: 1s;
-`
+  width: ${(props) => props.visible.width}%;
+  height: ${(props) => props.visible.height}%;
+  background: white;
+  //opacity: 0.7;
+  z-index: 100;
+  transition-duration: 1s;
+`;
 
 const CloseButton = styled.div`
   position: absolute;
@@ -125,6 +126,10 @@ const CloseButton = styled.div`
   right: 20px;
   cursor: pointer;
   color: white;
+  text-shadow: 5px 5px 10px black;
+  &:hover{
+  transform: scale(1.1);
+  }
 `;
 
 const BattleScreenDiv = styled.div`
@@ -137,7 +142,7 @@ const BattleScreenDiv = styled.div`
   background-color: #b7b7b7;
   z-index: 10;
   transition-duration: 2s;
-  filter: blur(${props => props.blur}px);
+  filter: blur(${(props) => props.blur}px);
 `;
 
 export default BattleScreen;

@@ -8,6 +8,7 @@ const Player = ({
   refresh,
   enterBattleAnimation,
   currentVision,
+    fullVision
 }) => {
   // const playerData = useSelector((p) => p.player);
   //
@@ -24,6 +25,7 @@ const Player = ({
         background={"#00f0f3"}
         playerArrows={"#ff9d08"}
         isPlayer
+        fullVision={fullVision}
         tile={"player"}
         enterBattleAnimation={enterBattleAnimation}
         currentVision={currentVision}

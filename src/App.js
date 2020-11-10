@@ -63,6 +63,7 @@ const App = ({ enemyNumber }) => {
   // na razie przesyłam jako mapę stan komponentu
   const compiledIDs = CompileAll(r_enemies, activeTerrainMap);
 
+  console.log(r_playerData)
   const playerPositionId = generateId(
     r_playerData.position.x,
     r_playerData.position.y
@@ -104,6 +105,7 @@ const App = ({ enemyNumber }) => {
         playerPosition={r_playerData.position}
         enterBattleAnimation={gamePhase === BATTLE_SCREEN}
         currentVision={r_playerData.vision}
+        fullVision={r_playerData.fullVision}
       />
       {beginBattle && (
         <BattleScreen

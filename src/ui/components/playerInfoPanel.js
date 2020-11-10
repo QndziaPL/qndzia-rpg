@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import { MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,49 +12,51 @@ export const PlayerInfoPanel = () => {
   const LEFT = "left";
   const RIGHT = "right";
 
-  const playerData = useSelector((p) => p.player);
+  const r_playerData = useSelector((p) => p.player);
   const { directionUnavailable } = useSelector((p) => p.interactions);
   const buttonsDisablingList = directionUnavailable ?? [];
   const dispatch = useDispatch();
   // const enemies = useSelector(p => p.enemies);
 
-  console.log(buttonsDisablingList);
 
   const movementKeysContainerSize = (PLAYER_INFO_PANEL_WIDTH * 2) / 3;
   const marginMovementKeysContainer =
     (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
 
+  const [fullVision, setFullVision] = useState(r_playerData.fullVision);
+
   const updatePositionToDispatch = (direction) => {
     switch (direction) {
       case "up":
-        playerData.position.y -= 1;
-        return playerData;
+        r_playerData.position.y -= 1;
+        return r_playerData;
 
       case "down":
-        playerData.position.y += 1;
-        return playerData;
+        r_playerData.position.y += 1;
+        return r_playerData;
 
       case "left":
-        playerData.position.x -= 1;
-        return playerData;
+        r_playerData.position.x -= 1;
+        return r_playerData;
 
       case "right":
-        playerData.position.x += 1;
-        return playerData;
+        r_playerData.position.x += 1;
+        return r_playerData;
 
       default:
-        return playerData;
+        return r_playerData;
     }
   };
 
   function saveToLocalStorage() {
-    localStorage.setItem("player", JSON.stringify(playerData));
+    localStorage.setItem("player", JSON.stringify(r_playerData));
   }
 
   const currentTileId = generateId(
-    playerData.position.x,
-    playerData.position.y
+    r_playerData.position.x,
+    r_playerData.position.y
   );
+
 
   function clearDataAndReloadPage() {
     let clear = window.confirm(
@@ -68,37 +70,50 @@ export const PlayerInfoPanel = () => {
 
   function changeVision(plusOrMinus) {
     if (plusOrMinus === "plus") {
-      playerData.vision += 20;
-      dispatch(setPlayer(playerData));
+      r_playerData.vision += 20;
+      dispatch(setPlayer(r_playerData));
     } else {
-      playerData.vision -= 20;
-      dispatch(setPlayer(playerData));
+      r_playerData.vision -= 20;
+      dispatch(setPlayer(r_playerData));
     }
   }
+
+  function triggerVullVisionChange(){
+    r_playerData.fullVision = !r_playerData.fullVision;
+    dispatch(setPlayer(r_playerData))
+  }
+
   return (
     <Container style={{ position: "relative" }}>
       <ClearLocalStorage onClick={() => clearDataAndReloadPage()}>
         reset ALL!
       </ClearLocalStorage>
       <div>
-        <div>player level {playerData.lvl}</div>
+        <div>player level {r_playerData.lvl}</div>
         <div>
-          health points {playerData.curHp} / {playerData.maxHp}
+          health points {r_playerData.curHp} / {r_playerData.maxHp}
         </div>
-        <div>strength {playerData.str}</div>
-        <div>defence {playerData.def}</div>
+        <div>strength {r_playerData.str}</div>
+        <div>defence {r_playerData.def}</div>
         <div>damage tbd</div>
         <div>damage reduction tbd</div>
       </div>
       <div>
-        position {playerData.position.x} : {playerData.position.y}
+        position {r_playerData.position.x} : {r_playerData.position.y}
       </div>
       <div>current tile ID {currentTileId}</div>
-      <div style={{ display: "flex", margin: 20 }}>
-        <button onClick={() => changeVision("minus")}>-</button>
-        <div style={{ margin: 10 }}>vision radius modifier</div>
-        <button onClick={() => changeVision("plus")}>+</button>
+      <div>
+        <label>full vision:
+          <input type="checkbox" checked={r_playerData.fullVision} onChange={() => triggerVullVisionChange()} />
+
+        </label>
+        <div style={{ display: (r_playerData.fullVision ? "none" : "flex"), margin: 20 }}>
+          <button onClick={() => changeVision("minus")}>-</button>
+          <div style={{ margin: 10 }}>vision radius modifier</div>
+          <button onClick={() => changeVision("plus")}>+</button>
+        </div>
       </div>
+
 
       <MovementKeysContainer
         size={movementKeysContainerSize}
