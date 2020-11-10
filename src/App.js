@@ -57,7 +57,7 @@ const App = ({ enemyNumber }) => {
   }
 
   function saveToLocalStorage() {
-    console.log("zapisuje enemiesy")
+    console.log("zapisuje enemiesy", r_enemies)
     localStorage.setItem("enemies", JSON.stringify(r_enemies));
   }
 
