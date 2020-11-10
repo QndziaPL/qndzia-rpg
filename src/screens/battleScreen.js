@@ -20,6 +20,7 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
 
   const [myEnemy, setMyEnemy] = useState(enemiesById[enemyId]);
   const [myPlayer, setMyPlayer] = useState(r_playerData);
+  const [victory, setVictory] = useState(false);
   const [canISetEnemy, setCanISetEnemy] = useState(true);
   const [myTurn, setMyTurn] = useState(true);
 
@@ -49,20 +50,73 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
     myEnemy.stats.hp -= dmg;
     setMyEnemy(myEnemy);
   }
+
+  useEffect(()=>{
+    if (myEnemy.stats.hp < 1){
+      setVictory(true)
+    }
+  })
+
   //updates enemy in store
   dispatch(setCurrentEnemy(myEnemy));
 
   return (
-    <BattleScreenDiv>
+      <div>
+
+        <VictoryScreen victory={victory}/>
+
+    <BattleScreenDiv blur={victory ? 5 : 0}>
+
+
+
       <EnemyBattlePhotoPanel myEnemy={myEnemy} />
 
       <EnemyInfoPanel myEnemy={myEnemy} />
       <PlayerBattlePanel hitEnemy={hitEnemy} myPlayer={myPlayer} />
 
       <CloseButton onClick={close}>x</CloseButton>
+
     </BattleScreenDiv>
+      </div>
   );
 };
+
+const VictoryScreen = ({victory}) => {
+  const hidden = {width: 0, height: 0}
+  const visible = {width: 70, height:70  }
+
+  return (<VictoryScreenContainer visible={victory ? visible : hidden} className={"victoryScreenContainer"}>
+    <VictoryTitle>VICTORY</VictoryTitle>
+    <VictoryInfo>
+
+    </VictoryInfo>
+  </VictoryScreenContainer>)
+}
+const VictoryTitle = styled.div`
+text-align: center;
+font-size: 50px;
+`
+const VictoryInfo = styled.div`
+width: 90%;
+height: 70%;
+text-align: center;
+margin: 25px auto;
+background-color: blue;
+`
+
+
+const VictoryScreenContainer = styled.div`
+position: absolute;
+top: ${props => (100 - props.visible.height) / 2}%;
+left: ${props => (100 - props.visible.width) / 2}%;
+
+width: ${props => props.visible.width}%;
+height: ${props => props.visible.height}%;
+background: white;
+//opacity: 0.7;
+z-index: 100;
+transition-duration: 1s;
+`
 
 const CloseButton = styled.div`
   position: absolute;
@@ -82,6 +136,8 @@ const BattleScreenDiv = styled.div`
   left: 0;
   background-color: #b7b7b7;
   z-index: 10;
+  transition-duration: 2s;
+  filter: blur(${props => props.blur}px);
 `;
 
 export default BattleScreen;
