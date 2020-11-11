@@ -11,7 +11,7 @@ const MapScreen = ({
   key,
   enterBattleAnimation,
   currentVision,
-    fullVision
+  fullVision,
 }) => {
   return (
     <MapScreenDiv key={key}>

@@ -11,7 +11,7 @@ import { HealthBar } from "../ui/components/healthBar";
 import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
 import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
 import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
-import ancientFont from "../fonts/AncientModernTales.ttf"
+import ancientFont from "../fonts/AncientModernTales.ttf";
 
 const BattleScreen = ({ close, enemyId, dispatch }) => {
   // const dispatch = useDispatch;
@@ -94,7 +94,7 @@ const VictoryScreen = ({ victory }) => {
 const VictoryTitle = styled.div`
   text-align: center;
   font-size: 50px;
-  opacity: ${props => props.opacity ? 1 : 0};
+  opacity: ${(props) => (props.opacity ? 1 : 0)};
   transition-duration: 1s;
   margin-top: 20px;
 `;
@@ -127,8 +127,8 @@ const CloseButton = styled.div`
   cursor: pointer;
   color: white;
   text-shadow: 5px 5px 10px black;
-  &:hover{
-  transform: scale(1.1);
+  &:hover {
+    transform: scale(1.1);
   }
 `;
 

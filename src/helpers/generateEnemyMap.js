@@ -38,13 +38,10 @@ export const GenerateEnemyMap = ({ numberOfEnemies, terrainMap }) => {
     const enemy = EnemyListEnum[rnd]({ x: randomX, y: randomY });
     enemy.tileId = generateId(randomX, randomY);
     enemyMap.push(enemy);
-
-    // enemiesById.push({[id]: enemy})
     enemiesById = {
       ...enemiesById,
       [id]: enemy,
     };
   }
-  // console.log(enemyMap)
   return { enemyMap, usedPositions, enemiesById };
 };

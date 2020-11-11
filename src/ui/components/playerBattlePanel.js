@@ -22,10 +22,7 @@ export const PlayerBattlePanel = ({ hitEnemy, myPlayer }) => {
         <ButtonContainer>
           <PlayerBattleButton label={"inventory"} img={inventory_button} />
           <PlayerBattleButton label={"block"} img={defence_button} />
-          <PlayerBattleButton
-            label={"attack"}
-            img={normal_attack_button}
-          />
+          <PlayerBattleButton label={"attack"} img={normal_attack_button} />
           <PlayerBattleButton label={"character"} img={character_button} />
           <PlayerBattleButton label={"coś tu będzie"} />
           <PlayerBattleButton label={"spellbook"} img={spells_button} />

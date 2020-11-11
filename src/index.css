@@ -1,9 +1,10 @@
 @font-face {
   font-family: "AncientModernTales";
-  src: local("AncientModernTales"), url("./fonts/AncientModernTales.ttf") format("truetype");
+  src: local("AncientModernTales"),
+    url("./fonts/AncientModernTales.ttf") format("truetype");
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
 }
@@ -18,14 +19,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: AncientModernTales;
   font-size: 25px;
+  background: black;
 }
 
 @media (max-width: 840px) {
-  /*body{*/
-  /*  height: 100vh;*/
-  /*  margin: 0;*/
-  /*  width: 100vw;*/
-  /*}*/
+
 }
 
 code {

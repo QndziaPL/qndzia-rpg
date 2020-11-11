@@ -5,9 +5,11 @@ export const HealthBar = ({ maxHp, curHp, bottom }) => {
   const barWidth = (curHp / maxHp) * 100;
   return (
     <HealthBarContainer bottom={bottom}>
-        {<ActualHealthBar barWidth={barWidth}>
-            {curHp + " / " + maxHp}&nbsp;&nbsp;
-        </ActualHealthBar>}
+      {
+        <ActualHealthBar barWidth={barWidth}>
+          {curHp + " / " + maxHp}&nbsp;&nbsp;
+        </ActualHealthBar>
+      }
     </HealthBarContainer>
   );
 };

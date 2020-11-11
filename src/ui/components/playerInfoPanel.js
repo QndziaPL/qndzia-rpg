@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import { MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,6 @@ export const PlayerInfoPanel = () => {
   const buttonsDisablingList = directionUnavailable ?? [];
   const dispatch = useDispatch();
   // const enemies = useSelector(p => p.enemies);
-
 
   const movementKeysContainerSize = (PLAYER_INFO_PANEL_WIDTH * 2) / 3;
   const marginMovementKeysContainer =
@@ -57,7 +56,6 @@ export const PlayerInfoPanel = () => {
     r_playerData.position.y
   );
 
-
   function clearDataAndReloadPage() {
     let clear = window.confirm(
       "You're going to reset WHOLE GAME\nAre you sure about that?"
@@ -78,10 +76,10 @@ export const PlayerInfoPanel = () => {
     }
   }
 
-  function triggerFullVisionChange(){
+  function triggerFullVisionChange() {
     r_playerData.fullVision = !r_playerData.fullVision;
-    dispatch(setPlayer(r_playerData))
-    saveToLocalStorage()
+    dispatch(setPlayer(r_playerData));
+    saveToLocalStorage();
   }
 
   return (
@@ -104,17 +102,25 @@ export const PlayerInfoPanel = () => {
       </div>
       <div>current tile ID {currentTileId}</div>
       <div>
-        <label>full vision:
-          <input type="checkbox" checked={r_playerData.fullVision} onChange={() => triggerFullVisionChange()} />
-
+        <label>
+          full vision:
+          <input
+            type="checkbox"
+            checked={r_playerData.fullVision}
+            onChange={() => triggerFullVisionChange()}
+          />
         </label>
-        <div style={{ display: (r_playerData.fullVision ? "none" : "flex"), margin: 20 }}>
+        <div
+          style={{
+            display: r_playerData.fullVision ? "none" : "flex",
+            margin: 20,
+          }}
+        >
           <button onClick={() => changeVision("minus")}>-</button>
           <div style={{ margin: 10 }}>vision radius modifier</div>
           <button onClick={() => changeVision("plus")}>+</button>
         </div>
       </div>
-
 
       <MovementKeysContainer
         size={movementKeysContainerSize}
