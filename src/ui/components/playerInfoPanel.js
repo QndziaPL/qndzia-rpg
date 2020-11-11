@@ -82,25 +82,54 @@ export const PlayerInfoPanel = () => {
     saveToLocalStorage();
   }
 
+const Table = styled.table`
+
+`
+  const Tr = styled.tr`
+
+`
+  const Td = styled.td`
+
+`
+  const VisionButton = styled.button`
+width: 20px;
+height: 20px;
+margin: 0 5px;
+`
+
   return (
     <Container style={{ position: "relative" }}>
       <ClearLocalStorage onClick={() => clearDataAndReloadPage()}>
         reset ALL!
       </ClearLocalStorage>
-      <div>
-        <div>player level {r_playerData.lvl}</div>
-        <div>
-          health points {r_playerData.curHp} / {r_playerData.maxHp}
-        </div>
-        <div>strength {r_playerData.str}</div>
-        <div>defence {r_playerData.def}</div>
-        <div>damage tbd</div>
-        <div>damage reduction tbd</div>
-      </div>
-      <div>
-        position {r_playerData.position.x} : {r_playerData.position.y}
-      </div>
-      <div>current tile ID {currentTileId}</div>
+      <Table>
+        <Tr>
+          <Td>level</Td>
+          <Td>{r_playerData.lvl}</Td>
+        </Tr>
+        <Tr>
+          <Td>health points</Td>
+          <Td>{r_playerData.curHp} / {r_playerData.maxHp}</Td>
+        </Tr>
+        <Tr>
+          <Td>strength</Td>
+          <Td>{r_playerData.str}</Td>
+        </Tr>
+        <Tr>
+          <Td>defence</Td>
+          <Td>{r_playerData.def}</Td>
+        </Tr>
+        <Tr>
+          <Td>damage</Td>
+          <Td>tbd</Td>
+        </Tr>
+        <Tr>
+          <Td>damage reduction</Td>
+          <Td>tbd</Td>
+        </Tr>
+      </Table>
+      {/*<div>position {r_playerData.position.x} : {r_playerData.position.y}</div>*/}
+      {/*<div>current tile ID {currentTileId}</div>*/}
       <div>
         <label>
           full vision:
@@ -113,12 +142,12 @@ export const PlayerInfoPanel = () => {
         <div
           style={{
             display: r_playerData.fullVision ? "none" : "flex",
-            margin: 20,
+            marginTop: 10
           }}
         >
-          <button onClick={() => changeVision("minus")}>-</button>
-          <div style={{ margin: 10 }}>vision radius modifier</div>
-          <button onClick={() => changeVision("plus")}>+</button>
+          <VisionButton onClick={() => changeVision("minus")}>-</VisionButton>
+          <div>vision radius modifier</div>
+          <VisionButton onClick={() => changeVision("plus")}>+</VisionButton>
         </div>
       </div>
 
