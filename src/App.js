@@ -127,11 +127,17 @@ const GameContainer = styled.div`
   width: ${MAP_WIDTH + PLAYER_INFO_PANEL_WIDTH}px;
   margin: ${(window.innerHeight - 640) / 2}px auto;
   @media (max-width: 840px) {
-    //transform: scale(0.5);
-    height: 100vw;
-    transform: rotate(90deg);
-    
-    //margin: 0;
+    //max-height: 100vw;
+    //top: 0;
+    //left: 0;
+    //transform: rotate(90deg);
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    left: 0;
+    right: 0;
+
+    transform: scale(${window.innerWidth / 640},${window.innerHeight / 940}) rotate(90deg);
   }
 `;
 
