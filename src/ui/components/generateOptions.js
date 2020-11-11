@@ -43,6 +43,7 @@ export const GenerateOptions = () => {
     );
   }
 };
+
 const Input = ({ enemyNumber, changeValue, setStartGame }) => {
   return (
     <InputContainer>
@@ -60,8 +61,10 @@ const Input = ({ enemyNumber, changeValue, setStartGame }) => {
 };
 
 const InputContainer = styled.div`
-  margin-left: 30px;
+margin-left: 30px;
+margin-top: 50px;
 `;
+
 const InputPanel = styled.div`
   position: relative;
   //margin: 0 auto;
@@ -73,7 +76,7 @@ const InputPanel = styled.div`
 const GameContainer = styled.div`
   width: ${GAME_WIDTH}px;
   height: ${GAME_HEIGHT}px;
-  border: 2px solid black;
+  border: 2px solid #ffffff;
   box-sizing: border-box;
   display: flex;
   align-items: center;

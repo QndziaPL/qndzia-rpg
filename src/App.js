@@ -118,12 +118,12 @@ const App = ({ enemyNumber }) => {
 };
 
 const GameContainer = styled.div`
-  box-sizing: border-box;
+  box-sizing: content-box;
   display: flex;
   position: relative;
   width: ${MAP_WIDTH + PLAYER_INFO_PANEL_WIDTH}px;
   margin: ${(window.innerHeight - 640) / 2}px auto;
-  border: 10px solid #000000;
+  border: 2px solid #ffffff;
   @media (max-width: 840px) {
   margin: 0;
   }
