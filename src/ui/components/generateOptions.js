@@ -1,5 +1,5 @@
 import App from "../../App";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { GAME_HEIGHT, GAME_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ export const GenerateOptions = () => {
   const isGameOn = useSelector((p) => p.gameOn);
 
   const [startGame, setStartGame] = useState(isGameOn);
-  const [enemyNumber, setEnemyNumber] = useState(5);
+  const [enemyNumber, setEnemyNumber] = useState(20);
 
   function markGameAsInProgress() {
     dispatch(setGameOn(true));
@@ -24,9 +24,16 @@ export const GenerateOptions = () => {
     }
   }
 
+ useEffect(()=>{
+     if (!isGameOn){
+         setStartGame(false)
+
+     }
+ },[isGameOn])
+
   if (startGame) {
     markGameAsInProgress();
-    return (<GameContainer id={"gameContainer"}><App enemyNumber={enemyNumber} /></GameContainer>);
+    return (<GameContainer id={"gameContainer"}><App enemyNumber={enemyNumber} setStartGame={setStartGame}/></GameContainer>);
   } else {
     return (
       <>

@@ -14,7 +14,7 @@ import MapScreen from "./screens/mapScreen";
 const MAP_SCREEN = 0;
 const BATTLE_SCREEN = 1;
 
-const App = ({ enemyNumber }) => {
+const App = ({ enemyNumber, setStartGame }) => {
   const dispatch = useDispatch();
   const r_enemies = useSelector((p) => p.enemies);
   const r_map = useSelector((p) => p.mapIDs);
@@ -111,6 +111,7 @@ const App = ({ enemyNumber }) => {
           close={closeBattleScreen}
           enemyId={currentEnemy}
           dispatch={dispatch}
+          setStartGame={setStartGame}
         />
       )}
 </div>

@@ -6,16 +6,17 @@ import bear_battle from "../assets/battleImages/bear_battle.png";
 import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
-import {setCurrentEnemy, setPlayer} from "../redux/actions";
+import {setCurrentEnemy, setGameOn, setPlayer} from "../redux/actions";
 import {EnemyInfoPanel} from "../ui/components/enemyInfoPanel";
 import {PlayerBattlePanel} from "../ui/components/playerBattlePanel";
 import {EnemyBattlePhotoPanel} from "../ui/components/enemyBattlePhotoPanel";
 
-const BattleScreen = ({ close, enemyId, dispatch }) => {
-  // const dispatch = useDispatch;
+const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
+
 
   const { enemiesById } = useSelector((p) => p.enemies);
   const r_playerData = useSelector((p) => p.player);
+
 
   const [myEnemy, setMyEnemy] = useState(enemiesById[enemyId]);
   const [myPlayer, setMyPlayer] = useState(r_playerData);
@@ -59,50 +60,74 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
     setMyTurn(false)
   }
 
-  function enemyStrikes(){
-    console.log("enemy attacks!")
+  function enemyStrikes(dmg){
+    console.log("enemy strikes")
     setIsEnemyAttacking(true);
+    myPlayer.curHp -= (myPlayer.isBlocking ? dmg/2 : dmg);
+
+    setMyPlayer(myPlayer);
+
     // tutaj zada obrazenia do tego , zaraz dorobię
 
 
   }
 
   function enemyAction(){
+    // if (myEnemy.stats.hp < 1){
+    //   return
+    // }
+    console.log("enemy action")
+    // TODO: mechanika do randomizacji obrażeń itd
+    let enemyStrikeDamage = myEnemy.stats.dmg
     setTimeout(()=>{
-      enemyStrikes()
+      enemyStrikes(enemyStrikeDamage)
       setTimeout(()=>{
         setIsEnemyAttacking(false)
         setMyTurn(true)
-
       }, 500)
     },300)
     //TODO tutaj będzie mechanika wyboru zagrania przeciwnika, na razie defaulowo leci attack
 
-
   }
+
+  useEffect(()=>{
+    if (myPlayer.curHp < 1){
+      console.log("reset wszystkiego")
+
+      //TODO: coś tu ogarnąć jakoś logicznie aby miało ręce i nogi, na pewno ekran porażki dorobić
+      localStorage.clear()
+      window.location.reload(false);
+      alert("Uh... that was... terrible\ngame over, bro...")
+
+
+      // setTimeout(()=>{
+      //   localStorage.clear()
+      //   window.location.reload(false);
+      //
+      // }, 3000)
+    }
+  })
 
 
   useEffect(() => {
     if (myEnemy.stats.hp < 1) {
       setVictory(true);
       setMyTurn(true)
-      console.log("nie ma takiego bicia")
     }
   },[myEnemy]);
 
   useEffect(()=>{
     if (!myTurn){
-      console.log(victory)
       if (myEnemy.stats.hp > 0){
-        console.log("enemys turn starts ")
         enemyAction()
       }else {
         setVictory(true)
       }
 
     }else {
+      myPlayer.isBlocking = false;
+      setMyPlayer(myPlayer)
       setTimeout(()=>{
-        console.log("my turn again")
       }, 1000)
     }
   },[myTurn])
