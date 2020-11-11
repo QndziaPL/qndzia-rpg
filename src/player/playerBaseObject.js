@@ -11,4 +11,5 @@ export const playerBaseObject = {
   eq: {},
   vision: 200,
   fullVision: false,
+  isBlocking: false
 };

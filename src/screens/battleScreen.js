@@ -1,17 +1,15 @@
 import styled from "styled-components";
-import { GAME_HEIGHT, GAME_WIDTH } from "../consts/consts";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {GAME_HEIGHT, GAME_WIDTH} from "../consts/consts";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import bear_battle from "../assets/battleImages/bear_battle.png";
 import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
-import { setCurrentEnemy } from "../redux/actions";
-import { HealthBar } from "../ui/components/healthBar";
-import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
-import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
-import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
-import ancientFont from "../fonts/AncientModernTales.ttf";
+import {setCurrentEnemy, setPlayer} from "../redux/actions";
+import {EnemyInfoPanel} from "../ui/components/enemyInfoPanel";
+import {PlayerBattlePanel} from "../ui/components/playerBattlePanel";
+import {EnemyBattlePhotoPanel} from "../ui/components/enemyBattlePhotoPanel";
 
 const BattleScreen = ({ close, enemyId, dispatch }) => {
   // const dispatch = useDispatch;
@@ -24,6 +22,8 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
   const [victory, setVictory] = useState(false);
   const [canISetEnemy, setCanISetEnemy] = useState(true);
   const [myTurn, setMyTurn] = useState(true);
+  const [isEnemyAttacking, setIsEnemyAttacking] = useState(false)
+
 
   function setBattleEnemyImage() {
     switch (myEnemy.name) {
@@ -50,26 +50,83 @@ const BattleScreen = ({ close, enemyId, dispatch }) => {
   function hitEnemy(dmg) {
     myEnemy.stats.hp -= dmg;
     setMyEnemy(myEnemy);
+    setMyTurn(false)
   }
+
+  function block(){
+    myPlayer.isBlocking = true;
+    setMyPlayer(myPlayer)
+    setMyTurn(false)
+  }
+
+  function enemyStrikes(){
+    console.log("enemy attacks!")
+    setIsEnemyAttacking(true);
+    // tutaj zada obrazenia do tego , zaraz dorobię
+
+
+  }
+
+  function enemyAction(){
+    setTimeout(()=>{
+      enemyStrikes()
+      setTimeout(()=>{
+        setIsEnemyAttacking(false)
+        setMyTurn(true)
+
+      }, 500)
+    },300)
+    //TODO tutaj będzie mechanika wyboru zagrania przeciwnika, na razie defaulowo leci attack
+
+
+  }
+
 
   useEffect(() => {
     if (myEnemy.stats.hp < 1) {
       setVictory(true);
+      setMyTurn(true)
+      console.log("nie ma takiego bicia")
     }
-  });
+  },[myEnemy]);
 
-  //updates enemy in store
+  useEffect(()=>{
+    if (!myTurn){
+      console.log(victory)
+      if (myEnemy.stats.hp > 0){
+        console.log("enemys turn starts ")
+        enemyAction()
+      }else {
+        setVictory(true)
+      }
+
+    }else {
+      setTimeout(()=>{
+        console.log("my turn again")
+      }, 1000)
+    }
+  },[myTurn])
+
+
+
+
+
+  //updates store
   dispatch(setCurrentEnemy(myEnemy));
+  dispatch(setPlayer(myPlayer))
 
   return (
     <div>
       <VictoryScreen victory={victory} />
 
       <BattleScreenDiv blur={victory ? 5 : 0}>
-        <EnemyBattlePhotoPanel myEnemy={myEnemy} />
+        <EnemyBattlePhotoPanel myEnemy={myEnemy} isAttacking={isEnemyAttacking}/>
 
         <EnemyInfoPanel myEnemy={myEnemy} />
-        <PlayerBattlePanel hitEnemy={hitEnemy} myPlayer={myPlayer} />
+        <PlayerBattlePanel
+            hitEnemy={hitEnemy}
+            block={block}
+            myPlayer={myPlayer} />
 
         <CloseButton onClick={close}>close</CloseButton>
       </BattleScreenDiv>

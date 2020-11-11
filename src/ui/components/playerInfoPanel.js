@@ -22,7 +22,7 @@ export const PlayerInfoPanel = () => {
   const marginMovementKeysContainer =
     (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
 
-  const [fullVision, setFullVision] = useState(r_playerData.fullVision);
+  // const [fullVision, setFullVision] = useState(r_playerData.fullVision);
 
   const updatePositionToDispatch = (direction) => {
     switch (direction) {
@@ -51,10 +51,10 @@ export const PlayerInfoPanel = () => {
     localStorage.setItem("player", JSON.stringify(r_playerData));
   }
 
-  const currentTileId = generateId(
-    r_playerData.position.x,
-    r_playerData.position.y
-  );
+  // const currentTileId = generateId(
+  //   r_playerData.position.x,
+  //   r_playerData.position.y
+  // );
 
   function clearDataAndReloadPage() {
     let clear = window.confirm(
@@ -81,21 +81,6 @@ export const PlayerInfoPanel = () => {
     dispatch(setPlayer(r_playerData));
     saveToLocalStorage();
   }
-
-const Table = styled.table`
-
-`
-  const Tr = styled.tr`
-
-`
-  const Td = styled.td`
-
-`
-  const VisionButton = styled.button`
-width: 20px;
-height: 20px;
-margin: 0 5px;
-`
 
   return (
     <Container style={{ position: "relative" }}>
@@ -194,6 +179,21 @@ margin: 0 5px;
     </Container>
   );
 };
+
+const Table = styled.table`
+
+`
+const Tr = styled.tr`
+
+`
+const Td = styled.td`
+
+`
+const VisionButton = styled.button`
+width: 20px;
+height: 20px;
+margin: 0 5px;
+`
 
 const MovementKeys = styled.div`
   position: relative;

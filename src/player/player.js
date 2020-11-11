@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Character from "../characters/character";
 import styled from "styled-components";
 

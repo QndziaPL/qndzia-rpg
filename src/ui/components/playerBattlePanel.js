@@ -9,20 +9,20 @@ import spells_button from "../../assets/battleButtons/spells_button.png";
 import character_button from "../../assets/battleButtons/character_button.png";
 import player_battle_panel from "../../assets/battlePanel/player_battle_panel.png";
 
-export const PlayerBattlePanel = ({ hitEnemy, myPlayer }) => {
+export const PlayerBattlePanel = ({ hitEnemy, myPlayer, block }) => {
   const { curHp, def, eq, lvl, maxHp, str } = myPlayer;
 
   //need to figure out how dmg should be calculated (prob randoms multiplied by lvl, str, eq modif etc)
   const normalAttackDmg = str;
   return (
     <div style={{ position: "relative" }}>
-      <PlayerContainer onClick={() => hitEnemy(normalAttackDmg)}>
+      <PlayerContainer>
         <PanelImage src={player_battle_panel} />
 
         <ButtonContainer>
           <PlayerBattleButton label={"inventory"} img={inventory_button} />
-          <PlayerBattleButton label={"block"} img={defence_button} />
-          <PlayerBattleButton label={"attack"} img={normal_attack_button} />
+          <PlayerBattleButton label={"block"} img={defence_button} passedFunction={block}/>
+          <PlayerBattleButton label={"attack"} img={normal_attack_button} passedFunction={hitEnemy} functionParam={normalAttackDmg}/>
           <PlayerBattleButton label={"character"} img={character_button} />
           <PlayerBattleButton label={"coś tu będzie"} />
           <PlayerBattleButton label={"spellbook"} img={spells_button} />
