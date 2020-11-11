@@ -121,7 +121,7 @@ const App = ({ enemyNumber }) => {
 };
 
 const GameContainer = styled.div`
-  box-sizing: border-box;
+  box-sizing: content-box;
   display: flex;
   position: relative;
   width: ${MAP_WIDTH + PLAYER_INFO_PANEL_WIDTH}px;
