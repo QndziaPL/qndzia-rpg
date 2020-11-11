@@ -131,13 +131,13 @@ const GameContainer = styled.div`
     //top: 0;
     //left: 0;
     //transform: rotate(90deg);
-    margin: 0;
+    margin: 0 ;
     overflow: hidden;
     position: relative;
     left: 0;
     right: 0;
 
-    transform: scale(${window.innerWidth / 640},${window.innerHeight / 940}) rotate(90deg);
+    transform:rotate(90deg) scale(${window.innerWidth / 640},${window.innerHeight / 940}) ;
   }
 `;
 
