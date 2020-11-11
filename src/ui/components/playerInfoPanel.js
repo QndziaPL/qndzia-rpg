@@ -78,7 +78,7 @@ export const PlayerInfoPanel = () => {
     }
   }
 
-  function triggerVullVisionChange(){
+  function triggerFullVisionChange(){
     r_playerData.fullVision = !r_playerData.fullVision;
     dispatch(setPlayer(r_playerData))
     saveToLocalStorage()
@@ -105,7 +105,7 @@ export const PlayerInfoPanel = () => {
       <div>current tile ID {currentTileId}</div>
       <div>
         <label>full vision:
-          <input type="checkbox" checked={r_playerData.fullVision} onChange={() => triggerVullVisionChange()} />
+          <input type="checkbox" checked={r_playerData.fullVision} onChange={() => triggerFullVisionChange()} />
 
         </label>
         <div style={{ display: (r_playerData.fullVision ? "none" : "flex"), margin: 20 }}>

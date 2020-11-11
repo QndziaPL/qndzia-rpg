@@ -52,7 +52,7 @@ const Input = ({ enemyNumber, changeValue, setStartGame }) => {
         value={enemyNumber}
         onChange={(e) => changeValue(e)}
       />
-      <button onClick={() => setStartGame(true)}>&nbsp;generate</button>
+      <button onClick={() => setStartGame(true)} disabled={enemyNumber < 1}>{enemyNumber < 1 ? "at least 1..." : "\u00A0generate"}</button>
     </InputContainer>
   );
 };

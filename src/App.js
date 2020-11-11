@@ -126,19 +126,26 @@ const GameContainer = styled.div`
   position: relative;
   width: ${MAP_WIDTH + PLAYER_INFO_PANEL_WIDTH}px;
   margin: ${(window.innerHeight - 640) / 2}px auto;
+  border: 10px solid black;
   @media (max-width: 840px) {
+  // v1
+  
     //max-height: 100vw;
     //top: 0;
     //left: 0;
     //transform: rotate(90deg);
-    margin: 0 ;
-    overflow: hidden;
-    position: relative;
-    left: 0;
-    right: 0;
+    
+    //v2 
+    //margin: 0 ;
+    //transform:rotate(90deg) scale(${window.innerWidth / 640},${window.innerHeight / 940}) ;
+    
+    //v3
+        margin: 0 ;
 
-    transform:rotate(90deg) scale(${window.innerWidth / 640},${window.innerHeight / 940}) ;
+    transform: scale(${window.innerHeight / 940},${window.innerWidth / 640}) rotate(90deg);
   }
 `;
+
+console.log(window.innerHeight / 940, window.innerWidth / 640)
 
 export default App;
