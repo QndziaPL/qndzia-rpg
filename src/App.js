@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH } from "./consts/consts";
+import {GAME_HEIGHT, GAME_WIDTH, MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH} from "./consts/consts";
 import { SecondMap } from "./maps/secondMap/secondMap";
 import { GenerateEnemyMap } from "./helpers/generateEnemyMap";
 import { CompileAll } from "./helpers/compileAllLayersMapByID";
@@ -118,7 +118,7 @@ const App = ({ enemyNumber }) => {
 };
 
 const GameContainer = styled.div`
-  box-sizing: content-box;
+  box-sizing: border-box;
   display: flex;
   position: relative;
   width: ${MAP_WIDTH + PLAYER_INFO_PANEL_WIDTH}px;

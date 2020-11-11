@@ -82,6 +82,5 @@ const GameContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-
   margin: ${(window.innerHeight - 640) / 2}px auto;
 `;

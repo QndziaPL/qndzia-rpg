@@ -220,6 +220,6 @@ const MovementKey = styled.div`
   user-select: none;
   &:hover {
     transform: scale(1.1);
-    background: #3c3c3c;
+    background: #000000;
   }
 `;
