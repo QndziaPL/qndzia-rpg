@@ -98,7 +98,7 @@ const App = ({ enemyNumber }) => {
   };
 
   return (
-    <GameContainer className="gameContainer" onClick={refreshFunction}>
+      <div onClick={refreshFunction}>
       <MapScreen
         map={activeTerrainMap}
         playerPosition={r_playerData.position}
@@ -113,7 +113,7 @@ const App = ({ enemyNumber }) => {
           dispatch={dispatch}
         />
       )}
-    </GameContainer>
+</div>
   );
 };
 

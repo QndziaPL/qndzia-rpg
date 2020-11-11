@@ -26,7 +26,7 @@ export const GenerateOptions = () => {
 
   if (startGame) {
     markGameAsInProgress();
-    return <App enemyNumber={enemyNumber} />;
+    return (<GameContainer><App enemyNumber={enemyNumber} /></GameContainer>);
   } else {
     return (
       <>
