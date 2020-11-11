@@ -26,11 +26,11 @@ export const GenerateOptions = () => {
 
   if (startGame) {
     markGameAsInProgress();
-    return (<GameContainer><App enemyNumber={enemyNumber} /></GameContainer>);
+    return (<GameContainer id={"gameContainer"}><App enemyNumber={enemyNumber} /></GameContainer>);
   } else {
     return (
       <>
-        <GameContainer>
+        <GameContainer id={"gameContainer"}>
           <InputPanel>
             <Input
               enemyNumber={enemyNumber}
@@ -76,8 +76,8 @@ const InputPanel = styled.div`
 const GameContainer = styled.div`
   width: ${GAME_WIDTH}px;
   height: ${GAME_HEIGHT}px;
-  border: 2px solid #ffffff;
-  box-sizing: border-box;
+  border: 12px solid #ffffff;
+  box-sizing: content-box;
   display: flex;
   align-items: center;
   justify-content: center;

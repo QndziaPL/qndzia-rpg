@@ -35,7 +35,7 @@ box-sizing: content-box;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-        <RotateForMobile id="dupa">
+        <RotateForMobile>
           <GenerateOptions />
         </RotateForMobile>
     </Provider>
