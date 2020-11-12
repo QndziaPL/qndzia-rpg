@@ -107,6 +107,8 @@ const HoverContainer = styled.div`
 
 export const Enemies = () => {
   const enemies = useSelector((p) => p.enemies);
+  console.log(enemies)
+
   return enemies.enemyMap.map((e) => (
     <Enemy
       position={e.position}

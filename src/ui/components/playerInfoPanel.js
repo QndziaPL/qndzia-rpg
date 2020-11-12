@@ -94,7 +94,9 @@ export const PlayerInfoPanel = () => {
         </Tr>
         <Tr>
           <Td>health points</Td>
-          <Td>{r_playerData.curHp} / {r_playerData.maxHp}</Td>
+          <Td>
+            {r_playerData.curHp} / {r_playerData.maxHp}
+          </Td>
         </Tr>
         <Tr>
           <Td>strength</Td>
@@ -127,7 +129,7 @@ export const PlayerInfoPanel = () => {
         <div
           style={{
             display: r_playerData.fullVision ? "none" : "flex",
-            marginTop: 10
+            marginTop: 10,
           }}
         >
           <VisionButton onClick={() => changeVision("minus")}>-</VisionButton>
@@ -180,20 +182,14 @@ export const PlayerInfoPanel = () => {
   );
 };
 
-const Table = styled.table`
-
-`
-const Tr = styled.tr`
-
-`
-const Td = styled.td`
-
-`
+const Table = styled.table``;
+const Tr = styled.tr``;
+const Td = styled.td``;
 const VisionButton = styled.button`
-width: 20px;
-height: 20px;
-margin: 0 5px;
-`
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+`;
 
 const MovementKeys = styled.div`
   position: relative;

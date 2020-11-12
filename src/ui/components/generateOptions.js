@@ -1,5 +1,5 @@
 import App from "../../App";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GAME_HEIGHT, GAME_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,16 +24,19 @@ export const GenerateOptions = () => {
     }
   }
 
- useEffect(()=>{
-     if (!isGameOn){
-         setStartGame(false)
-
-     }
- },[isGameOn])
+  useEffect(() => {
+    if (!isGameOn) {
+      setStartGame(false);
+    }
+  }, [isGameOn]);
 
   if (startGame) {
     markGameAsInProgress();
-    return (<GameContainer id={"gameContainer"}><App enemyNumber={enemyNumber} setStartGame={setStartGame}/></GameContainer>);
+    return (
+      <GameContainer id={"gameContainer"}>
+        <App enemyNumber={enemyNumber} setStartGame={setStartGame} />
+      </GameContainer>
+    );
   } else {
     return (
       <>
@@ -68,8 +71,8 @@ const Input = ({ enemyNumber, changeValue, setStartGame }) => {
 };
 
 const InputContainer = styled.div`
-margin-left: 30px;
-margin-top: 50px;
+  margin-left: 30px;
+  margin-top: 50px;
 `;
 
 const InputPanel = styled.div`

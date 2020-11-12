@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {GAME_HEIGHT, GAME_WIDTH, MAP_WIDTH, PLAYER_INFO_PANEL_WIDTH} from "./consts/consts";
+import {
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  MAP_WIDTH,
+  PLAYER_INFO_PANEL_WIDTH,
+} from "./consts/consts";
 import { SecondMap } from "./maps/secondMap/secondMap";
 import { GenerateEnemyMap } from "./helpers/generateEnemyMap";
 import { CompileAll } from "./helpers/compileAllLayersMapByID";
@@ -98,7 +103,7 @@ const App = ({ enemyNumber, setStartGame }) => {
   };
 
   return (
-      <div onClick={refreshFunction}>
+    <div onClick={refreshFunction}>
       <MapScreen
         map={activeTerrainMap}
         playerPosition={r_playerData.position}
@@ -114,7 +119,7 @@ const App = ({ enemyNumber, setStartGame }) => {
           setStartGame={setStartGame}
         />
       )}
-</div>
+    </div>
   );
 };
 
@@ -126,7 +131,7 @@ const GameContainer = styled.div`
   margin: ${(window.innerHeight - 640) / 2}px auto;
   border: 2px solid #ffffff;
   @media (max-width: 840px) {
-  margin: 0;
+    margin: 0;
   }
 `;
 

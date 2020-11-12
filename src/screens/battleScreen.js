@@ -1,30 +1,46 @@
 import styled from "styled-components";
-import {GAME_HEIGHT, GAME_WIDTH} from "../consts/consts";
-import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import { GAME_HEIGHT, GAME_WIDTH } from "../consts/consts";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import bear_battle from "../assets/battleImages/bear_battle.png";
 import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
-import {setCurrentEnemy, setGameOn, setPlayer} from "../redux/actions";
-import {EnemyInfoPanel} from "../ui/components/enemyInfoPanel";
-import {PlayerBattlePanel} from "../ui/components/playerBattlePanel";
-import {EnemyBattlePhotoPanel} from "../ui/components/enemyBattlePhotoPanel";
+import {setCurrentEnemy, setEnemies, setGameOn, setPlayer} from "../redux/actions";
+import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
+import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
+import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
 
 const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
-
-
   const { enemiesById } = useSelector((p) => p.enemies);
+  const r_enemies = useSelector((p) => p.enemies);
   const r_playerData = useSelector((p) => p.player);
-
 
   const [myEnemy, setMyEnemy] = useState(enemiesById[enemyId]);
   const [myPlayer, setMyPlayer] = useState(r_playerData);
   const [victory, setVictory] = useState(false);
   const [canISetEnemy, setCanISetEnemy] = useState(true);
   const [myTurn, setMyTurn] = useState(true);
-  const [isEnemyAttacking, setIsEnemyAttacking] = useState(false)
+  const [isEnemyAttacking, setIsEnemyAttacking] = useState(false);
 
+
+
+
+  /** saving list without defeated enemy */
+  function deleteDefeatedEnemy(){
+    const copy1 = enemiesById;
+    delete copy1[enemyId];
+    const {x, y} = myEnemy.position
+    const index = r_enemies.usedPositions.findIndex(value => value.randomX === x && value.randomY === y);
+    const copy2 = r_enemies.usedPositions;
+    copy2.splice(index, 1);
+    const copy3 = r_enemies.enemyMap;
+    copy3.splice(index, 1)
+    const updatedEnemies = {enemiesById: copy1, enemyMap: copy3, usedPositions: copy2}
+
+    dispatch(setEnemies(updatedEnemies))
+    localStorage.setItem("enemies", JSON.stringify(updatedEnemies))
+  }
 
   function setBattleEnemyImage() {
     switch (myEnemy.name) {
@@ -46,59 +62,54 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     setMyEnemy(myEnemy);
     setCanISetEnemy(false);
   }
-  const { curHp, def, eq, lvl, maxHp, str } = myPlayer;
 
   function hitEnemy(dmg) {
     myEnemy.stats.hp -= dmg;
     setMyEnemy(myEnemy);
-    setMyTurn(false)
+    setMyTurn(false);
   }
 
-  function block(){
+  function block() {
     myPlayer.isBlocking = true;
-    setMyPlayer(myPlayer)
-    setMyTurn(false)
+    setMyPlayer(myPlayer);
+    setMyTurn(false);
   }
 
-  function enemyStrikes(dmg){
-    console.log("enemy strikes")
+  function enemyStrikes(dmg) {
+    console.log("enemy strikes");
     setIsEnemyAttacking(true);
-    myPlayer.curHp -= (myPlayer.isBlocking ? dmg/2 : dmg);
+    myPlayer.curHp -= myPlayer.isBlocking ? dmg / 2 : dmg;
 
     setMyPlayer(myPlayer);
 
     // tutaj zada obrazenia do tego , zaraz dorobię
-
-
   }
 
-  function enemyAction(){
+  function enemyAction() {
     // if (myEnemy.stats.hp < 1){
     //   return
     // }
-    console.log("enemy action")
+    console.log("enemy action");
     // TODO: mechanika do randomizacji obrażeń itd
-    let enemyStrikeDamage = myEnemy.stats.dmg
-    setTimeout(()=>{
-      enemyStrikes(enemyStrikeDamage)
-      setTimeout(()=>{
-        setIsEnemyAttacking(false)
-        setMyTurn(true)
-      }, 500)
-    },300)
+    let enemyStrikeDamage = myEnemy.stats.dmg;
+    setTimeout(() => {
+      enemyStrikes(enemyStrikeDamage);
+      setTimeout(() => {
+        setIsEnemyAttacking(false);
+        setMyTurn(true);
+      }, 500);
+    }, 300);
     //TODO tutaj będzie mechanika wyboru zagrania przeciwnika, na razie defaulowo leci attack
-
   }
 
-  useEffect(()=>{
-    if (myPlayer.curHp < 1){
-      console.log("reset wszystkiego")
+  useEffect(() => {
+    if (myPlayer.curHp < 1) {
+      console.log("reset wszystkiego");
 
       //TODO: coś tu ogarnąć jakoś logicznie aby miało ręce i nogi, na pewno ekran porażki dorobić
-      localStorage.clear()
+      localStorage.clear();
       window.location.reload(false);
-      alert("Uh... that was... terrible\ngame over, bro...")
-
+      alert("Uh... that was... terrible\ngame over, bro...");
 
       // setTimeout(()=>{
       //   localStorage.clear()
@@ -106,62 +117,65 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
       //
       // }, 3000)
     }
-  })
+    dispatch(setPlayer(myPlayer));
+  });
+
 
 
   useEffect(() => {
     if (myEnemy.stats.hp < 1) {
       setVictory(true);
-      setMyTurn(true)
+      setMyTurn(true);
     }
-  },[myEnemy]);
+    dispatch(setCurrentEnemy(myEnemy));
 
-  useEffect(()=>{
-    if (!myTurn){
-      if (myEnemy.stats.hp > 0){
-        enemyAction()
-      }else {
-        setVictory(true)
+  }, [myEnemy]);
+
+  useEffect(() => {
+    if (!myTurn) {
+      if (myEnemy.stats.hp > 0) {
+        enemyAction();
+      } else {
+        setVictory(true);
       }
-
-    }else {
+    } else {
       myPlayer.isBlocking = false;
-      setMyPlayer(myPlayer)
-      setTimeout(()=>{
-      }, 1000)
+      setMyPlayer(myPlayer);
+      setTimeout(() => {}, 1000);
     }
-  },[myTurn])
-
-
-
-
+  }, [myTurn]);
 
   //updates store
-  dispatch(setCurrentEnemy(myEnemy));
-  dispatch(setPlayer(myPlayer))
 
   return (
     <div>
-      <VictoryScreen victory={victory} />
-
+      <VictoryScreen victory={victory} close={close} deleteEnemy={deleteDefeatedEnemy}/>
+      <div style={{pointerEvents: victory ? "none" : "auto"}}>
       <BattleScreenDiv blur={victory ? 5 : 0}>
-        <EnemyBattlePhotoPanel myEnemy={myEnemy} isAttacking={isEnemyAttacking}/>
+        <EnemyBattlePhotoPanel
+          myEnemy={myEnemy}
+          isAttacking={isEnemyAttacking}
+        />
 
         <EnemyInfoPanel myEnemy={myEnemy} />
         <PlayerBattlePanel
-            hitEnemy={hitEnemy}
-            block={block}
-            myPlayer={myPlayer} />
+          hitEnemy={hitEnemy}
+          block={block}
+          myPlayer={myPlayer}
+        />
 
         <CloseButton onClick={close}>close</CloseButton>
       </BattleScreenDiv>
+</div>
     </div>
   );
 };
 
-const VictoryScreen = ({ victory }) => {
+const VictoryScreen = ({ victory, close, deleteEnemy }) => {
   const hidden = { width: 0, height: 0 };
   const visible = { width: 70, height: 70 };
+
+
 
   return (
     <VictoryScreenContainer
@@ -170,6 +184,8 @@ const VictoryScreen = ({ victory }) => {
     >
       <VictoryTitle opacity={victory}>VICTORY</VictoryTitle>
       <VictoryInfo></VictoryInfo>
+      <CloseButton onClick={() => {close(); deleteEnemy()}}>close</CloseButton>
+
     </VictoryScreenContainer>
   );
 };
