@@ -7,13 +7,13 @@ import rootReducer from "./redux/reducers";
 import { GenerateOptions } from "./ui/components/generateOptions";
 import "./fonts/AncientModernTales.ttf";
 import styled from "styled-components";
-import { GAME_WIDTH } from "./consts/consts";
 
 const store = createStore(
   rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
+// tried to make it work SOMEHOW on every mobile device
 const oppositeGameRatio = 640 / 940;
 const test1 = oppositeGameRatio * window.innerWidth;
 console.log(test1);

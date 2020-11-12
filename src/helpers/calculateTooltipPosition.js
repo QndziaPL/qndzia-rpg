@@ -1,23 +1,26 @@
+const TILE_SIZE = 32;
+
+// function used for showing tooltip about enemy in good, visible position, not for example outside the map or screen
 export const CalculateTooltipPosition = (
   containerHeight,
   containerWidth,
   { x, y }
 ) => {
-  let newX = x * 32;
-  let newY = y * 32;
+  let newX = x * TILE_SIZE;
+  let newY = y * TILE_SIZE;
   if (y < 10) {
-    newY += 48;
+    newY += TILE_SIZE * 1.5;
   } else {
-    newY -= 16 + containerHeight;
+    newY -= TILE_SIZE / 2 + containerHeight;
   }
 
   newX -= Math.floor(containerWidth / 2);
-  newX += 16;
+  newX += TILE_SIZE / 2;
   if (x === 19) {
-    newX -= 64;
+    newX -= TILE_SIZE * 2;
   }
   if (x === 18) {
-    newX -= 32;
+    newX -= TILE_SIZE;
   }
 
   return { x: newX, y: newY };

@@ -1,28 +1,26 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import { MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "../../redux/actions";
-import { generateId } from "../../helpers/createIDforEnemies";
+import arrow from "../../assets/other/arrow.png";
 
-export const PlayerInfoPanel = () => {
+export const PlayerInfoPanel = ({ blockedMovement }) => {
   const UP = "up";
   const DOWN = "down";
   const LEFT = "left";
   const RIGHT = "right";
 
   const r_playerData = useSelector((p) => p.player);
+  // TODO: jazda
+  const r_utils = useSelector((p) => p.utils);
   const { directionUnavailable } = useSelector((p) => p.interactions);
   const buttonsDisablingList = directionUnavailable ?? [];
   const dispatch = useDispatch();
-  // const enemies = useSelector(p => p.enemies);
 
   const movementKeysContainerSize = (PLAYER_INFO_PANEL_WIDTH * 2) / 3;
   const marginMovementKeysContainer =
     (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
-
-  // const [fullVision, setFullVision] = useState(r_playerData.fullVision);
 
   const updatePositionToDispatch = (direction) => {
     switch (direction) {
@@ -50,11 +48,6 @@ export const PlayerInfoPanel = () => {
   function saveToLocalStorage() {
     localStorage.setItem("player", JSON.stringify(r_playerData));
   }
-
-  // const currentTileId = generateId(
-  //   r_playerData.position.x,
-  //   r_playerData.position.y
-  // );
 
   function clearDataAndReloadPage() {
     let clear = window.confirm(
@@ -84,9 +77,6 @@ export const PlayerInfoPanel = () => {
 
   return (
     <Container style={{ position: "relative" }}>
-      <ClearLocalStorage onClick={() => clearDataAndReloadPage()}>
-        reset ALL!
-      </ClearLocalStorage>
       <Table>
         <Tr>
           <Td>level</Td>
@@ -115,9 +105,8 @@ export const PlayerInfoPanel = () => {
           <Td>tbd</Td>
         </Tr>
       </Table>
-      {/*<div>position {r_playerData.position.x} : {r_playerData.position.y}</div>*/}
-      {/*<div>current tile ID {currentTileId}</div>*/}
-      <div>
+      <HorizontalSeparator />
+      <div style={{ textAlign: "center" }}>
         <label>
           full vision:
           <input
@@ -130,6 +119,8 @@ export const PlayerInfoPanel = () => {
           style={{
             display: r_playerData.fullVision ? "none" : "flex",
             marginTop: 10,
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
           <VisionButton onClick={() => changeVision("minus")}>-</VisionButton>
@@ -139,6 +130,7 @@ export const PlayerInfoPanel = () => {
       </div>
 
       <MovementKeysContainer
+        block={r_utils.blockedMovement}
         size={movementKeysContainerSize}
         margin={marginMovementKeysContainer}
         onClick={() => saveToLocalStorage()}
@@ -150,7 +142,7 @@ export const PlayerInfoPanel = () => {
             left={70}
             top={6}
           >
-            U
+            <MovementArrow src={arrow} rotation={0} />
           </MovementKey>
           <MovementKey
             disabled={buttonsDisablingList.includes(DOWN)}
@@ -158,7 +150,7 @@ export const PlayerInfoPanel = () => {
             left={70}
             top={134}
           >
-            D
+            <MovementArrow src={arrow} rotation={180} />
           </MovementKey>
           <MovementKey
             disabled={buttonsDisablingList.includes(LEFT)}
@@ -166,7 +158,7 @@ export const PlayerInfoPanel = () => {
             left={6}
             top={70}
           >
-            L
+            <MovementArrow src={arrow} rotation={270} />
           </MovementKey>
           <MovementKey
             disabled={buttonsDisablingList.includes(RIGHT)}
@@ -174,17 +166,38 @@ export const PlayerInfoPanel = () => {
             left={134}
             top={70}
           >
-            R
+            <MovementArrow src={arrow} rotation={90} />
           </MovementKey>
         </MovementKeys>
       </MovementKeysContainer>
+      <ClearLocalStorage onClick={() => clearDataAndReloadPage()}>
+        reset
+      </ClearLocalStorage>
     </Container>
   );
 };
 
+const MovementArrow = styled.img`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(${(props) => props.rotation}deg);
+`;
+
+const HorizontalSeparator = styled.div`
+  height: 1px;
+  margin-bottom: 5px;
+  text-align: center;
+  background: black;
+`;
+
 const Table = styled.table``;
 const Tr = styled.tr``;
-const Td = styled.td``;
+const Td = styled.td`
+  padding: 2px 4px;
+`;
 const VisionButton = styled.button`
   width: 20px;
   height: 20px;
@@ -197,7 +210,7 @@ const MovementKeys = styled.div`
 
 const ClearLocalStorage = styled.div`
   position: absolute;
-  top: 5px;
+  bottom: 5px;
   right: 5px;
   background-color: red;
   padding: 2px 5px;
@@ -223,6 +236,7 @@ const MovementKeysContainer = styled.div`
   left: ${(props) => props.margin}px;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
+  display: ${(props) => (props.block ? "none" : "block")};
   //background-color: red;
 `;
 

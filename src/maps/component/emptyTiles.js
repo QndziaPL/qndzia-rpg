@@ -1,3 +1,4 @@
+//NOT USED NOW
 export const EmptyTiles = () => {
   const tiles = [];
   let id = 0;

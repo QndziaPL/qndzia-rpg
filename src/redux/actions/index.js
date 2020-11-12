@@ -39,3 +39,10 @@ export const setGameOn = (game) => {
     payload: game,
   };
 };
+
+export const setUtils = (utils) => {
+  return {
+    type: "SET_UTILS",
+    payload: utils,
+  };
+};

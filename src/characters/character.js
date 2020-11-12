@@ -40,6 +40,7 @@ const Character = ({
       className="characterPosition"
       left={position.x}
       top={position.y}
+      isPlayer={isPlayer}
     >
       <CharacterModel background={background} isPlayer={isPlayer}>
         <CharacterImg src={characterTile} />
@@ -72,7 +73,6 @@ const CharacterImg = styled.img`
   z-index: -1;
   top: 0;
   left: 0;
-
   width: 32px;
   height: 32px;
 `;
@@ -81,7 +81,7 @@ const CharacterPosition = styled.div`
   position: absolute;
   left: ${(props) => props.left * 32}px;
   top: ${(props) => props.top * 32}px;
-  transition-duration: 0.4s;
+  transition-duration: ${(props) => (props.isPlayer ? "0.2s" : 0)};
 `;
 
 const VisionCircle = styled.div`
@@ -89,7 +89,6 @@ const VisionCircle = styled.div`
   position: absolute;
   border-radius: 50%;
   transition-duration: 2s;
-
   top: ${(props) =>
     -props.visionRadius * CENTER_VISION_ON_PLAYER_MULTIPLIER + 16}px;
   left: ${(props) =>
@@ -97,16 +96,6 @@ const VisionCircle = styled.div`
   height: ${(props) => props.visionRadius * 2}px;
   width: ${(props) => props.visionRadius * 2}px;
   border: ${(props) => props.visionRadius * BORDER_MULTIPLIER}px solid #000000;
-
   z-index: 100;
   pointer-events: none;
-
-  // position: absolute;
-  // z-index: 2;
-  // top: 1px;
-  // left: 2px;
-  // width: 28px;
-  // height: 28px;
-  // transform: rotate(45deg);
-  // background: ${(props) => props.background};
 `;

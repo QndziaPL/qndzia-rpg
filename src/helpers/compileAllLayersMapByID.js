@@ -1,7 +1,9 @@
 import React from "react";
 
+//compiles enemies and map together
+//TODO: treasures and other stuff
 export const CompileAll = (enemies, map) => {
-  const em = enemies.enemyMap;
+  const ENEMY_MAP = enemies.enemyMap;
   let compile = [];
   map.map((value, index) =>
     compile.push({
@@ -10,9 +12,9 @@ export const CompileAll = (enemies, map) => {
     })
   );
 
-  for (const index in em) {
-    if (em[index].tileId !== null) {
-      const id = em[index].tileId;
+  for (const index in ENEMY_MAP) {
+    if (ENEMY_MAP[index].tileId !== null) {
+      const id = ENEMY_MAP[index].tileId;
       compile[id] = { ...compile[id], enemyId: 1 };
     }
   }

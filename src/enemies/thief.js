@@ -1,5 +1,5 @@
-import { EnemyTypeEnum } from "./enemy";
 import React from "react";
+import { EnemyTypeEnum } from "../enums/enemyTypeEnum";
 
 export const ENEMY_THIEF = ({ x = 1, y = 1 }) => ({
   name: "thief",

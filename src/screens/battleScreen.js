@@ -6,7 +6,12 @@ import bear_battle from "../assets/battleImages/bear_battle.png";
 import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
-import {setCurrentEnemy, setEnemies, setGameOn, setPlayer} from "../redux/actions";
+import {
+  setCurrentEnemy,
+  setEnemies,
+  setGameOn,
+  setPlayer,
+} from "../redux/actions";
 import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
 import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
 import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
@@ -23,23 +28,26 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   const [myTurn, setMyTurn] = useState(true);
   const [isEnemyAttacking, setIsEnemyAttacking] = useState(false);
 
-
-
-
   /** saving list without defeated enemy */
-  function deleteDefeatedEnemy(){
+  function deleteDefeatedEnemy() {
     const copy1 = enemiesById;
     delete copy1[enemyId];
-    const {x, y} = myEnemy.position
-    const index = r_enemies.usedPositions.findIndex(value => value.randomX === x && value.randomY === y);
+    const { x, y } = myEnemy.position;
+    const index = r_enemies.usedPositions.findIndex(
+      (value) => value.randomX === x && value.randomY === y
+    );
     const copy2 = r_enemies.usedPositions;
     copy2.splice(index, 1);
     const copy3 = r_enemies.enemyMap;
-    copy3.splice(index, 1)
-    const updatedEnemies = {enemiesById: copy1, enemyMap: copy3, usedPositions: copy2}
+    copy3.splice(index, 1);
+    const updatedEnemies = {
+      enemiesById: copy1,
+      enemyMap: copy3,
+      usedPositions: copy2,
+    };
 
-    dispatch(setEnemies(updatedEnemies))
-    localStorage.setItem("enemies", JSON.stringify(updatedEnemies))
+    dispatch(setEnemies(updatedEnemies));
+    localStorage.setItem("enemies", JSON.stringify(updatedEnemies));
   }
 
   function setBattleEnemyImage() {
@@ -86,9 +94,6 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   }
 
   function enemyAction() {
-    // if (myEnemy.stats.hp < 1){
-    //   return
-    // }
     console.log("enemy action");
     // TODO: mechanika do randomizacji obrażeń itd
     let enemyStrikeDamage = myEnemy.stats.dmg;
@@ -120,15 +125,12 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     dispatch(setPlayer(myPlayer));
   });
 
-
-
   useEffect(() => {
     if (myEnemy.stats.hp < 1) {
       setVictory(true);
       setMyTurn(true);
     }
     dispatch(setCurrentEnemy(myEnemy));
-
   }, [myEnemy]);
 
   useEffect(() => {
@@ -145,50 +147,66 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     }
   }, [myTurn]);
 
-  //updates store
+  function whenDisablePointerEvents() {
+    return victory || !myTurn;
+  }
 
   return (
     <div>
-      <VictoryScreen victory={victory} close={close} deleteEnemy={deleteDefeatedEnemy}/>
-      <div style={{pointerEvents: victory ? "none" : "auto"}}>
-      <BattleScreenDiv blur={victory ? 5 : 0}>
-        <EnemyBattlePhotoPanel
-          myEnemy={myEnemy}
-          isAttacking={isEnemyAttacking}
-        />
+      <VictoryScreen
+        victory={victory}
+        close={close}
+        deleteEnemy={deleteDefeatedEnemy}
+      />
+      <div
+        style={{ pointerEvents: whenDisablePointerEvents() ? "none" : "auto" }}
+      >
+        <BattleScreenDiv blur={victory ? 5 : 0}>
+          <EnemyBattlePhotoPanel
+            myEnemy={myEnemy}
+            isAttacking={isEnemyAttacking}
+          />
 
-        <EnemyInfoPanel myEnemy={myEnemy} />
-        <PlayerBattlePanel
-          hitEnemy={hitEnemy}
-          block={block}
-          myPlayer={myPlayer}
-        />
+          <EnemyInfoPanel myEnemy={myEnemy} />
+          <PlayerBattlePanel
+            hitEnemy={hitEnemy}
+            block={block}
+            myPlayer={myPlayer}
+          />
 
-        <CloseButton onClick={close}>close</CloseButton>
-      </BattleScreenDiv>
-</div>
+          <CloseButton onClick={close}>close</CloseButton>
+        </BattleScreenDiv>
+      </div>
     </div>
   );
 };
 
 const VictoryScreen = ({ victory, close, deleteEnemy }) => {
-  const hidden = { width: 0, height: 0 };
+  const hidden = { width: 70, height: 0 };
   const visible = { width: 70, height: 70 };
 
-
-
+  console.log(victory);
   return (
     <VictoryScreenContainer
       visible={victory ? visible : hidden}
       className={"victoryScreenContainer"}
     >
-      <VictoryTitle opacity={victory}>VICTORY</VictoryTitle>
-      <VictoryInfo></VictoryInfo>
-      <CloseButton onClick={() => {close(); deleteEnemy()}}>close</CloseButton>
-
+      <div style={{ display: victory ? "block" : "none" }}>
+        <VictoryTitle opacity={victory}>VICTORY</VictoryTitle>
+        <VictoryInfo>werwerwerewr</VictoryInfo>
+        <CloseButton
+          onClick={() => {
+            close();
+            deleteEnemy();
+          }}
+        >
+          close
+        </CloseButton>
+      </div>
     </VictoryScreenContainer>
   );
 };
+
 const VictoryTitle = styled.div`
   text-align: center;
   font-size: 50px;

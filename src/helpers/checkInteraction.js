@@ -1,5 +1,6 @@
 import { MAP_TERRAIN_TYPE } from "../enums/mapEnums";
 
+// mechanism to check if player interacts with environment
 export function checkInteraction(
   compiledIDs,
   playerPositionId,
@@ -52,8 +53,6 @@ export function checkInteraction(
       directionUnavailable.push("right");
     }
   }
-
-  // interaction.push({type: "nopass", tile: "stone" })
 
   const interactionOutput = {
     directionUnavailable,

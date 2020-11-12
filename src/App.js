@@ -11,7 +11,12 @@ import { GenerateEnemyMap } from "./helpers/generateEnemyMap";
 import { CompileAll } from "./helpers/compileAllLayersMapByID";
 import { generateId } from "./helpers/createIDforEnemies";
 import { useDispatch, useSelector } from "react-redux";
-import { setEnemies, setGameOn, setInteractions } from "./redux/actions";
+import {
+  setEnemies,
+  setGameOn,
+  setInteractions,
+  setUtils,
+} from "./redux/actions";
 import { checkInteraction } from "./helpers/checkInteraction";
 import BattleScreen from "./screens/battleScreen";
 import MapScreen from "./screens/mapScreen";
@@ -86,11 +91,13 @@ const App = ({ enemyNumber, setStartGame }) => {
   useEffect(() => {
     if (r_interactionData) {
       if (r_interactionData.type === "battle") {
+        dispatch(setUtils({ blockedMovement: true }));
         setGamePhase(BATTLE_SCREEN);
         setCurrentEnemy(r_interactionData.id);
         if (!beginBattle) {
           setTimeout(() => {
             setBeginBattle(true);
+            dispatch(setUtils({ blockedMovement: false }));
           }, 1000);
         }
       }

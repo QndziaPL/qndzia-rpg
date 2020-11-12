@@ -4,13 +4,6 @@ import styled from "styled-components";
 import { CalculateTooltipPosition } from "../helpers/calculateTooltipPosition";
 import { useSelector } from "react-redux";
 
-export const EnemyTypeEnum = Object.freeze({
-  small: "small",
-  humanoid: "humanoid",
-  big: "big",
-  flying: "flying",
-});
-
 export const Enemy = ({ name, type, position, stats, tileId }) => {
   const tooltipHeight = 200;
   const tooltipWidth = 150;
@@ -39,11 +32,24 @@ export const Enemy = ({ name, type, position, stats, tileId }) => {
         <TooltipParagraph>
           position: {position.x}:{position.y}
         </TooltipParagraph>
-        {/*<TooltipParagraph>tile ID: {tileId}</TooltipParagraph>*/}
       </TooltipContainer>
     </HoverContainer>
   );
 };
+
+export const Enemies = () => {
+  const enemies = useSelector((p) => p.enemies);
+  return enemies.enemyMap.map((e) => (
+    <Enemy
+      position={e.position}
+      name={e.name}
+      stats={e.stats}
+      type={e.type}
+      tileId={e.tileId}
+    />
+  ));
+};
+
 const TooltipContainer = styled.div`
   box-sizing: border-box;
   z-index: 100;
@@ -104,18 +110,3 @@ const HoverContainer = styled.div`
     transition-duration: 0.3s;
   }
 `;
-
-export const Enemies = () => {
-  const enemies = useSelector((p) => p.enemies);
-  console.log(enemies)
-
-  return enemies.enemyMap.map((e) => (
-    <Enemy
-      position={e.position}
-      name={e.name}
-      stats={e.stats}
-      type={e.type}
-      tileId={e.tileId}
-    />
-  ));
-};

@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { PlayerInfoPanel } from "../../ui/components/playerInfoPanel";
-import { EmptyTiles } from "./emptyTiles";
 import { MapIDsToMap } from "./mapIDsToMap";
 import { MAP_HEIGHT, MAP_WIDTH } from "../../consts/consts";
 import "../../../src/assets/mapTiles/green_tile.png";
@@ -12,23 +10,21 @@ import water_tile from "../../../src/assets/mapTiles/water_tile.png";
 import stone_tile from "../../../src/assets/mapTiles/stone_tile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setMapWithIDs } from "../../redux/actions/index";
-import mapIdReducer from "../../redux/reducers/mapIdReducer";
 
 const Map = ({ size = { x: 20, y: 20 }, children, map }) => {
-  const [dispatchAllowed, setDispatchAllowed] = useState(true);
-
   const dispatch = useDispatch();
+  const r_mapIDs = useSelector((p) => p.mapIDs);
 
-  const mapIDs = useSelector((p) => p.mapIDs);
+  const [dispatchAllowed, setDispatchAllowed] = useState(true);
 
   let mapTiles;
 
-  if (Object.keys(mapIDs).length === 0 && mapIDs.constructor === Object) {
+  if (Object.keys(r_mapIDs).length === 0 && r_mapIDs.constructor === Object) {
     mapTiles = MapIDsToMap(map);
     updateStore();
     updateLocalStorage(map);
   } else {
-    mapTiles = MapIDsToMap(mapIDs);
+    mapTiles = MapIDsToMap(r_mapIDs);
   }
 
   function updateStore() {
@@ -78,11 +74,6 @@ const TileType = (number) => {
   }
 };
 
-function RandomMapTile() {
-  const random = Math.floor(Math.random() * 6);
-  return random;
-}
-
 const MapFromTiles = ({ tiles }) => {
   return (
     <div>
@@ -92,7 +83,6 @@ const MapFromTiles = ({ tiles }) => {
             <SingleMapTile
               src={TileType(tile.tileType)}
               itemKey={tile.id}
-              // tileType={TileType(RandomMapTile())}
               tileType={TileType(tile.tileType)}
             />
           ))}
