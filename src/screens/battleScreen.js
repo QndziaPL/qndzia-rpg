@@ -27,6 +27,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   const [canISetEnemy, setCanISetEnemy] = useState(true);
   const [myTurn, setMyTurn] = useState(true);
   const [isEnemyAttacking, setIsEnemyAttacking] = useState(false);
+  const [goingToFlee, setGoingToFlee ] = useState(false);
 
   /** saving list without defeated enemy */
   function deleteDefeatedEnemy() {
@@ -83,14 +84,16 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     setMyTurn(false);
   }
 
+  function getHitOnFlee(){
+    setGoingToFlee(true)
+    setMyTurn(false)
+  }
+
   function enemyStrikes(dmg) {
     console.log("enemy strikes");
     setIsEnemyAttacking(true);
     myPlayer.curHp -= myPlayer.isBlocking ? dmg / 2 : dmg;
-
     setMyPlayer(myPlayer);
-
-    // tutaj zada obrazenia do tego , zaraz dorobię
   }
 
   function enemyAction() {
@@ -106,6 +109,15 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     }, 300);
     //TODO tutaj będzie mechanika wyboru zagrania przeciwnika, na razie defaulowo leci attack
   }
+
+  useEffect(()=>{
+    if (myTurn && goingToFlee){
+      setTimeout(()=>{
+        alert("you took some damage and fled like a coward")
+        close()
+      },300)
+    }
+  },[myTurn])
 
   useEffect(() => {
     if (myPlayer.curHp < 1) {
@@ -174,7 +186,10 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
             myPlayer={myPlayer}
           />
 
-          <CloseButton onClick={close}>close</CloseButton>
+          <CloseButton onClick={() =>
+            getHitOnFlee()
+
+          }>flee</CloseButton>
         </BattleScreenDiv>
       </div>
     </div>
@@ -185,7 +200,6 @@ const VictoryScreen = ({ victory, close, deleteEnemy }) => {
   const hidden = { width: 70, height: 0 };
   const visible = { width: 70, height: 70 };
 
-  console.log(victory);
   return (
     <VictoryScreenContainer
       visible={victory ? visible : hidden}

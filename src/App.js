@@ -32,9 +32,6 @@ const App = ({ enemyNumber, setStartGame }) => {
   const { interaction: r_interactionData } = useSelector((p) => p.interactions);
   const r_currentEnemyData = useSelector((p) => p.currentEnemy);
 
-  // const visionRadiusModifier =
-  // const interactionData =
-
   const [refresh, setRefresh] = useState(2);
   function refreshFunction() {
     setRefresh((prevState) => prevState + 1);
@@ -45,6 +42,8 @@ const App = ({ enemyNumber, setStartGame }) => {
 
   const [gamePhase, setGamePhase] = useState(MAP_SCREEN);
   const [currentEnemy, setCurrentEnemy] = useState(null);
+
+  const [enteringBattle, setEnteringBattle] = useState(false)
 
   /** do dorobienia treasures, wjebanie ich do compileAll i nareszcie mechanika do sprawdzania interakcji !!!!!! */
 
@@ -95,14 +94,22 @@ const App = ({ enemyNumber, setStartGame }) => {
         setGamePhase(BATTLE_SCREEN);
         setCurrentEnemy(r_interactionData.id);
         if (!beginBattle) {
+          setEnteringBattle(true)
           setTimeout(() => {
             setBeginBattle(true);
+            setEnteringBattle(false)
             dispatch(setUtils({ blockedMovement: false }));
-          }, 1000);
+          }, 1500);
         }
       }
     }
   }, [r_interactionData]);
+
+  // useEffect(() => {
+  //   if (enteringBattle){
+  //
+  //   }
+  // },[enteringBattle])
 
   const closeBattleScreen = () => {
     setGamePhase(MAP_SCREEN);
@@ -117,6 +124,7 @@ const App = ({ enemyNumber, setStartGame }) => {
         enterBattleAnimation={gamePhase === BATTLE_SCREEN}
         currentVision={r_playerData.vision}
         fullVision={r_playerData.fullVision}
+        bloodyMap={enteringBattle}
       />
       {beginBattle && (
         <BattleScreen

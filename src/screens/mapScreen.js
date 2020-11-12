@@ -12,9 +12,10 @@ const MapScreen = ({
   enterBattleAnimation,
   currentVision,
   fullVision,
+    bloodyMap
 }) => {
   return (
-    <MapScreenDiv key={key}>
+    <MapScreenDiv key={key} bloodyMap={bloodyMap}>
       <Map map={map}>
         <Player
           playerPosition={playerPosition}
@@ -31,6 +32,8 @@ const MapScreen = ({
 
 const MapScreenDiv = styled.div`
   display: flex;
+  filter: blur(${props=>props.bloodyMap ? "5px" : 0});
+  transition-duration: 1s;
 `;
 
 export default MapScreen;
