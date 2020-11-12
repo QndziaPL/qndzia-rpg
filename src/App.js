@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setEnemies,
   setGameOn,
-  setInteractions,
+  setInteractions, setPlayer,
   setUtils,
 } from "./redux/actions";
 import { checkInteraction } from "./helpers/checkInteraction";
@@ -25,10 +25,33 @@ const MAP_SCREEN = 0;
 const BATTLE_SCREEN = 1;
 
 const App = ({ enemyNumber, setStartGame }) => {
+
   const dispatch = useDispatch();
+
+  // SOME MECHANICS TO FIRST SET MAP AND PLAYER SPAWN
+  // THEN UPDATE PLAYER MODEL IN STORE
+  const [activeTerrainMap, setActiveTerrainMap] = useState(SecondMap);
+  const r_playerData = useSelector((p) => p.player);
+
+
+  // it will depend on previous map
+  if (!r_playerData.alreadySpawned){
+    const spawnPoint = 4;
+    const playerSpawnPoint = activeTerrainMap.spawns[spawnPoint]
+    let updateSpawnsPlayer = r_playerData;
+    updateSpawnsPlayer.position = playerSpawnPoint;
+    updateSpawnsPlayer.alreadySpawned = true;
+    dispatch(setPlayer(updateSpawnsPlayer))
+  }
+
+
+
+
+
+
+
   const r_enemies = useSelector((p) => p.enemies);
   const r_map = useSelector((p) => p.mapIDs);
-  const r_playerData = useSelector((p) => p.player);
   const { interaction: r_interactionData } = useSelector((p) => p.interactions);
   const r_currentEnemyData = useSelector((p) => p.currentEnemy);
 
@@ -38,12 +61,14 @@ const App = ({ enemyNumber, setStartGame }) => {
   }
 
   const [letGenerateEnemies, setLetGenerateEnemies] = useState(true);
-  const [activeTerrainMap, setActiveTerrainMap] = useState(SecondMap);
 
   const [gamePhase, setGamePhase] = useState(MAP_SCREEN);
   const [currentEnemy, setCurrentEnemy] = useState(null);
 
   const [enteringBattle, setEnteringBattle] = useState(false)
+
+  // i need to do mechanism for passing player spawn to another map
+  const [playerSpawn, setPlayerSpawn] = useState(4)
 
   /** do dorobienia treasures, wjebanie ich do compileAll i nareszcie mechanika do sprawdzania interakcji !!!!!! */
 
@@ -55,8 +80,9 @@ const App = ({ enemyNumber, setStartGame }) => {
       r_enemies.constructor === Object
     ) {
       enemyMap = GenerateEnemyMap({
-        numberOfEnemies: enemyNumber,
-        terrainMap: activeTerrainMap,
+        enemyNumber,
+        activeTerrainMap,
+        playerSpawn
       });
       localStorage.setItem("enemies", JSON.stringify(enemyMap));
     } else {
@@ -71,7 +97,7 @@ const App = ({ enemyNumber, setStartGame }) => {
   }
 
   // na razie przesyłam jako mapę stan komponentu
-  const compiledIDs = CompileAll(r_enemies, activeTerrainMap);
+  const compiledIDs = CompileAll(r_enemies, activeTerrainMap.map);
   const playerPositionId = generateId(
     r_playerData.position.x,
     r_playerData.position.y
@@ -105,12 +131,6 @@ const App = ({ enemyNumber, setStartGame }) => {
     }
   }, [r_interactionData]);
 
-  // useEffect(() => {
-  //   if (enteringBattle){
-  //
-  //   }
-  // },[enteringBattle])
-
   const closeBattleScreen = () => {
     setGamePhase(MAP_SCREEN);
     setBeginBattle(false);
@@ -119,7 +139,7 @@ const App = ({ enemyNumber, setStartGame }) => {
   return (
     <div onClick={refreshFunction}>
       <MapScreen
-        map={activeTerrainMap}
+        map={activeTerrainMap.map}
         playerPosition={r_playerData.position}
         enterBattleAnimation={gamePhase === BATTLE_SCREEN}
         currentVision={r_playerData.vision}

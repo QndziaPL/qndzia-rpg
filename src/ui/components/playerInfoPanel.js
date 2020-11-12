@@ -4,6 +4,7 @@ import { MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "../../redux/actions";
 import arrow from "../../assets/other/arrow.png";
+import {ExperienceBar} from "./experienceBar";
 
 export const PlayerInfoPanel = ({ blockedMovement }) => {
   const UP = "up";
@@ -81,6 +82,11 @@ export const PlayerInfoPanel = ({ blockedMovement }) => {
         <Tr>
           <Td>level</Td>
           <Td>{r_playerData.lvl}</Td>
+        </Tr>
+        <Tr>
+          <Td colSpan="2">
+            <ExperienceBar nextLvlExp={20} curExp={7} />
+          </Td>
         </Tr>
         <Tr>
           <Td>health points</Td>
