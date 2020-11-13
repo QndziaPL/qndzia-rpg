@@ -15,6 +15,7 @@ import {
 import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
 import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
 import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
+import {RandomNumberBetween} from "../helpers/randomNumberBetween";
 
 const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   const { enemiesById } = useSelector((p) => p.enemies);
@@ -137,20 +138,35 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     dispatch(setPlayer(myPlayer));
   });
 
+  function givePlayerExpFromBattle(){
+    myPlayer.exp += RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest);
+    setMyPlayer(myPlayer);
+    console.log(RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest))
+  }
+
+  console.log(RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest))
+
+
   useEffect(() => {
     if (myEnemy.stats.hp < 1) {
-      setVictory(true);
-      setMyTurn(true);
+      // givePlayerExpFromBattle()
+
+      // setVictory(true);
+      // setMyTurn(true);
     }
     dispatch(setCurrentEnemy(myEnemy));
-  }, [myEnemy]);
+  }, [myEnemy.stats]);
 
   useEffect(() => {
     if (!myTurn) {
-      if (myEnemy.stats.hp > 0) {
+      if (myEnemy.stats.hp >= 0) {
         enemyAction();
       } else {
         setVictory(true);
+        setMyTurn(true);
+        givePlayerExpFromBattle()
+
+
       }
     } else {
       myPlayer.isBlocking = false;
@@ -163,6 +179,9 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     return victory || !myTurn;
   }
 
+
+
+  //TODO: !!! MUSZĘ WYkąbinować w jaki sposób najlepiej, kiedy i gdize przekazywać ilosć expa przeciwnika z którym walczymy
   return (
     <div>
       <VictoryScreen

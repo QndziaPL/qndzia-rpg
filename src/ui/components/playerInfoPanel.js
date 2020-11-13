@@ -94,8 +94,6 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     // alert("You just gained new level!!!")
   }
 
-  console.log(r_playerData)
-
   useEffect(() => {
     if (r_playerData.exp >= r_playerData.nextLvlExp){
       lvlUp();
@@ -106,9 +104,13 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     r_playerData.exp += exp;
   }
 
+  function healPlayer(){
+    r_playerData.curHp = r_playerData.maxHp;
+  }
+
   return (
     <Container style={{ position: "relative" }}>
-      <button onClick={() => playerGainsExp(2)}>lvl up</button>
+      <button onClick={() => healPlayer()}>(cheat)heal to full</button>
       <Table>
         <Tr>
           <Td>level</Td>
