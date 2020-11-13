@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useEffect} from "react";
 import { MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "../../redux/actions";
 import arrow from "../../assets/other/arrow.png";
 import {ExperienceBar} from "./experienceBar";
 
-export const PlayerInfoPanel = ({ blockedMovement }) => {
+export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
   const UP = "up";
   const DOWN = "down";
   const LEFT = "left";
@@ -76,8 +76,39 @@ export const PlayerInfoPanel = ({ blockedMovement }) => {
     saveToLocalStorage();
   }
 
+  function lvlUp(){
+    const remainingExp = r_playerData.exp - r_playerData.nextLvlExp;
+    const previousNeededExp = r_playerData.nextLvlExp;
+    r_playerData.lvl += 1;
+    console.log(r_playerData)
+
+    // na razie tylko!
+    r_playerData.str += 1;
+    r_playerData.maxHp += 5;
+    r_playerData.vision += 10;
+    r_playerData.nextLvlExp = Math.floor((previousNeededExp * 2) - (previousNeededExp / 3))
+    r_playerData.exp = remainingExp;
+    dispatch(setPlayer(r_playerData));
+    console.log(r_playerData)
+    refreshApp();
+    // alert("You just gained new level!!!")
+  }
+
+  console.log(r_playerData)
+
+  useEffect(() => {
+    if (r_playerData.exp >= r_playerData.nextLvlExp){
+      lvlUp();
+    }
+  },[r_playerData.exp])
+
+  function playerGainsExp(exp){
+    r_playerData.exp += exp;
+  }
+
   return (
     <Container style={{ position: "relative" }}>
+      <button onClick={() => playerGainsExp(2)}>lvl up</button>
       <Table>
         <Tr>
           <Td>level</Td>
@@ -85,7 +116,7 @@ export const PlayerInfoPanel = ({ blockedMovement }) => {
         </Tr>
         <Tr>
           <Td colSpan="2">
-            <ExperienceBar nextLvlExp={20} curExp={7} />
+            <ExperienceBar nextLvlExp={r_playerData.nextLvlExp} curExp={r_playerData.exp} />
           </Td>
         </Tr>
         <Tr>

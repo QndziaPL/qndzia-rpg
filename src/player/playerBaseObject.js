@@ -12,4 +12,6 @@ export const playerBaseObject = {
   vision: 200,
   fullVision: false,
   isBlocking: false,
+  exp: 0,
+  nextLvlExp: 10,
 };

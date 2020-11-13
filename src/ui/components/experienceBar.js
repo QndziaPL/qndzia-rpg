@@ -17,18 +17,18 @@ export const ExperienceBar = ({ nextLvlExp, curExp, bottom }) => {
 };
 
 const HoverInfo = styled.div`
-display: none;
+display: block;
+overflow: hidden;
 position: absolute;
 width: 100%;
+height: 0;
 color: black;
 background-color: #e3e3e3;
 text-align: center;
-padding: 5px;
 border-radius: 10px;
-border: 1px solid black;
 top: 20px;
 opacity: 0.9;
-box-shadow: 2px 2px 10px black;
+transition-duration: 0.3s;
 `
 
 const ActualExperienceBar = styled.div`
@@ -52,5 +52,9 @@ const ExperienceBarContainer = styled.div`
   }
   &:hover ${HoverInfo}{
   display: block;
+  height: unset;
+  padding: 5px;
+border: 1px solid black;
+box-shadow: 2px 2px 10px black;
   }
 `;

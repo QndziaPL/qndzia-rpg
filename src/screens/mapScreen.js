@@ -12,7 +12,8 @@ const MapScreen = ({
   enterBattleAnimation,
   currentVision,
   fullVision,
-    bloodyMap
+    bloodyMap,
+   refreshApp
 }) => {
   return (
     <MapScreenDiv key={key} bloodyMap={bloodyMap}>
@@ -25,7 +26,7 @@ const MapScreen = ({
         />
         <Enemies />
       </Map>
-      <PlayerInfoPanel />
+      <PlayerInfoPanel refreshApp={refreshApp}/>
     </MapScreenDiv>
   );
 };

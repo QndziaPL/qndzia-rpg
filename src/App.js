@@ -145,6 +145,7 @@ const App = ({ enemyNumber, setStartGame }) => {
         currentVision={r_playerData.vision}
         fullVision={r_playerData.fullVision}
         bloodyMap={enteringBattle}
+        refreshApp={refreshFunction}
       />
       {beginBattle && (
         <BattleScreen

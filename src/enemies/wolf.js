@@ -12,6 +12,10 @@ export const ENEMY_WOLF = ({ x = 1, y = 1 }) => ({
     x: x,
     y: y,
   },
+  exp: {
+    lowest: 2,
+    highest: 3,
+  },
   loot: {
     coins: 4,
     wolfSkin: 1,

@@ -12,6 +12,10 @@ export const ENEMY_BEAR = ({ x = 1, y = 1 }) => ({
     x: x,
     y: y,
   },
+  exp: {
+    lowest: 7,
+    highest: 10,
+  },
   loot: {
     coins: 2,
     bearClaw: 1,
