@@ -199,11 +199,21 @@ const HorizontalSeparator = styled.div`
   background: black;
 `;
 
-const Table = styled.table``;
-const Tr = styled.tr``;
 const Td = styled.td`
   padding: 2px 4px;
 `;
+
+const Tr = styled.tr`
+${Td}:last-of-type{
+color: #940000;
+text-align: right;
+}
+`;
+
+const Table = styled.table`
+width: 100%;
+`;
+
 const VisionButton = styled.button`
   width: 20px;
   height: 20px;
@@ -218,9 +228,13 @@ const ClearLocalStorage = styled.div`
   position: absolute;
   bottom: 5px;
   right: 5px;
-  background-color: red;
   padding: 2px 5px;
   border-radius: 5px;
+  cursor: pointer;
+  &:hover{
+  color: white;
+  background-color: #940000;
+  }
 `;
 
 const Container = styled.div`
