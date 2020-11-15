@@ -25,6 +25,8 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
 
   const updatePositionToDispatch = (direction) => {
+
+    // for now heals every time player moves
     healEveryStep()
 
     switch (direction) {

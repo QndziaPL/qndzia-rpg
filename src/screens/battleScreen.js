@@ -7,6 +7,7 @@ import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
 import anaconda_battle from "../assets/battleImages/anaconda_battle.png";
+import battle_background from "../assets/battlePanel/battle_background.png";
 import {
   setCurrentEnemy,
   setEnemies,
@@ -77,8 +78,9 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     setCanISetEnemy(false);
   }
 
-  function hitEnemy(dmg) {
-    myEnemy.stats.hp -= dmg;
+  function hitEnemy() {
+    const strBased = RandomNumberBetween(myPlayer.str+1, myPlayer.str-1);
+    myEnemy.stats.hp -= strBased;
     setMyEnemy(myEnemy);
     setMyTurn(false);
   }
@@ -167,9 +169,12 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
       if (myEnemy.stats.hp > 0) {
         enemyAction();
       } else {
-        setVictory(true);
-        givePlayerBattleTreasures()
-        setMyTurn(true);
+        setTimeout(()=>{
+          setVictory(true);
+          givePlayerBattleTreasures()
+          setMyTurn(true);
+        },400)
+
       }
     } else {
       myPlayer.isBlocking = false;
@@ -182,9 +187,6 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     return victory || !myTurn;
   }
 
-
-
-  //TODO: !!! MUSZĘ WYkąbinować w jaki sposób najlepiej, kiedy i gdize przekazywać ilosć expa przeciwnika z którym walczymy
   return (
     <div>
       <VictoryScreen
@@ -196,6 +198,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
         style={{ pointerEvents: whenDisablePointerEvents() ? "none" : "auto" }}
       >
         <BattleScreenDiv blur={victory ? 5 : 0}>
+          <BattleScreenBackground src={battle_background}/>
           <EnemyBattlePhotoPanel
             myEnemy={myEnemy}
             isAttacking={isEnemyAttacking}
@@ -217,6 +220,11 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     </div>
   );
 };
+
+const BattleScreenBackground = styled.img`
+z-index: -1;
+position: absolute;
+`
 
 const VictoryScreen = ({ victory, close, deleteEnemy }) => {
   const hidden = { width: 70, height: 0 };
@@ -291,7 +299,7 @@ const BattleScreenDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #b7b7b7;
+  background-color: #000000;
   z-index: 10;
   transition-duration: 2s;
   filter: blur(${(props) => props.blur}px);

@@ -8,12 +8,13 @@ import inventory_button from "../../assets/battleButtons/inventory_button.png";
 import spells_button from "../../assets/battleButtons/spells_button.png";
 import character_button from "../../assets/battleButtons/character_button.png";
 import player_battle_panel from "../../assets/battlePanel/player_battle_panel.png";
+import {RandomNumberBetween} from "../../helpers/randomNumberBetween";
 
 export const PlayerBattlePanel = ({ hitEnemy, myPlayer, block }) => {
   const { curHp, def, eq, lvl, maxHp, str } = myPlayer;
 
   //need to figure out how dmg should be calculated (prob randoms multiplied by lvl, str, eq modif etc)
-  const normalAttackDmg = str;
+
   return (
     <div style={{ position: "relative" }}>
       <PlayerContainer>
@@ -30,7 +31,6 @@ export const PlayerBattlePanel = ({ hitEnemy, myPlayer, block }) => {
             label={"attack"}
             img={normal_attack_button}
             passedFunction={hitEnemy}
-            functionParam={normalAttackDmg}
           />
           <PlayerBattleButton label={"character"} img={character_button} />
           <PlayerBattleButton label={"coś tu będzie"} />

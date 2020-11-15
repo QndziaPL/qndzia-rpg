@@ -5,10 +5,9 @@ export const PlayerBattleButton = ({
   label,
   img,
   passedFunction,
-  functionParam,
 }) => {
   return (
-    <Button onClick={() => passedFunction(functionParam)}>
+    <Button onClick={() => passedFunction()}>
       <Image src={img}></Image>
       <LabelContainer>
         <Label>{label}</Label>

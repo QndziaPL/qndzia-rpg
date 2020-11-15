@@ -6,11 +6,11 @@ export const ENEMY_BEAR = ({ x = 1, y = 1 }) => enemyBaseObject(
   "bear",
   {
       dmg: {
-          lowest: 3,
-          highest: 5
+          lowest: 6,
+          highest: 8
       },
     def: 2,
-    hp: 16,
+    hp: 35,
   },
   {
     x: x,
