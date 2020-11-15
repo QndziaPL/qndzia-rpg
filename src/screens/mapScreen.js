@@ -12,8 +12,8 @@ const MapScreen = ({
   enterBattleAnimation,
   currentVision,
   fullVision,
-    bloodyMap,
-   refreshApp
+  bloodyMap,
+  refreshApp,
 }) => {
   return (
     <MapScreenDiv key={key} bloodyMap={bloodyMap}>
@@ -26,14 +26,14 @@ const MapScreen = ({
         />
         <Enemies />
       </Map>
-      <PlayerInfoPanel refreshApp={refreshApp}/>
+      <PlayerInfoPanel refreshApp={refreshApp} />
     </MapScreenDiv>
   );
 };
 
 const MapScreenDiv = styled.div`
   display: flex;
-  filter: blur(${props=>props.bloodyMap ? "5px" : 0});
+  filter: blur(${(props) => (props.bloodyMap ? "5px" : 0)});
   transition-duration: 1s;
 `;
 

@@ -14,7 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setEnemies,
   setGameOn,
-  setInteractions, setPlayer,
+  setInteractions,
+  setPlayer,
   setUtils,
 } from "./redux/actions";
 import { checkInteraction } from "./helpers/checkInteraction";
@@ -25,7 +26,6 @@ const MAP_SCREEN = 0;
 const BATTLE_SCREEN = 1;
 
 const App = ({ enemyNumber, setStartGame }) => {
-
   const dispatch = useDispatch();
 
   // SOME MECHANICS TO FIRST SET MAP AND PLAYER SPAWN
@@ -33,17 +33,15 @@ const App = ({ enemyNumber, setStartGame }) => {
   const [activeTerrainMap, setActiveTerrainMap] = useState(SecondMap);
   const r_playerData = useSelector((p) => p.player);
 
-
   // it will depend on previous map
-  if (!r_playerData.alreadySpawned){
+  if (!r_playerData.alreadySpawned) {
     const spawnPoint = 4;
-    const playerSpawnPoint = activeTerrainMap.spawns[spawnPoint]
+    const playerSpawnPoint = activeTerrainMap.spawns[spawnPoint];
     let updateSpawnsPlayer = r_playerData;
     updateSpawnsPlayer.position = playerSpawnPoint;
     updateSpawnsPlayer.alreadySpawned = true;
-    dispatch(setPlayer(updateSpawnsPlayer))
+    dispatch(setPlayer(updateSpawnsPlayer));
   }
-
 
   const r_enemies = useSelector((p) => p.enemies);
   const r_map = useSelector((p) => p.mapIDs);
@@ -60,10 +58,10 @@ const App = ({ enemyNumber, setStartGame }) => {
   const [gamePhase, setGamePhase] = useState(MAP_SCREEN);
   const [currentEnemy, setCurrentEnemy] = useState(null);
 
-  const [enteringBattle, setEnteringBattle] = useState(false)
+  const [enteringBattle, setEnteringBattle] = useState(false);
 
   // i need to do mechanism for passing player spawn to another map
-  const [playerSpawn, setPlayerSpawn] = useState(4)
+  const [playerSpawn, setPlayerSpawn] = useState(4);
 
   /** do dorobienia treasures, wjebanie ich do compileAll i nareszcie mechanika do sprawdzania interakcji !!!!!! */
 
@@ -77,7 +75,7 @@ const App = ({ enemyNumber, setStartGame }) => {
       enemyMap = GenerateEnemyMap({
         enemyNumber,
         activeTerrainMap,
-        playerSpawn
+        playerSpawn,
       });
       localStorage.setItem("enemies", JSON.stringify(enemyMap));
     } else {
@@ -115,10 +113,10 @@ const App = ({ enemyNumber, setStartGame }) => {
         setGamePhase(BATTLE_SCREEN);
         setCurrentEnemy(r_interactionData.id);
         if (!beginBattle) {
-          setEnteringBattle(true)
+          setEnteringBattle(true);
           setTimeout(() => {
             setBeginBattle(true);
-            setEnteringBattle(false)
+            setEnteringBattle(false);
             dispatch(setUtils({ blockedMovement: false }));
           }, 1500);
         }

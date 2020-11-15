@@ -17,7 +17,7 @@ import {
 import { EnemyInfoPanel } from "../ui/components/enemyInfoPanel";
 import { PlayerBattlePanel } from "../ui/components/playerBattlePanel";
 import { EnemyBattlePhotoPanel } from "../ui/components/enemyBattlePhotoPanel";
-import {RandomNumberBetween} from "../helpers/randomNumberBetween";
+import { RandomNumberBetween } from "../helpers/randomNumberBetween";
 
 const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   const { enemiesById } = useSelector((p) => p.enemies);
@@ -30,7 +30,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   const [canISetEnemy, setCanISetEnemy] = useState(true);
   const [myTurn, setMyTurn] = useState(true);
   const [isEnemyAttacking, setIsEnemyAttacking] = useState(false);
-  const [goingToFlee, setGoingToFlee ] = useState(false);
+  const [goingToFlee, setGoingToFlee] = useState(false);
   const [expFromEnemy, setExpFromEnemy] = useState(0);
 
   /** saving list without defeated enemy */
@@ -61,7 +61,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   }
 
   function hitEnemy() {
-    const strBased = RandomNumberBetween(myPlayer.str+1, myPlayer.str-1);
+    const strBased = RandomNumberBetween(myPlayer.str + 1, myPlayer.str - 1);
     myEnemy.stats.hp -= strBased;
     setMyEnemy(myEnemy);
     setMyTurn(false);
@@ -73,9 +73,9 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     setMyTurn(false);
   }
 
-  function getHitOnFlee(){
-    setGoingToFlee(true)
-    setMyTurn(false)
+  function getHitOnFlee() {
+    setGoingToFlee(true);
+    setMyTurn(false);
   }
 
   function enemyStrikes(dmg) {
@@ -87,7 +87,9 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
 
   function enemyAction() {
     console.log("enemy action");
-    let enemyStrikeDamage = Math.floor(RandomNumberBetween(myEnemy.stats.dmg.highest, myEnemy.stats.dmg.lowest))
+    let enemyStrikeDamage = Math.floor(
+      RandomNumberBetween(myEnemy.stats.dmg.highest, myEnemy.stats.dmg.lowest)
+    );
     setTimeout(() => {
       enemyStrikes(enemyStrikeDamage);
       setTimeout(() => {
@@ -98,14 +100,14 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     //TODO tutaj będzie mechanika wyboru zagrania przeciwnika, na razie defaulowo leci attack
   }
 
-  useEffect(()=>{
-    if (myTurn && goingToFlee){
-      setTimeout(()=>{
-        alert("you took some damage and fled like a coward")
-        close()
-      },300)
+  useEffect(() => {
+    if (myTurn && goingToFlee) {
+      setTimeout(() => {
+        alert("you took some damage and fled like a coward");
+        close();
+      }, 300);
     }
-  },[myTurn])
+  }, [myTurn]);
 
   useEffect(() => {
     if (myPlayer.curHp < 1) {
@@ -119,14 +121,17 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     dispatch(setPlayer(myPlayer));
   });
 
-  function givePlayerBattleTreasures(){
+  function givePlayerBattleTreasures() {
     // TODO: dodać mechanizm golda, lootów itd
     const exp = RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest);
-    setExpFromEnemy(exp)
+    setExpFromEnemy(exp);
     myPlayer.exp += exp;
-    const coins = RandomNumberBetween(myEnemy.coins.highest, myEnemy.coins.lowest);
+    const coins = RandomNumberBetween(
+      myEnemy.coins.highest,
+      myEnemy.coins.lowest
+    );
     myPlayer.coins += coins;
-    console.log(coins)
+    console.log(coins);
     setMyPlayer(myPlayer);
   }
 
@@ -135,12 +140,11 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
       if (myEnemy.stats.hp > 0) {
         enemyAction();
       } else {
-        setTimeout(()=>{
+        setTimeout(() => {
           setVictory(true);
-          givePlayerBattleTreasures()
+          givePlayerBattleTreasures();
           setMyTurn(true);
-        },400)
-
+        }, 400);
       }
     } else {
       myPlayer.isBlocking = false;
@@ -164,7 +168,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
         style={{ pointerEvents: whenDisablePointerEvents() ? "none" : "auto" }}
       >
         <BattleScreenDiv blur={victory ? 5 : 0}>
-          <BattleScreenBackground src={battle_background}/>
+          <BattleScreenBackground src={battle_background} />
           <EnemyBattlePhotoPanel
             myEnemy={myEnemy}
             isAttacking={isEnemyAttacking}
@@ -177,10 +181,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
             myPlayer={myPlayer}
           />
 
-          <CloseButton onClick={() =>
-            getHitOnFlee()
-
-          }>flee</CloseButton>
+          <CloseButton onClick={() => getHitOnFlee()}>flee</CloseButton>
         </BattleScreenDiv>
       </div>
     </div>
@@ -188,9 +189,9 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
 };
 
 const BattleScreenBackground = styled.img`
-z-index: -1;
-position: absolute;
-`
+  z-index: -1;
+  position: absolute;
+`;
 
 const VictoryScreen = ({ victory, close, deleteEnemy }) => {
   const hidden = { width: 70, height: 0 };

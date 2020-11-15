@@ -45,11 +45,13 @@ const Map = ({ size = { x: 20, y: 20 }, children, map }) => {
     </MapBackground>
   );
 };
+
 const SingleMapTile = styled.img`
   width: 32px;
   height: 32px;
   z-index: 1;
 `;
+
 const MapBackgroundImage = styled.img`
   position: absolute;
   z-index: 0;
@@ -96,7 +98,6 @@ export default Map;
 
 const MapBackground = styled.div`
   position: relative;
-  //margin: 100px auto;
   width: ${MAP_WIDTH}px;
   height: ${MAP_HEIGHT}px;
   background-color: crimson;

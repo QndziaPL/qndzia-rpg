@@ -16,7 +16,9 @@ export const EnemyInfoPanel = ({ myEnemy }) => {
             <br />
           </div>
           <div style={{ flex: 50, textAlign: "center", paddingRight: 20 }}>
-            <p>{myEnemy.stats.dmg.lowest} - {myEnemy.stats.dmg.highest}</p>
+            <p>
+              {myEnemy.stats.dmg.lowest} - {myEnemy.stats.dmg.highest}
+            </p>
             <p>{myEnemy.stats.def}</p>
             <p>{myEnemy.type}</p>
           </div>

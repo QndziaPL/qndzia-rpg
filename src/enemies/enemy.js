@@ -26,7 +26,9 @@ export const Enemy = ({ name, type, position, stats, tileId }) => {
       >
         <TooltipHeader>{name}</TooltipHeader>
         {/*<TooltipParagraph>hp: {stats.hp}</TooltipParagraph>*/}
-        <TooltipParagraph>dmg: {stats.dmg.lowest} - {stats.dmg.highest}</TooltipParagraph>
+        <TooltipParagraph>
+          dmg: {stats.dmg.lowest} - {stats.dmg.highest}
+        </TooltipParagraph>
         <TooltipParagraph>def: {stats.def}</TooltipParagraph>
         <TooltipParagraph>type: {type}</TooltipParagraph>
         {/*<TooltipParagraph>*/}

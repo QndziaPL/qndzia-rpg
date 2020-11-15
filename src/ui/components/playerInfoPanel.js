@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { MAP_HEIGHT, PLAYER_INFO_PANEL_WIDTH } from "../../consts/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "../../redux/actions";
 import arrow from "../../assets/other/arrow.png";
-import {ExperienceBar} from "./experienceBar";
-import coins from "../../assets/other/coins.png"
+import { ExperienceBar } from "./experienceBar";
+import coins from "../../assets/other/coins.png";
 
 export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
   const UP = "up";
@@ -25,9 +25,8 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
 
   const updatePositionToDispatch = (direction) => {
-
     // for now heals every time player moves
-    healEveryStep()
+    healEveryStep();
 
     switch (direction) {
       case "up":
@@ -81,42 +80,44 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     saveToLocalStorage();
   }
 
-  function lvlUp(){
+  function lvlUp() {
     const remainingExp = r_playerData.exp - r_playerData.nextLvlExp;
     const previousNeededExp = r_playerData.nextLvlExp;
     r_playerData.lvl += 1;
-    console.log(r_playerData)
+    console.log(r_playerData);
 
     // na razie tylko!
     r_playerData.str += 1;
     r_playerData.maxHp += 5;
     r_playerData.vision += 10;
-    r_playerData.nextLvlExp = Math.floor((previousNeededExp * 2) - (previousNeededExp / 3))
+    r_playerData.nextLvlExp = Math.floor(
+      previousNeededExp * 2 - previousNeededExp / 3
+    );
     r_playerData.exp = remainingExp;
     dispatch(setPlayer(r_playerData));
-    console.log(r_playerData)
+    console.log(r_playerData);
     refreshApp();
     // alert("You just gained new level!!!")
   }
 
   useEffect(() => {
-    if (r_playerData.exp >= r_playerData.nextLvlExp){
+    if (r_playerData.exp >= r_playerData.nextLvlExp) {
       lvlUp();
     }
-  },[r_playerData.exp])
+  }, [r_playerData.exp]);
 
-function healEveryStep(){
-  if (r_playerData.curHp < r_playerData.maxHp){
-    r_playerData.curHp += 1;
-    dispatch(setPlayer(r_playerData));
+  function healEveryStep() {
+    if (r_playerData.curHp < r_playerData.maxHp) {
+      r_playerData.curHp += 1;
+      dispatch(setPlayer(r_playerData));
+    }
   }
-}
 
-  function playerGainsExp(exp){
+  function playerGainsExp(exp) {
     r_playerData.exp += exp;
   }
 
-  function healPlayer(){
+  function healPlayer() {
     r_playerData.curHp = r_playerData.maxHp;
   }
 
@@ -130,7 +131,10 @@ function healEveryStep(){
         </Tr>
         <Tr>
           <Td colSpan="2">
-            <ExperienceBar nextLvlExp={r_playerData.nextLvlExp} curExp={r_playerData.exp} />
+            <ExperienceBar
+              nextLvlExp={r_playerData.nextLvlExp}
+              curExp={r_playerData.exp}
+            />
           </Td>
         </Tr>
         <Tr>
@@ -156,7 +160,9 @@ function healEveryStep(){
           <Td>tbd</Td>
         </Tr>
         <Tr>
-          <Td><CoinImg src={coins}/></Td>
+          <Td>
+            <CoinImg src={coins} />
+          </Td>
           <Td>{r_playerData.coins}</Td>
         </Tr>
       </Table>
@@ -233,8 +239,8 @@ function healEveryStep(){
 };
 
 const CoinImg = styled.img`
-width: 60px;
-`
+  width: 60px;
+`;
 
 const MovementArrow = styled.img`
   width: 30px;
@@ -257,14 +263,14 @@ const Td = styled.td`
 `;
 
 const Tr = styled.tr`
-${Td}:last-of-type{
-color: #940000;
-text-align: right;
-}
+  ${Td}:last-of-type {
+    color: #940000;
+    text-align: right;
+  }
 `;
 
 const Table = styled.table`
-width: 100%;
+  width: 100%;
 `;
 
 const VisionButton = styled.button`
@@ -284,9 +290,9 @@ const ClearLocalStorage = styled.div`
   padding: 2px 5px;
   border-radius: 5px;
   cursor: pointer;
-  &:hover{
-  color: white;
-  background-color: #940000;
+  &:hover {
+    color: white;
+    background-color: #940000;
   }
 `;
 

@@ -8,7 +8,7 @@ import inventory_button from "../../assets/battleButtons/inventory_button.png";
 import spells_button from "../../assets/battleButtons/spells_button.png";
 import character_button from "../../assets/battleButtons/character_button.png";
 import player_battle_panel from "../../assets/battlePanel/player_battle_panel.png";
-import {RandomNumberBetween} from "../../helpers/randomNumberBetween";
+import { RandomNumberBetween } from "../../helpers/randomNumberBetween";
 
 export const PlayerBattlePanel = ({ hitEnemy, myPlayer, block }) => {
   const { curHp, def, eq, lvl, maxHp, str } = myPlayer;

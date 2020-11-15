@@ -1,11 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 
-export const PlayerBattleButton = ({
-  label,
-  img,
-  passedFunction,
-}) => {
+export const PlayerBattleButton = ({ label, img, passedFunction }) => {
   return (
     <Button onClick={() => passedFunction()}>
       <Image src={img}></Image>

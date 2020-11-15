@@ -2,7 +2,7 @@ import { ENEMY_BAT } from "../enemies/bat";
 import { ENEMY_WOLF } from "../enemies/wolf";
 import { ENEMY_THIEF } from "../enemies/thief";
 import { ENEMY_BEAR } from "../enemies/bear";
-import {ENEMY_ANACONDA} from "../enemies/anaconda";
+import { ENEMY_ANACONDA } from "../enemies/anaconda";
 
 export const EnemyListEnum = Object.freeze({
   1: ENEMY_BAT,
