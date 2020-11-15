@@ -45,11 +45,6 @@ const App = ({ enemyNumber, setStartGame }) => {
   }
 
 
-
-
-
-
-
   const r_enemies = useSelector((p) => p.enemies);
   const r_map = useSelector((p) => p.mapIDs);
   const { interaction: r_interactionData } = useSelector((p) => p.interactions);

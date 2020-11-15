@@ -133,12 +133,6 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
       localStorage.clear();
       window.location.reload(false);
       alert("Uh... that was... terrible\ngame over, bro...");
-
-      // setTimeout(()=>{
-      //   localStorage.clear()
-      //   window.location.reload(false);
-      //
-      // }, 3000)
     }
     dispatch(setPlayer(myPlayer));
   });
@@ -153,16 +147,6 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     console.log(coins)
     setMyPlayer(myPlayer);
   }
-
-
-
-
-
-  // useEffect(() => {
-  //   if (myEnemy.stats.hp < 1) {
-  //   }
-  //   dispatch(setCurrentEnemy(myEnemy));
-  // }, [myEnemy.stats]);
 
   useEffect(() => {
     if (!myTurn) {
