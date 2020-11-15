@@ -51,6 +51,8 @@ export const GenerateEnemyMap = ({ enemyNumber, activeTerrainMap, playerSpawn })
       y: randomY,
     });
     enemy.tileId = generateId(randomX, randomY);
+    enemy.stats.hp = RandomNumberBetween(Math.floor(enemy.stats.hp * 1.4), Math.floor(enemy.stats.hp * 0.7))
+    console.log(enemy)
     enemyMap.push(enemy);
     enemiesById = {
       ...enemiesById,

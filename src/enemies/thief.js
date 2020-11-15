@@ -1,25 +1,34 @@
 import React from "react";
 import { EnemyTypeEnum } from "../enums/enemyTypeEnum";
+import {enemyBaseObject} from "./enemyBaseObject";
 
-export const ENEMY_THIEF = ({ x = 1, y = 1 }) => ({
-  name: "thief",
-  stats: {
-    dmg: 5,
-    def: 1,
-    hp: 12,
-  },
-  position: {
-    x: x,
-    y: y,
-  },
-  exp: {
-    lowest: 4,
-    highest: 6,
-  },
-  loot: {
-    coins: 20,
-    leatherHat: 1,
-  },
-  type: EnemyTypeEnum.humanoid,
-  lore: "Najstarszy zawód świata zaraz za kur...",
-});
+export const ENEMY_THIEF =({x = 0, y = 0})=> enemyBaseObject(
+    "thief",
+    {
+      dmg: {
+        lowest: 4,
+        highest: 7
+      },
+      def: 3,
+      hp: 16,
+    },
+    {x: x, y: y},
+    {
+      lowest: 4,
+      highest: 6,
+    },
+    {
+        lowest: 7,
+        highest: 10
+    },
+    [
+      {
+        name: "dagger",
+        quantity: 1,
+        type: "weapon"
+      }
+    ],
+    EnemyTypeEnum.humanoid,
+    "Dawaj szmal kutafonie",
+);
+

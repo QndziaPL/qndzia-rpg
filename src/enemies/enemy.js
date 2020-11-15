@@ -25,13 +25,13 @@ export const Enemy = ({ name, type, position, stats, tileId }) => {
         className="tooltipContainer"
       >
         <TooltipHeader>{name}</TooltipHeader>
-        <TooltipParagraph>hp: {stats.hp}</TooltipParagraph>
-        <TooltipParagraph>dmg: {stats.dmg}</TooltipParagraph>
+        {/*<TooltipParagraph>hp: {stats.hp}</TooltipParagraph>*/}
+        <TooltipParagraph>dmg: {stats.dmg.lowest} - {stats.dmg.highest}</TooltipParagraph>
         <TooltipParagraph>def: {stats.def}</TooltipParagraph>
         <TooltipParagraph>type: {type}</TooltipParagraph>
-        <TooltipParagraph>
-          position: {position.x}:{position.y}
-        </TooltipParagraph>
+        {/*<TooltipParagraph>*/}
+        {/*  position: {position.x}:{position.y}*/}
+        {/*</TooltipParagraph>*/}
       </TooltipContainer>
     </HoverContainer>
   );

@@ -1,25 +1,36 @@
 import React from "react";
 import { EnemyTypeEnum } from "../enums/enemyTypeEnum";
+import {enemyBaseObject} from "./enemyBaseObject";
 
-export const ENEMY_BEAR = ({ x = 1, y = 1 }) => ({
-  name: "bear",
-  stats: {
-    dmg: 4,
+export const ENEMY_BEAR = ({ x = 1, y = 1 }) => enemyBaseObject(
+  "bear",
+  {
+      dmg: {
+          lowest: 3,
+          highest: 5
+      },
     def: 2,
     hp: 16,
   },
-  position: {
+  {
     x: x,
     y: y,
   },
-  exp: {
+  {
     lowest: 7,
     highest: 10,
   },
-  loot: {
-    coins: 2,
-    bearClaw: 1,
-  },
-  type: EnemyTypeEnum.big,
-  lore: "Misie są super i wpierdalają miodek",
-});
+    {
+        lowest: 0,
+        highest: 0
+    },
+    [
+      {
+        name: "bearClaw",
+        quantity: 1,
+          type:"remains"
+      }
+    ],
+  EnemyTypeEnum.big,
+  "Misie są super i wpierdalają miodek",
+);

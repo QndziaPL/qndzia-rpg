@@ -6,6 +6,7 @@ import bear_battle from "../assets/battleImages/bear_battle.png";
 import thief_battle from "../assets/battleImages/thief_battle.png";
 import wolf_battle from "../assets/battleImages/wolf_battle.png";
 import bat_battle from "../assets/battleImages/bat_battle.png";
+import anaconda_battle from "../assets/battleImages/anaconda_battle.png";
 import {
   setCurrentEnemy,
   setEnemies,
@@ -63,6 +64,8 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
         return wolf_battle;
       case "bat":
         return bat_battle;
+      case "anaconda":
+        return anaconda_battle;
       default:
         return null;
     }
@@ -100,8 +103,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
 
   function enemyAction() {
     console.log("enemy action");
-    // TODO: mechanika do randomizacji obrażeń itd
-    let enemyStrikeDamage = myEnemy.stats.dmg;
+    let enemyStrikeDamage = RandomNumberBetween(myEnemy.stats.dmg.highest, myEnemy.stats.dmg.lowest);
     setTimeout(() => {
       enemyStrikes(enemyStrikeDamage);
       setTimeout(() => {

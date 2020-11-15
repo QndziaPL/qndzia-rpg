@@ -1,25 +1,33 @@
 import React from "react";
 import { EnemyTypeEnum } from "../enums/enemyTypeEnum";
+import {enemyBaseObject} from "./enemyBaseObject";
 
-export const ENEMY_WOLF = ({ x = 1, y = 1 }) => ({
-  name: "wolf",
-  stats: {
-    dmg: 2,
-    def: 0,
-    hp: 5,
-  },
-  position: {
-    x: x,
-    y: y,
-  },
-  exp: {
-    lowest: 2,
-    highest: 3,
-  },
-  loot: {
-    coins: 4,
-    wolfSkin: 1,
-  },
-  type: EnemyTypeEnum.small,
-  lore: "Czemu tak się drze w księżycową noc???",
-});
+export const ENEMY_WOLF =({x = 0, y = 0})=> enemyBaseObject(
+    "wolf",
+    {
+      dmg: {
+        lowest: 2,
+        highest: 4
+      },
+      def: 0,
+      hp: 9,
+    },
+    {x: x, y: y},
+    {
+      lowest: 2,
+      highest: 3,
+    },
+    {
+        lowest: 2,
+        highest: 3
+    },
+    [
+      {
+        name: "wolfSkin",
+        quantity: 1,
+        type: "remains"
+      }
+    ],
+    EnemyTypeEnum.small,
+    "Czemu wilk tak wyje w księżycową noc?",
+);

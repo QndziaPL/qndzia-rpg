@@ -3,4 +3,5 @@ export const EnemyTypeEnum = Object.freeze({
   humanoid: "humanoid",
   big: "big",
   flying: "flying",
+  reptile: "reptile",
 });
