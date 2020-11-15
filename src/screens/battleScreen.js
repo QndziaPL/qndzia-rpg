@@ -103,7 +103,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
 
   function enemyAction() {
     console.log("enemy action");
-    let enemyStrikeDamage = RandomNumberBetween(myEnemy.stats.dmg.highest, myEnemy.stats.dmg.lowest);
+    let enemyStrikeDamage = Math.floor(RandomNumberBetween(myEnemy.stats.dmg.highest, myEnemy.stats.dmg.lowest))
     setTimeout(() => {
       enemyStrikes(enemyStrikeDamage);
       setTimeout(() => {

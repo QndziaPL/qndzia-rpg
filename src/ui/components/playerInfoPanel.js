@@ -25,6 +25,8 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     (PLAYER_INFO_PANEL_WIDTH - movementKeysContainerSize) / 2;
 
   const updatePositionToDispatch = (direction) => {
+    healEveryStep()
+
     switch (direction) {
       case "up":
         r_playerData.position.y -= 1;
@@ -101,6 +103,13 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     }
   },[r_playerData.exp])
 
+function healEveryStep(){
+  if (r_playerData.curHp < r_playerData.maxHp){
+    r_playerData.curHp += 1;
+    dispatch(setPlayer(r_playerData));
+  }
+}
+
   function playerGainsExp(exp){
     r_playerData.exp += exp;
   }
@@ -111,7 +120,7 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
 
   return (
     <Container style={{ position: "relative" }}>
-      <button onClick={() => healPlayer()}>(cheat)heal to full</button>
+      {/*<button onClick={() => healPlayer()}>(cheat)heal to full</button>*/}
       <Table>
         <Tr>
           <Td>level</Td>
