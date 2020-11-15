@@ -9,7 +9,7 @@ export const playerBaseObject = {
     y: 10,
   },
   eq: {},
-  vision: 200,
+  vision: 50,
   fullVision: false,
   isBlocking: false,
   exp: 0,

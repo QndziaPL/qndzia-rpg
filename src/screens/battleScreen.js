@@ -29,6 +29,7 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
   const [myTurn, setMyTurn] = useState(true);
   const [isEnemyAttacking, setIsEnemyAttacking] = useState(false);
   const [goingToFlee, setGoingToFlee ] = useState(false);
+  const [expFromEnemy, setExpFromEnemy] = useState(0);
 
   /** saving list without defeated enemy */
   function deleteDefeatedEnemy() {
@@ -138,35 +139,31 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     dispatch(setPlayer(myPlayer));
   });
 
-  function givePlayerExpFromBattle(){
-    myPlayer.exp += RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest);
+  function givePlayerBattleTreasures(){
+    // TODO: dodać mechanizm golda, lootów itd
+    const exp = RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest);
+    setExpFromEnemy(exp)
+    console.log(exp)
+    myPlayer.exp += exp;
     setMyPlayer(myPlayer);
-    console.log(RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest))
   }
 
-  console.log(RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest))
 
 
-  useEffect(() => {
-    if (myEnemy.stats.hp < 1) {
-      // givePlayerExpFromBattle()
-
-      // setVictory(true);
-      // setMyTurn(true);
-    }
-    dispatch(setCurrentEnemy(myEnemy));
-  }, [myEnemy.stats]);
+  // useEffect(() => {
+  //   if (myEnemy.stats.hp < 1) {
+  //   }
+  //   dispatch(setCurrentEnemy(myEnemy));
+  // }, [myEnemy.stats]);
 
   useEffect(() => {
     if (!myTurn) {
-      if (myEnemy.stats.hp >= 0) {
+      if (myEnemy.stats.hp > 0) {
         enemyAction();
       } else {
         setVictory(true);
+        givePlayerBattleTreasures()
         setMyTurn(true);
-        givePlayerExpFromBattle()
-
-
       }
     } else {
       myPlayer.isBlocking = false;
