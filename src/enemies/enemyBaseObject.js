@@ -1,6 +1,6 @@
 
 
-export const enemyBaseObject = (name, stats, position = {x: 0, y: 0}, exp, coins, loot, type, lore) => {
+export const enemyBaseObject = (name, stats, position = {x: 0, y: 0}, exp, coins, loot, type, lore, img) => {
     return ({
         name: name,
         stats: stats,
@@ -9,6 +9,7 @@ export const enemyBaseObject = (name, stats, position = {x: 0, y: 0}, exp, coins
         coins: coins,
         loot: loot,
         type: type,
-        lore: lore
+        lore: lore,
+        img: img,
     })
 }

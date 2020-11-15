@@ -1,6 +1,7 @@
 import React from "react";
 import {EnemyTypeEnum} from "../enums/enemyTypeEnum";
 import {enemyBaseObject} from "./enemyBaseObject";
+import img from "../assets/battleImages/bat_battle.png"
 
 export const ENEMY_BAT =({x = 0, y = 0})=> enemyBaseObject(
     "bat",
@@ -30,6 +31,7 @@ export const ENEMY_BAT =({x = 0, y = 0})=> enemyBaseObject(
     ],
     EnemyTypeEnum.flying,
     "Jebany COVID...",
+    img
 );
 
 

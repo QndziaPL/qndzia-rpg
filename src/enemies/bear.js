@@ -1,6 +1,7 @@
 import React from "react";
 import { EnemyTypeEnum } from "../enums/enemyTypeEnum";
 import {enemyBaseObject} from "./enemyBaseObject";
+import img from "../assets/battleImages/bear_battle.png"
 
 export const ENEMY_BEAR = ({ x = 1, y = 1 }) => enemyBaseObject(
   "bear",
@@ -33,4 +34,5 @@ export const ENEMY_BEAR = ({ x = 1, y = 1 }) => enemyBaseObject(
     ],
   EnemyTypeEnum.big,
   "Misie są super i wpierdalają miodek",
+    img
 );

@@ -1,6 +1,7 @@
 import React from "react";
 import { EnemyTypeEnum } from "../enums/enemyTypeEnum";
 import {enemyBaseObject} from "./enemyBaseObject";
+import img from "../assets/battleImages/thief_battle.png"
 
 export const ENEMY_THIEF =({x = 0, y = 0})=> enemyBaseObject(
     "thief",
@@ -30,5 +31,6 @@ export const ENEMY_THIEF =({x = 0, y = 0})=> enemyBaseObject(
     ],
     EnemyTypeEnum.humanoid,
     "Dawaj szmal kutafonie",
+    img
 );
 

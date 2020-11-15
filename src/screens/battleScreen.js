@@ -50,30 +50,12 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
       enemyMap: copy3,
       usedPositions: copy2,
     };
-
     dispatch(setEnemies(updatedEnemies));
     localStorage.setItem("enemies", JSON.stringify(updatedEnemies));
   }
 
-  function setBattleEnemyImage() {
-    switch (myEnemy.name) {
-      case "bear":
-        return bear_battle;
-      case "thief":
-        return thief_battle;
-      case "wolf":
-        return wolf_battle;
-      case "bat":
-        return bat_battle;
-      case "anaconda":
-        return anaconda_battle;
-      default:
-        return null;
-    }
-  }
   if (canISetEnemy) {
     myEnemy.maxHp = myEnemy.stats.hp;
-    myEnemy.img = setBattleEnemyImage();
     setMyEnemy(myEnemy);
     setCanISetEnemy(false);
   }

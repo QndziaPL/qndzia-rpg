@@ -1,6 +1,7 @@
 import React from "react";
 import { EnemyTypeEnum } from "../enums/enemyTypeEnum";
 import {enemyBaseObject} from "./enemyBaseObject";
+import img from "../assets/battleImages/anaconda_battle.png"
 
 export const ENEMY_ANACONDA =({x = 0, y = 0})=> enemyBaseObject(
     "anaconda",
@@ -24,4 +25,5 @@ export const ENEMY_ANACONDA =({x = 0, y = 0})=> enemyBaseObject(
   null,
     EnemyTypeEnum.reptile,
     "Sssssss...",
+    img
 );
