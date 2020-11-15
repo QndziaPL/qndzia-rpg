@@ -145,10 +145,14 @@ const BattleScreen = ({ close, enemyId, dispatch, setStartGame }) => {
     // TODO: dodać mechanizm golda, lootów itd
     const exp = RandomNumberBetween(myEnemy.exp.highest, myEnemy.exp.lowest);
     setExpFromEnemy(exp)
-    console.log(exp)
     myPlayer.exp += exp;
+    const coins = RandomNumberBetween(myEnemy.coins.highest, myEnemy.coins.lowest);
+    myPlayer.coins += coins;
+    console.log(coins)
     setMyPlayer(myPlayer);
   }
+
+
 
 
 

@@ -14,4 +14,5 @@ export const playerBaseObject = {
   isBlocking: false,
   exp: 0,
   nextLvlExp: 10,
+  coins: 0,
 };

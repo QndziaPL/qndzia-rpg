@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "../../redux/actions";
 import arrow from "../../assets/other/arrow.png";
 import {ExperienceBar} from "./experienceBar";
+import coins from "../../assets/other/coins.png"
 
 export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
   const UP = "up";
@@ -143,6 +144,10 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
           <Td>damage reduction</Td>
           <Td>tbd</Td>
         </Tr>
+        <Tr>
+          <Td><CoinImg src={coins}/></Td>
+          <Td>{r_playerData.coins}</Td>
+        </Tr>
       </Table>
       <HorizontalSeparator />
       <div style={{ textAlign: "center" }}>
@@ -215,6 +220,10 @@ export const PlayerInfoPanel = ({ blockedMovement, refreshApp }) => {
     </Container>
   );
 };
+
+const CoinImg = styled.img`
+width: 60px;
+`
 
 const MovementArrow = styled.img`
   width: 30px;

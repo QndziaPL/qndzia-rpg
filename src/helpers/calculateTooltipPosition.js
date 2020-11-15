@@ -22,6 +22,12 @@ export const CalculateTooltipPosition = (
   if (x === 18) {
     newX -= TILE_SIZE;
   }
+  if (x === 0) {
+    newX += TILE_SIZE * 2;
+  }
+  if (x === 1) {
+    newX += TILE_SIZE;
+  }
 
   return { x: newX, y: newY };
 };
