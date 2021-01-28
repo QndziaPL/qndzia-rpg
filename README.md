@@ -1,3 +1,10 @@
+# What is going on?
+Always wanted to create an rpg game. This project is my first attempt.
+Everything is React.js, JavaScript, Redux and Styled Components
+
+# See in action
+[Play game](https://xenodochial-hugle-e8d234.netlify.app/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
