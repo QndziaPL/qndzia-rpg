@@ -8,6 +8,7 @@ import green_background from "../../../src/assets/mapTiles/grass_map_background.
 import brown_tile from "../../../src/assets/mapTiles/brown_path_tile.png";
 import water_tile from "../../../src/assets/mapTiles/water_tile.png";
 import stone_tile from "../../../src/assets/mapTiles/stone_tile.png";
+import treasure_tile from "../../../src/assets/treasureTiles/treasure.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setMapWithIDs } from "../../redux/actions/index";
 
@@ -68,7 +69,7 @@ const TileType = (number) => {
     case 3:
       return water_tile;
     case 4:
-      return "#694918";
+      return treasure_tile;
     case 5:
       return "#000000";
     default:

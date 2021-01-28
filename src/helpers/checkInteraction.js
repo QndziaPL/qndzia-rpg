@@ -6,17 +6,23 @@ export function checkInteraction(
   playerPositionId,
   playerPosition
 ) {
-  const { STONE, WATER } = MAP_TERRAIN_TYPE;
+  const { STONE, WATER, TREASURE } = MAP_TERRAIN_TYPE;
 
   const playerX = playerPosition.x;
   const playerY = playerPosition.y;
 
   const directionUnavailable = [];
   let interaction;
+  let openedChests = [];
 
   if (compiledIDs[playerPositionId]) {
     if (compiledIDs[playerPositionId].enemyId === 1) {
       interaction = { type: "battle", id: playerPositionId };
+    }
+
+    if (compiledIDs[playerPositionId].mapId === TREASURE){
+      interaction = {type: "treasure", id: playerPositionId }
+      openedChests.push(playerPositionId);
     }
 
     // terrain and window cases
@@ -57,6 +63,7 @@ export function checkInteraction(
   const interactionOutput = {
     directionUnavailable,
     interaction,
+    openedChests
   };
 
   return interactionOutput;

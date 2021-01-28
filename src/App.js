@@ -21,6 +21,7 @@ import {
 import { checkInteraction } from "./helpers/checkInteraction";
 import BattleScreen from "./screens/battleScreen";
 import MapScreen from "./screens/mapScreen";
+import {treasureBaseModel} from "./treasures/treasureBaseModel";
 
 const MAP_SCREEN = 0;
 const BATTLE_SCREEN = 1;
@@ -46,6 +47,7 @@ const App = ({ enemyNumber, setStartGame }) => {
   const r_enemies = useSelector((p) => p.enemies);
   const r_map = useSelector((p) => p.mapIDs);
   const { interaction: r_interactionData } = useSelector((p) => p.interactions);
+  const { openedChests: r_openedChests } = useSelector((p) => p.interactions);
   const r_currentEnemyData = useSelector((p) => p.currentEnemy);
 
   const [refresh, setRefresh] = useState(2);
@@ -121,6 +123,12 @@ const App = ({ enemyNumber, setStartGame }) => {
           }, 1500);
         }
       }
+      if (r_interactionData.type === "treasure"){
+        console.log(r_interactionData.openedChests)
+          if (r_openedChests.includes(r_interactionData.id)){
+          alert("byłem tu już")
+          }
+      }
     }
   }, [r_interactionData]);
 
@@ -128,6 +136,9 @@ const App = ({ enemyNumber, setStartGame }) => {
     setGamePhase(MAP_SCREEN);
     setBeginBattle(false);
   };
+
+  console.log(treasureBaseModel())
+
 
   return (
     <div onClick={refreshFunction}>

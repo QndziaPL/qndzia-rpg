@@ -3,4 +3,5 @@ export const MAP_TERRAIN_TYPE = Object.freeze({
   GRASS: 1,
   STONE: 2,
   WATER: 3,
+  TREASURE: 4,
 });
